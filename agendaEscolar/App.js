@@ -1,24 +1,88 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, SafeAreaView, Button, View } from 'react-native';
+import React, { Component } from "react";
+import { StyleSheet, Text, SafeAreaView, TouchableOpacity, View } from 'react-native';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <SafeAreaView style={styles.banner}>
-        <Text style={styles.headerText}>ENTRAR</Text>
-      </SafeAreaView>
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { choosingStudent: false, studentChosen: false, entering: false};
+  }
+
+  chooseStudent = () => {
+    this.setState({
+      choosingStudent: true
+    });
+  };
+
+  selectStudent = () => {
+    this.setState({
+      studentChosen: true,
+      choosingStudent: false
+    });
+  };
+
+  enter = () => {
+    if (this.state.studentChosen) {
+      this.setState({
+        entering: true
+      });
+    }
+  };
+
+  choosingStudentView(){
+    return (
       <View style={styles.buttonChoose}>
-        <Button title="ELEGIR ALUMNO" color="#faff6d">
-        </Button>
+        <TouchableOpacity style={styles.buttonChoose} onPress={this.selectStudent}>
+          <Text style={styles.buttonText}>ALUMNO 1</Text>
+        </TouchableOpacity>
       </View>
-      <View style={styles.buttonView}>
-        <Button title="ENTRAR" color="#faff6d" style={styles.enterButton}>
-        </Button>
+    );
+  }
+
+  enteringView(){
+    return (
+      <View style={styles.buttonChoose}>
+        <Text style={styles.buttonText}>ENTRANDO</Text>
       </View>
-      <StatusBar style="auto" />
-    </View>
-  );
+    );
+  }
+
+  chooseStudentButton(){
+    return(
+      <TouchableOpacity style={styles.buttonChoose} onPress={this.chooseStudent}>
+        <Text style={styles.buttonText}>ELEGIR</Text>
+        <Text style={styles.buttonText}>ALUMNO</Text>
+      </TouchableOpacity>
+    )
+  }
+
+  studentChosenText(){
+    return(
+      <Text style={styles.buttonText}>ALUMNO{"\n"}ELEGIDO</Text>
+    )
+  }
+
+  render() {
+    const { choosingStudent, studentChosen, entering } = this.state;
+    return (
+      <View style={styles.container}>
+        <SafeAreaView style={styles.banner}>
+          <Text style={styles.headerText} value="ENTRAR">ENTRAR</Text>
+        </SafeAreaView>
+        <View style={styles.buttonChoose}>
+          {studentChosen? this.studentChosenText() : this.chooseStudentButton()}
+        </View>
+        <View style={styles.buttonView}>
+          <TouchableOpacity style={styles.buttonView} onPress={this.enter}>
+            <Text style={styles.buttonText}>ENTRAR</Text>
+          </TouchableOpacity>
+        </View>
+        {choosingStudent? this.choosingStudentView() : null}
+        {entering && studentChosen? this.enteringView() : null}
+        <StatusBar style="auto" />
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -37,17 +101,34 @@ const styles = StyleSheet.create({
 
   },
   headerText: {
-    fontSize: 70,
+    fontSize: 60,
     fontWeight: 'bold'
   },
-  enterButton: {
+  buttonView: {
+    width: 250,
+    height: 70,
+    backgroundColor: "#faff6d",
     alignItems: 'center',
     justifyContent: 'center',
   },
-  buttonView: {
-    width: '20%'
-  },
   buttonChoose: {
-    width: '20%'
+    width: 150,
+    height: 150,
+    backgroundColor: "#faff6d",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
+  buttonText: {
+    fontSize: 25,
+    fontWeight: 'bold'
+  },
+  choosingStudentView: {
+    width: 250,
+    height: 70,
+    backgroundColor: "#faff6d",
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
 });
+
+export default App;
