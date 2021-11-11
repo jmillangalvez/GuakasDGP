@@ -42,49 +42,15 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
-    choosingButton1:  {
-      height: '100%',
-      width: '15%',
+    choosingButton:  {
+      height: '90%',
       borderWidth: 3,
       fontSize: 25,
       fontWeight: 'bold',
-      position: 'absolute',
-      marginLeft: '-70%',
+      flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
-    },
-    choosingButton2:  {
-      height: '100%',
-      width: '15%',
-      borderWidth: 3,
-      fontSize: 25,
-      fontWeight: 'bold',
-      position: 'absolute',
-      marginLeft: '-23%',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    choosingButton3:  {
-      height: '100%',
-      borderWidth: 3,
-      width: '15%',
-      fontSize: 25,
-      fontWeight: 'bold',
-      position: 'absolute',
-      marginLeft: '23%',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    choosingButton4:  {
-      height: '100%',
-      width: '15%',
-      borderWidth: 3,
-      fontSize: 25,
-      fontWeight: 'bold',
-      position: 'absolute',
-      marginLeft: '70%',
-      alignItems: 'center',
-      justifyContent: 'center',
+      margin: 10
     },
     buttonText: {
       marginBottom: 15,
@@ -97,6 +63,16 @@ const styles = StyleSheet.create({
       backgroundColor: "#faff6d",
       alignItems: 'center',
       justifyContent: 'center',
+    },
+    arrowButton: {
+      width: 100,
+      height: 100,
+      flex: 0.5,
+      margin: 10
+    },
+    arrowImage: {
+      width: 100,
+      height: 100,
     }
   });
 

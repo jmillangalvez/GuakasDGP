@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from "react";
-import { Text, SafeAreaView, TouchableOpacity, View } from 'react-native';
+import { Text, SafeAreaView, TouchableOpacity, View, Image } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import styles from './Styles';
 
@@ -11,7 +11,8 @@ async function changeScreenOrientation() {
 class login extends Component {
   constructor(props) {
     super(props);
-    this.state = { choosingStudent: false, studentChosen1: false, studentChosen2: false, studentChosen3: false, studentChosen4: false, entering: false};
+    this.state = { choosingStudent: false, studentChosen1: false, studentChosen2: false, studentChosen3: false, studentChosen4: false, entering: false, studentsRow: 0};
+    this.students = require('./data/students.json');
   }
 
   chooseStudent = () => {
@@ -19,6 +20,10 @@ class login extends Component {
       choosingStudent: true
     });
   };
+
+  selectStudent(i){
+    console.log(i);
+  }
 
   selectStudent1 = () => {
     this.setState({
@@ -56,27 +61,58 @@ class login extends Component {
     }
   };
 
+  addStudents(){
+    var students = [];
+    console.log(this.state.studentsRow);
+    for (let i = 0 + (4*this.state.studentsRow), cont=0; cont < 4 ; i++, cont++) {
+
+    console.log(i);
+      students.push(
+      <TouchableOpacity style={styles.choosingButton} onPress={() => this.selectStudent(i)}>
+        <Text style={styles.buttonText}>{this.students.info[i].name}</Text>
+      </TouchableOpacity>);
+    }
+
+    return students;
+  };
+
+  downStudentsRow = () => {
+    if(this.state.studentsRow > 0){
+      this.setState({
+        studentsRow: this.state.studentsRow - 1
+      });
+    }
+  };
+
+  upStudentsRow = () => {
+    if(this.state.studentsRow < 5){
+      this.setState({
+        studentsRow: this.state.studentsRow + 1
+      });
+    }
+  };
+
   choosingStudentView(){
     return (
-      <View style={styles.choosingView}>
-        <TouchableOpacity style={styles.choosingButton1} onPress={this.selectStudent1}>
-          <Text style={styles.buttonText}>ALUMNO 1</Text>
+      <View style={[styles.choosingView, {flexDirection: "row"}]}>
+        <TouchableOpacity style={styles.arrowButton} onPress={this.downStudentsRow}>
+          <Image
+            style={styles.arrowImage}
+            source={require('./img/arrowLeft.png')}
+          />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.choosingButton2} onPress={this.selectStudent2}>
-          <Text style={styles.buttonText}>ALUMNO 2</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.choosingButton3} onPress={this.selectStudent3}>
-          <Text style={styles.buttonText}>ALUMNO 3</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.choosingButton4} onPress={this.selectStudent4}>
-          <Text style={styles.buttonText}>ALUMNO 4</Text>
+        {this.addStudents()}
+        <TouchableOpacity style={styles.arrowButton} onPress={this.upStudentsRow}>
+          <Image
+            style={styles.arrowImage}
+            source={require('./img/arrowRight.png')}
+          />
         </TouchableOpacity>
       </View>
     );
   } 
 
   enteringView(){
-    this
     return (
       <View style={styles.buttonChoose}>
         <Text style={styles.buttonText}>ENTRANDO</Text>
