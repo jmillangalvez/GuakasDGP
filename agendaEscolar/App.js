@@ -2,12 +2,12 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { Tasks } from './Tasks'
+import { DailyTasks } from './DailyTasks'
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Tasks />
+      <DailyTasks />
       <StatusBar style="auto" />
     </View>
   );
