@@ -19,28 +19,51 @@ const styles = StyleSheet.create({
       fontWeight: 'bold'
     },
     buttonView: {
-      marginTop: '10%', 
-      width: 250,
-      height: 70,
+      marginTop: '5%', 
+      width: 180,
+      height: 180,
       backgroundColor: "#faff6d",
       alignItems: 'center',
       justifyContent: 'center',
+      borderRadius: 25,
+      borderWidth: 3
+    },
+    buttonTouch: {
+      marginTop: '5%',
+      width: 160,
+      height: 160,
+      backgroundColor: "#faff6d",
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 25,
     },
     buttonChoose: {
-      marginTop: '8%',
+      marginTop: '5%',
       width: 150,
       height: 150,
       backgroundColor: "#faff6d",
       alignItems: 'center',
       justifyContent: 'center',
+      borderRadius: 25,
+      borderWidth: 3
+    },
+    chooseTouch: {
+      marginTop: '5%', 
+      width: 120,
+      height: 120,
+      backgroundColor: "#faff6d",
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     choosingView: {
-      marginTop: '8%',
-      width: '80%',
+      marginTop: '5%',
+      width: '90%',
       height: 150,
       backgroundColor: "#faff6d",
       alignItems: 'center',
       justifyContent: 'center',
+      borderRadius: 25,
+      borderWidth: 3
     },
     choosingButton:  {
       height: '90%',
@@ -65,14 +88,24 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     },
     arrowButton: {
-      width: 100,
+      width: 250,
       height: 100,
-      flex: 0.5,
-      margin: 10
+      flex: 0.75,
+      margin: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     arrowImage: {
-      width: 100,
-      height: 100,
+      width: '100%',
+      height: '100%',
+    },
+    loginAdminText: {
+      width: '100%',
+      height: '100%',
+    },
+    loginAdminView: {
+      width: '95%',
+      justifyContent: 'center',
     }
   });
 
