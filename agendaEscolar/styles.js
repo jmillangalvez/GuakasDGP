@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-    container: {
+  mainView: {
       backgroundColor: '#fff',
       width: '100%',
       height: '100%',
@@ -18,73 +18,62 @@ const styles = StyleSheet.create({
       fontSize: 60,
       fontWeight: 'bold'
     },
-    buttonView: {
-      marginTop: '10%', 
-      width: 250,
-      height: 70,
+    enterButtonView: {
+      marginTop: '5%', 
+      width: 180,
+      height: 180,
       backgroundColor: "#faff6d",
       alignItems: 'center',
       justifyContent: 'center',
+      borderRadius: 25,
+      borderWidth: 3
     },
-    buttonChoose: {
-      marginTop: '8%',
+    enterButtonTouch: {
+      marginTop: '5%',
+      width: 160,
+      height: 160,
+      backgroundColor: "#faff6d",
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 25,
+    },
+    chooseView: {
+      marginTop: '5%',
       width: 150,
       height: 150,
       backgroundColor: "#faff6d",
       alignItems: 'center',
       justifyContent: 'center',
+      borderRadius: 25,
+      borderWidth: 3
     },
-    choosingView: {
-      marginTop: '8%',
-      width: '80%',
-      height: 150,
+    chooseTouch: {
+      marginTop: '5%', 
+      width: 120,
+      height: 120,
       backgroundColor: "#faff6d",
       alignItems: 'center',
       justifyContent: 'center',
     },
-    choosingButton1:  {
-      height: '100%',
-      width: '15%',
-      borderWidth: 3,
-      fontSize: 25,
-      fontWeight: 'bold',
-      position: 'absolute',
-      marginLeft: '-70%',
+    choosingView: {
+      marginTop: '5%',
+      width: '90%',
+      height: 150,
+      backgroundColor: "#faff6d",
       alignItems: 'center',
       justifyContent: 'center',
+      borderRadius: 25,
+      borderWidth: 3
     },
-    choosingButton2:  {
-      height: '100%',
-      width: '15%',
+    choosingButton:  {
+      height: '90%',
       borderWidth: 3,
       fontSize: 25,
       fontWeight: 'bold',
-      position: 'absolute',
-      marginLeft: '-23%',
+      flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
-    },
-    choosingButton3:  {
-      height: '100%',
-      borderWidth: 3,
-      width: '15%',
-      fontSize: 25,
-      fontWeight: 'bold',
-      position: 'absolute',
-      marginLeft: '23%',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    choosingButton4:  {
-      height: '100%',
-      width: '15%',
-      borderWidth: 3,
-      fontSize: 25,
-      fontWeight: 'bold',
-      position: 'absolute',
-      marginLeft: '70%',
-      alignItems: 'center',
-      justifyContent: 'center',
+      margin: 10
     },
     buttonText: {
       marginBottom: 15,
@@ -96,6 +85,26 @@ const styles = StyleSheet.create({
       height: 70,
       backgroundColor: "#faff6d",
       alignItems: 'center',
+      justifyContent: 'center',
+    },
+    arrowButton: {
+      width: 250,
+      height: 100,
+      flex: 0.75,
+      margin: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    image: {
+      width: '100%',
+      height: '100%',
+    },
+    loginAdminText: {
+      width: '100%',
+      height: '100%',
+    },
+    loginAdminView: {
+      width: '95%',
       justifyContent: 'center',
     }
   });
