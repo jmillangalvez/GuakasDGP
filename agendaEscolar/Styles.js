@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     banner: {
       backgroundColor: '#248aff',
       width: '100%',
-      height: '15%',
+      height: 'auto',
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -106,6 +106,38 @@ const styles = StyleSheet.create({
     loginAdminView: {
       width: '95%',
       justifyContent: 'center',
+    },
+    loginAdminBox: {
+      height: 'auto',
+      width: '100%',
+      justifyContent: 'center',
+      textAlign: 'center',
+      alignItems: 'center',
+      padding: 30,
+      borderWidth: 4
+    },
+    loginAdminInput: {
+      justifyContent: 'center',
+      textAlign: 'center',
+      margin: 5,
+      borderWidth: 2,
+      borderRadius: 10,
+      padding: 5
+    },
+    loginAdminButton: {
+      justifyContent: 'center',
+      textAlign: 'center',
+      margin: 5,
+      borderWidth: 2,
+      borderRadius: 10,
+      padding: 10,
+      backgroundColor: '#248aff'
+    },
+    center: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      alignContent: 'center'
     }
   });
 

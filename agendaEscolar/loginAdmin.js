@@ -16,36 +16,54 @@ class loginAdmin extends Component {
   }
 
   checkAdminPassword = () => {
-      var notFound = true;
-      for(var i = 0; i < this.listAdmins.admins.length; i++){
-        if(this.listAdmins.admins[i].name === this.state.name && this.listAdmins.admins[i].password === this.state.password){
-            this.setState({
-                authenticated: true,
-                password: ""
-            });
+    var notFound = true;
+    for(var i = 0; i < this.listAdmins.admins.length; i++){
+      if(this.listAdmins.admins[i].name === this.state.name && this.listAdmins.admins[i].password === this.state.password){
+        this.setState({
+          authenticated: true,
+          password: ""
+        });
 
-            notFound = false;
-            break;
-        }
+        notFound = false;
+        break;
       }
-      if(notFound){
-          Alert.alert(
-              "Authentication Error",
-              "Nombre de usuario o contraseña incorrectos. Por favor, vuelva a introducirlos de nuevo.",
-          )
-      }
+    }
+    if(notFound){
+      this.setState({
+        name: "",
+        password: ""
+      });
+      Alert.alert(
+          "Authentication Error",
+          "Nombre de usuario o contraseña incorrectos. Por favor, vuelva a introducirlos de nuevo.",
+      )
+    }
 
   };
 
-  setName(t){
-      this.setState({
-          name: t
-      });
-  }
-  setPassword(t){
-      this.setState({
-          password: t
-      });
+  loginView(){
+    return(
+      <View style={styles.loginAdminBox}>
+        <TextInput
+          style={styles.loginAdminInput}
+          onChangeText = {(text) => this.setState({name: text})}
+          defaultValue = {this.state.name}
+          placeholder = "Usuario"
+        />
+            
+        <TextInput
+          style={styles.loginAdminInput}
+          onChangeText = {(text) => this.setState({password: text})}
+          defaultValue = {this.state.password}
+          secureTextEntry = {true}
+          placeholder = "Contraseña"
+        />
+
+        <TouchableOpacity style={styles.loginAdminButton} onPress={this.checkAdminPassword}>
+          <Text>Entrar</Text>
+        </TouchableOpacity>
+      </View>
+    )
   }
 
   render(){
@@ -57,35 +75,11 @@ class loginAdmin extends Component {
         <SafeAreaView style={styles.banner}>
           <Text style={styles.headerText} value="LOGIN ADMIN">LOGIN ADMIN</Text>
         </SafeAreaView>
-        <View style={styles.loginAdminBox}>
-            <TextInput
-                style={styles.input}
-                onChangeText = {(text) => this.setState({name: text})}
-                defaultValue = {this.state.name}
-                placeholder = "Usuario"
-            />
-            
-            <TextInput
-                style={styles.input}
-                onChangeText = {(text) => this.setState({password: text})}
-                defaultValue = {this.state.password}
-                secureTextEntry = {true}
-                placeholder = "Contraseña"
-            />
 
-            <TouchableOpacity style={styles.button} onPress={this.checkAdminPassword}>
-                <Text>Click me</Text>
-            </TouchableOpacity>
-
-            <Text>
-                Hola, {this.state.name} con contraseña: {this.state.password}
-            </Text>
-
-            {this.state.authenticated? <Text>Autenticado</Text> : <Text>No autenticado</Text>}
-            
+        <View style = {styles.center}>
+          {this.loginView()}
         </View>
 
-        
         <StatusBar style="auto" />
       </View>
     );
