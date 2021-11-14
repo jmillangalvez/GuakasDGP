@@ -11,7 +11,7 @@ async function changeScreenOrientation() {
 class login extends Component {
   constructor(props) {
     super(props);
-    this.state = { choosingStudent: false, entering: false, studentsRow: 0, idStudentChosen: -1};
+    this.state = { choosingStudent: false, studentsRow: 0, idStudentChosen: -1};
     this.students = require('./data/students.json');
   }
 
@@ -28,20 +28,14 @@ class login extends Component {
     });
   }
 
-  enter = () => {
-    if (this.state.idStudentChosen != -1) {
-      this.setState({
-        entering: true
-      });
-    }
-  };
-
   addStudents(){
     var students = [];
     console.log(this.state.studentsRow);
-    for (let i = 0 + (4*this.state.studentsRow), cont=0; cont < 4 ; i++, cont++) {
-
-    console.log(i);
+    var nStudentsInRow = 4;
+    if((this.students.info.length - ((this.state.studentsRow + 1) * 4)) < 0){
+      nStudentsInRow = (this.state.studentsRow % 4);
+    }
+    for (let i = 0 + (4*this.state.studentsRow), cont=0; cont < nStudentsInRow ; i++, cont++) {
       students.push(
       <TouchableOpacity style={styles.choosingButton} onPress={() => this.selectStudent(i)}>
         <Text style={styles.buttonText}>{this.students.info[i].name}</Text>
@@ -60,7 +54,7 @@ class login extends Component {
   };
 
   upStudentsRow = () => {
-    if(this.state.studentsRow < 5){
+    if(this.state.studentsRow + 1 < this.students.info.length/4){
       this.setState({
         studentsRow: this.state.studentsRow + 1
       });
@@ -72,15 +66,17 @@ class login extends Component {
       <View style={[styles.choosingView, {flexDirection: "row"}]}>
         <TouchableOpacity style={styles.arrowButton} onPress={this.downStudentsRow}>
           <Image
-            style={styles.arrowImage}
+            style={styles.image}
             source={require('./img/arrowLeft.png')}
+            accessibilityLabel="Pasar hacia la izquierda"
           />
         </TouchableOpacity>
         {this.addStudents()}
         <TouchableOpacity style={styles.arrowButton} onPress={this.upStudentsRow}>
           <Image
-            style={styles.arrowImage}
+            style={styles.image}
             source={require('./img/arrowRight.png')}
+            accessibilityLabel="Pasar hacia la derecha"
           />
         </TouchableOpacity>
       </View>
@@ -89,11 +85,12 @@ class login extends Component {
 
   chooseStudentView(){
     return(
-      <View style={styles.buttonChoose}>
+      <View style={styles.chooseView}>
         <TouchableOpacity style={styles.chooseTouch} onPress={this.chooseStudent}>
           <Image
-          style={styles.arrowImage}
+          style={styles.image}
           source={require('./img/unknow.png')}
+          accessibilityLabel="Seleccionar alumno"
           />
         </TouchableOpacity>
       </View>
@@ -102,7 +99,7 @@ class login extends Component {
 
   studentChosenView(num){
     return(
-      <View style={styles.buttonChoose}>
+      <View style={styles.chooseView}>
         <TouchableOpacity style={styles.chooseTouch}>
           <Text style={styles.buttonText}>ALUMNO {num + 1}{"\n"}ELEGIDO</Text>
         </TouchableOpacity>
@@ -111,26 +108,27 @@ class login extends Component {
   }
   
   render(){
-    const { choosingStudent, entering, idStudentChosen } = this.state;
+    const { choosingStudent, idStudentChosen } = this.state;
     changeScreenOrientation();
     return (
-      <View style={styles.container}>
+      <View style={styles.mainView}>
         <SafeAreaView style={styles.banner}>
           <Text style={styles.headerText} value="ENTRAR">ENTRAR</Text>
         </SafeAreaView>
         {!choosingStudent && idStudentChosen == -1? this.chooseStudentView() : null}
         {choosingStudent? this.choosingStudentView() : null}
         {idStudentChosen != -1? this.studentChosenView(idStudentChosen) : null}
-        <View style={styles.buttonView}> 
-          <TouchableOpacity style={styles.buttonTouch} onPress={() => this.props.navigation.navigate('') }>
+        <View style={styles.enterButtonView}> 
+          <TouchableOpacity style={styles.enterButtonTouch} onPress={() => this.props.navigation.navigate('') }>
             <Image
-            style={styles.arrowImage}
+            style={styles.image}
             source={require('./img/enter.png')}
+            accessibilityLabel="Entrar en la aplicacion"
             />
           </TouchableOpacity>
         </View>
         <View style={styles.loginAdminView}> 
-          <TouchableOpacity style={styles.loginAdminButton} onPress={() => this.props.navigation.navigate('') }>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('') }>
             <Text style={styles.loginAdminText}>Login Admin/Educador</Text>
           </TouchableOpacity>
         </View>
