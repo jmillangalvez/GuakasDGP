@@ -1,60 +1,56 @@
-import React, { Fragment, useState, useRef, useEffect } from "react";
-import { TodoList } from "./components/TodoList";
+import { StatusBar } from 'expo-status-bar';
+import React, { Fragment, useState, useRef, useEffect, Component } from "react";
+import { Text, SafeAreaView, TouchableOpacity, View } from 'react-native';
+import * as ScreenOrientation from 'expo-screen-orientation';
+import styles from "./Styles";
 
-const KEY ="todoApp.todos";
-
-export function Tasks() {
-    const [todos, setTodos] = useState([
-        { id: 0, task: "Tarea 1", completed: false}
-    ]);
-
-    const todoTaskRef = useRef();
-    const idTaskRef = useRef();
-
-    useEffect(() => {
-        const storedTodos = JSON.parse(localStorage.getItem(KEY));
-        
-        if (storedTodos) {
-            setTodos(storedTodos);
-        }
-    }, []);
-
-    useEffect(() => {
-        localStorage.setItem(KEY, JSON.stringify(todos));
-    }, [todos]);
-
-    const toggleTodo = (id) => {
-        const newTodos = [...todos];
-        const todo = newTodos.find((todo) => todo.id == id);
-        todo.completed = !todo.completed;
-        setTodos(newTodos);
-    };
-
-    const handleTodoAdd = () => {
-        const task = todoTaskRef.current.value;
-        const id = idTaskRef.current.value;
-        if (task == '') return;
-
-        setTodos((prevTodos) => {
-            return [...prevTodos, {id, task, completed: false}]
-        });
-
-        todoTaskRef.current.value = null;
-    };
-
-    const handleClearAll = () => {
-        const newTodos = todos.filter((todo) => !todo.completed);
-        setTodos(newTodos);
-    };
-
-    return (
-        <Fragment>
-            <TodoList todos={todos} toggleTodo={toggleTodo} />
-            <input ref={todoTaskRef} type="text" placeholder="Nueva Tarea" />
-            <input ref={idTaskRef} type="text" placeholder="Id de la Nueva Tarea" />
-            <button onClick={handleTodoAdd}>Añadir</button>
-            <button onClick={handleClearAll}>Eliminar Completadas</button>
-            <div>Te quedan {todos.filter((todo) => !todo.completed).length}</div>
-        </Fragment>
-    );
+async function changeScreenOrientation() {
+    await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT);
 }
+
+class DailyTasks extends Component {
+    constructor(props) {
+        super(props);
+        const data = require('./tasks.json');
+        this.state = { tasks: data.tasks, currentTask: 0, currentDescription: "" };
+        this.state.currentDescription = this.state.tasks[0].description;
+    };
+
+    listTask = () => {
+        return(
+            <TouchableOpacity style={styles.buttonView} onPress={() => this.props.navigation.navigate('Login') }>
+                <Text style={styles.buttonText}>{this.state.currentDescription}</Text>
+                <input type="hidden" name="taskId" value={this.state.tasks[this.state.currentTask].id} />
+            </TouchableOpacity>
+        );
+    };
+
+    nextTask = () => {
+        this.state.currentTask++;
+        this.state.currentTask %= this.state.tasks.length;
+        this.setState({ currentDescription: this.state.tasks[this.state.currentTask].description });
+        this.listTask();
+    };
+
+    render() {
+        changeScreenOrientation();
+        return (
+            <View style={styles.container}>
+                <SafeAreaView style={styles.banner}>
+                    <Text style={styles.headerText} value="TAREAS DIARIAS">TAREAS DIARIAS</Text>
+                </SafeAreaView>
+                <View style={styles.buttonView}>
+                    { this.listTask() }
+                </View>
+                <View style={styles.buttonView}>
+                    <TouchableOpacity style={styles.buttonView} onPress={() => this.nextTask() }>
+                        <Text style={styles.buttonText}>SIGUIENTE</Text>
+                    </TouchableOpacity>
+                </View>
+                <StatusBar style="auto" />
+            </View>
+        );
+    };
+}
+
+export default DailyTasks;
