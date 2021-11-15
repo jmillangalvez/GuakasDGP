@@ -1,8 +1,10 @@
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import styles from './Styles';
 
-function subMenu() {
+function subMenu({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.goBackView}>
