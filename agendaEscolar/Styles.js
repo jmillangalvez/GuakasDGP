@@ -106,6 +106,38 @@ const styles = StyleSheet.create({
     loginAdminView: {
       width: '95%',
       justifyContent: 'center',
+    },
+    container: {
+      flexDirection: "row",
+      flexWrap: "wrap",
+      backgroundColor: '#fff',
+      width: '100%',
+      height: '95%',
+      alignContent: 'center',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    taskButtonTouch: {
+      width: 300,
+      height: 300,
+      margin: 10,
+      backgroundColor: "#faff6d",
+      alignItems: 'center',
+      justifyContent: 'space-evenly',
+    },
+    taskButtonText: {
+      fontSize: 40,
+      textAlign: 'center',
+      fontWeight: 'bold',
+    },
+    goBackText: {
+      fontSize: 18,
+      width: '100%',
+      height: '100%',
+    },
+    goBackView: {
+      width: '95%',
+      height: '5%'
     }
   });
 
