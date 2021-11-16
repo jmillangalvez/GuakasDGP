@@ -12,14 +12,24 @@ class DailyTasks extends Component {
     constructor(props) {
         super(props);
         const data = require('./data/tasks.json');
-        this.state = { tasks: data.tasks, currentTask: 0, currentName: "" };
+        const allTasks = data.tasks;
+        this.state = { tasks: {}, currentTask: 0, currentName: "" };
+        this.state.tasks = allTasks.filter(function(task){
+            if (!task.completed) return task;
+        });
         this.state.currentName = this.state.tasks[0].name;
     };
 
     listTask = () => {
         return(
-            <TouchableOpacity style={styles.buttonView} onPress={() => this.props.navigation.navigate('Login') }>
-                <Text style={styles.buttonText}>{this.state.currentName}</Text>
+            <TouchableOpacity 
+                style={styles.choosingbutton} 
+                onPress={ () => this.props.navigation.navigate('Login') }
+                accessibilityLabel="Tarea seleccionada"
+                accessibilityRole="button"
+                accessibilityHint="Pulsa para mostrar la tarea"
+                >
+                <Text style={styles.dailyTaks}>{this.state.currentName}</Text>
                 <input type="hidden" name="taskId" value={this.state.tasks[this.state.currentTask].id} />
             </TouchableOpacity>
         );
@@ -46,27 +56,42 @@ class DailyTasks extends Component {
                 <SafeAreaView style={styles.banner}>
                     <Text style={styles.headerText} value="TAREAS DIARIAS">TAREAS DIARIAS</Text>
                 </SafeAreaView>
-                <View style={styles.enterButtonView}>
-                    <TouchableOpacity style={styles.enterButtonTouch} onPress={() => this.prevTask() }>
+                <View style={[styles.dailyTaskView, {flexDirection: "row"}]}>
+                    
+                    <TouchableOpacity
+                        style={styles.arrowButtonDailyTasks} 
+                        onPress={() => this.prevTask() }
+                        accessibilityLabel="Tarea Anterior"
+                        accessibilityRole="button"
+                        accessibilityHint="Muestra la tarea anterior sin completar del día"
+                        >
                         <Image
                             style={styles.image}
                             source={require('./img/arrowLeft.png')}
-                            accessibilityLabel="Pasar hacia la izquierda"
                         />
                     </TouchableOpacity>
-                </View>
-                <View style={styles.enterButtonView}>
+
+                    
                     { this.listTask() }
-                </View>
-                <View style={styles.enterButtonView}>
-                    <TouchableOpacity style={styles.enterButtonTouch} onPress={() => this.nextTask() }>
+
+     
+                    <TouchableOpacity 
+                        style={styles.arrowButtonDailyTasks} 
+                        onPress={() => this.nextTask() }
+                        accessibilityLabel="Tarea Siguiente"
+                        accessibilityRole="button"
+                        accessibilityHint="Muestra la siguiente tarea sin completar del día"
+                        >
                         <Image
                             style={styles.image}
                             source={require('./img/arrowRight.png')}
-                            accessibilityLabel="Pasar hacia la derecha"
                         />
                     </TouchableOpacity>
+                    
                 </View>
+                <SafeAreaView style={styles.bottomBanner}>
+                    <Text style={styles.headerText} value="TAREAS DIARIAS">PARTE DE ABAJO</Text>
+                </SafeAreaView>
                 <StatusBar style="auto" />
             </View>
         );
