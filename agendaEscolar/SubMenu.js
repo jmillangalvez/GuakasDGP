@@ -6,6 +6,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import styles from './Styles';
 
+// Cambiar orientación de la pantalla
+async function changeScreenOrientation() {
+  await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT);
+}
+
 
 function subMenu({ navigation }) {
   changeScreenOrientation();
