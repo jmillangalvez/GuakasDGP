@@ -1,8 +1,11 @@
-import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import React, { Component } from "react";
+import { Text, SafeAreaView, TouchableOpacity, View, Image } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import * as ScreenOrientation from 'expo-screen-orientation';
 import styles from './Styles';
+
 
 function subMenu({ navigation }) {
   changeScreenOrientation();
