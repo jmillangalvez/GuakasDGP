@@ -43,7 +43,7 @@ class loginAdmin extends Component {
 
   loginView(){
     return(
-      <View style={styles.loginAdminBox}>
+      <View accessible={true} style={styles.loginAdminBox}>
         <TextInput
           style={styles.loginAdminInput}
           onChangeText = {(text) => this.setState({name: text})}
@@ -59,7 +59,12 @@ class loginAdmin extends Component {
           placeholder = "Contraseña"
         />
 
-        <TouchableOpacity style={styles.loginAdminButton} onPress={this.checkAdminPassword}>
+        <TouchableOpacity
+          accessibilityLabel = "Entrar"
+          accessibilityRole = "button"
+          accessibilityHint = "Intenta loggearse con el usuario y credenciales introducidos."
+          style={styles.loginAdminButton}
+          onPress={this.checkAdminPassword}>
           <Text>Entrar</Text>
         </TouchableOpacity>
       </View>
