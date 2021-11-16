@@ -16,6 +16,12 @@ function subMenu({ navigation }) {
   changeScreenOrientation();
   return (
     <View style={styles.container}>
+      <SafeAreaView style={styles.banner}
+        accessibilityLabel="SUBMENU DE TAREAS FIJAS"
+        accessibilityRole="header"
+        accessibilityHint="submenu para añadir o modificar tareas fijas">
+        <Text style={styles.headerText}>SUBMENU DE TAREAS FIJAS</Text>
+      </SafeAreaView>
       <View style={styles.goBackView}>
         <TouchableOpacity
           accessibilityLabel="Volver"
