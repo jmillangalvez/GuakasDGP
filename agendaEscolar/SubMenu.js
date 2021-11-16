@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import styles from './Styles';
 
 function subMenu({ navigation }) {
+  changeScreenOrientation();
   return (
     <View style={styles.container}>
       <View style={styles.goBackView}>
