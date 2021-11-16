@@ -17,26 +17,60 @@ function subMenu({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.goBackView}>
-        <TouchableOpacity onPress={() => navigation.navigate('submenu')}>
+        <TouchableOpacity
+          accessibilityLabel="Volver"
+          accessibilityRole="button"
+          accessibilityHint="Vuelve al menú del administrador"
+          onPress={() => navigation.navigate('submenu')}>
           <Text style={styles.goBackText}>Volver</Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity style={styles.taskButtonTouch} onPress={() => navigation.navigate('submenu')}>
+      <TouchableOpacity
+        accessibilityLabel="Añadir tarea fija"
+        accessibilityRole="button"
+        accessibilityHint="Añade un tipo de tarea fija"
+        style={styles.taskButtonTouch} 
+        onPress={() => navigation.navigate('submenu')}>
         <Text style={styles.taskButtonText}>Añadir tarea fija</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.taskButtonTouch} onPress={() => navigation.navigate('submenu')}>
+      <TouchableOpacity
+        accessibilityLabel="Añadir comanda comedor"
+        accessibilityRole="button"
+        accessibilityHint="Añade una comanda comedor"
+        style={styles.taskButtonTouch} 
+        onPress={() => navigation.navigate('submenu')}>
         <Text style={styles.taskButtonText}>Añadir comanda comedor</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.taskButtonTouch} onPress={() => navigation.navigate('submenu')}>
+      <TouchableOpacity
+        accessibilityLabel="Añadir comanda stock"
+        accessibilityRole="button"
+        accessibilityHint="Añade una tarea de stock"
+        style={styles.taskButtonTouch} 
+        onPress={() => navigation.navigate('submenu')}>
         <Text style={styles.taskButtonText}>Añadir comanda stock</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.taskButtonTouch} onPress={() => navigation.navigate('submenu')}>
+      <TouchableOpacity
+        accessibilityLabel="Modificar tarea fija"
+        accessibilityRole="button"
+        accessibilityHint="Selecciona una tarea fija para modificarla"
+        style={styles.taskButtonTouch} 
+        onPress={() => navigation.navigate('submenu')}>
         <Text style={styles.taskButtonText}>Modificar tarea fija</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.taskButtonTouch} onPress={() => navigation.navigate('submenu')}>
+      <TouchableOpacity
+        accessibilityLabel="Modificar comanda comedor"
+        accessibilityRole="button"
+        accessibilityHint="Selecciona una comanda comedor para modificarla"
+        style={styles.taskButtonTouch} 
+        onPress={() => navigation.navigate('submenu')}>
         <Text style={styles.taskButtonText}>Modificar comanda comedor</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.taskButtonTouch} onPress={() => navigation.navigate('submenu')}>
+      <TouchableOpacity
+        accessibilityLabel="Modificar comanda stock"
+        accessibilityRole="button"
+        accessibilityHint="Selecciona una comanda stock para modificarla"
+        style={styles.taskButtonTouch} 
+        onPress={() => navigation.navigate('submenu')}>
         <Text style={styles.taskButtonText}>Modificar comanda stock</Text>
       </TouchableOpacity>
     </View>
