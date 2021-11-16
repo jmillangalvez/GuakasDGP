@@ -106,6 +106,10 @@ const styles = StyleSheet.create({
     loginAdminView: {
       width: '95%',
       justifyContent: 'center',
+    },
+    fixToText: {
+      flexDirection: 'row',
+      justifyContent: 'space-between'
     }
   });
 
