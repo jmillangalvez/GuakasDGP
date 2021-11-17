@@ -15,23 +15,23 @@ async function changeScreenOrientation() {
   await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT);
 }
 
-class CreateNormalTask extends Component {
+class AssignTask extends Component {
   constructor(props) {
     super(props);
-    this.state = { titulo: "", descripcion: "" };
+    this.state = { tarea: "", alumno: "" };
   };
 
-  createTask = () =>{
-    this.createTaskDB();
+  asignar = () =>{
+    this.asignarDB();
     Alert.alert(
       "Operación satisfactoria",
-      "La tarea ha sido creada",
+      "La tarea se ha asignado al alumno",
     )
   }
 
-  async createTaskDB() {
+  async asignarDB() {
     try {
-      const response = await fetch('http://localhost:8000/tasks/', {
+      const response = await fetch('http://localhost:8000/assigneds/', {
         method: 'POST',
         mode: 'cors',
         headers: {
@@ -39,10 +39,8 @@ class CreateNormalTask extends Component {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            title: this.state.titulo,
-            description: this.state.descripcion,
-            finished: 0,
-            taskDate: "2021-11-18"
+            studentId: this.state.alumno,
+            taskId: this.state.tarea,
         })
       });
     } catch (error) {
@@ -51,14 +49,14 @@ class CreateNormalTask extends Component {
   }
   
   render (){
-    const { titulo, descripcion } = this.state;
+    const { tarea, alumno } = this.state;
 
     changeScreenOrientation();
     return(
       <View style={styles.mainView}>   
 
         <SafeAreaView style={styles.banner}>
-          <Text style={styles.headerText} value="CrearTareaNormal" accessibilityRole="header">Crear Tarea Normal</Text>
+          <Text style={styles.headerText} value="AsignarTarea" accessibilityRole="header">Asignar Tareas</Text>
         </SafeAreaView>
 
         <View style={styles.goBackView}>
@@ -76,35 +74,34 @@ class CreateNormalTask extends Component {
         <View style={styles.addStudent}>
           <View style={styles.formLine}>
             <View style={styles.formLeft}>
-              <Text style={styles.formContent}>Titulo de la tarea:</Text>
+              <Text style={styles.formContent}>ID Tarea:</Text>
             </View>
 
             <View style={styles.formRight}>
               <TextInput 
                 style={styles.formContentLine}
-                onChangeText = {(text) => this.setState({titulo: text})}
+                onChangeText = {(text) => this.setState({tarea: text})}
                 defaultValue = {this.state.titulo}
-                placeholder = "Titulo Tarea"
-                accessibilityLabel="Titulo Tarea"
-                accessibilityHint="Introduce el titulo de la tarea" 
+                placeholder = "001, 002..."
+                accessibilityLabel="ID Tarea"
+                accessibilityHint="Introduce el id de la tarea" 
               />
             </View>
           </View>
 
           <View style={styles.formLine}>
             <View style={styles.formLeft}>
-              <Text style={styles.formContent}>Descripción:</Text>
+              <Text style={styles.formContent}>ID Alumno Asignado:</Text>
             </View>
 
             <View style={styles.formRight}>
               <TextInput 
-                style={styles.formContentBox}
-                onChangeText = {(text) => this.setState({descripcion: text})}
-                defaultValue = {this.state.descripcion}
-                multiline={true}
-                placeholder = ".............................."
-                accessibilityLabel="Descripcion tarea"
-                accessibilityHint="Introduce la descripción de la tarea" 
+                style={styles.formContentLine}
+                onChangeText = {(text) => this.setState({alumno: text})}
+                defaultValue = {this.state.titulo}
+                placeholder = "001, 002..."
+                accessibilityLabel="ID Alumno Asignado"
+                accessibilityHint="Introduce el id del alumno" 
               />
             </View>
           </View>
@@ -112,12 +109,12 @@ class CreateNormalTask extends Component {
 
         <View style={styles.confirmButton}>
           <Button
-            title="Crear Tarea"
-            accessibilityLabel="Crear Tarea"
+            title="Asignar la Tarea"
+            accessibilityLabel="Asignar la Tarea"
             accessibilityRole="Button"
-            accessibilityHint="Crea la tarea"
+            accessibilityHint="Asigna la tarea"
             color="#bcbcbc"
-            onPress={this.createTask}
+            onPress={this.asignar}
           />
         </View>
 
@@ -126,4 +123,4 @@ class CreateNormalTask extends Component {
   }
 }
 
-export default CreateNormalTask;
+export default AssignTask;

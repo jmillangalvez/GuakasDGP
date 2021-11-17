@@ -161,6 +161,7 @@ const styles = StyleSheet.create({
       margin: 10,
       left: 5,
       top: 5,
+      position: 'absolute'
     },
     buttonTouch: {
       backgroundColor: "#bcbcbc",
@@ -203,6 +204,61 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       position: 'absolute',
       bottom: 0
+    },
+    formLine: {
+      flexDirection: 'row',
+      marginBottom: '1%',
+    },
+    formLeft: {
+      width: 160,
+      marginRight: '1%',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    formRight: {
+      width: 200,
+      justifyContent: 'center',
+    },
+    formRightBG: {
+      backgroundColor: "#bcbcbc",
+      width: 200,
+      justifyContent: 'center',
+    },
+    formContent: {
+      marginTop: 5,
+      marginBottom: 5,
+      marginLeft: '2%',
+      width: '80%',
+    },
+    formContentBG: {
+      backgroundColor: "#bcbcbc",
+      marginTop: 5,
+      marginBottom: 5,
+      marginLeft: '2%',
+      width: '80%',
+    },
+    formContentLine: {
+      marginTop: 1,
+      marginLeft: '2%',
+      width: '90%',
+      borderBottomColor: "#bcbcbc",
+      borderBottomWidth: 2,
+    },
+    formContentBox: {
+      marginTop: 1,
+      marginLeft: '2%',
+      width: '90%',
+      borderColor: "#bcbcbc",
+      borderWidth: 2,
+    },
+    confirmButton: {
+      position: 'absolute',
+      alignSelf: 'center',
+      top: '80%',
+      backgroundColor: "#faff6d",
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 25,
     },
   });
 

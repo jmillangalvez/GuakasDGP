@@ -11,26 +11,50 @@ async function changeScreenOrientation() {
 class DailyTasks extends Component {
     constructor(props) {
         super(props);
-        const data = require('./data/tasks.json');
-        const allTasks = data.tasks;
-        this.state = { tasks: {}, currentTask: 0, currentName: "" };
-        this.state.tasks = allTasks.filter(function(task){
-            if (!task.completed) return task;
-        });
-        this.state.currentName = this.state.tasks[0].name;
+        this.state = { tasks: [], currentTask: 0, currentTitle: "" };
+        this.componentDidMount;
     };
+
+    async getTasks() {
+        console.log("Dentro del getTasks");
+        try {
+            const response = await fetch('http://localhost:8000/tasks/', {
+                method: 'GET',
+                mode: 'cors',
+                headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+                },
+            });
+            const json = await response.json();
+            console.log("json"+json.items);
+            this.setState({ tasks: json.items.filter(function(task){
+                if (task.finished == 0) return task;
+            }) });
+            this.setState({ currentTitle: this.state.tasks[0].title });
+        } catch (error) {
+            console.log("Error en getTasks "+error);
+        }
+    }
+
+    componentDidMount(){
+        console.log("Inicializando Valores:");
+        this.getTasks();
+        console.log(this.state.tasks);
+    }
 
     listTask = () => {
         return(
             <TouchableOpacity 
-                style={styles.choosingButton} 
-                onPress={ () => this.props.navigation.navigate('Login') }
+                style={styles.choosingbutton} 
+                onPress={ () => this.props.navigation.navigate('InfoTask', {
+                    task: this.state.tasks[this.state.currentTask]
+                }) }
                 accessibilityLabel="Tarea seleccionada"
                 accessibilityRole="button"
                 accessibilityHint="Pulsa para mostrar la tarea"
                 >
-                <Text style={styles.dailyTaks}>{this.state.currentName}</Text>
-                <input type="hidden" name="taskId" value={this.state.tasks[this.state.currentTask].id} />
+                <Text style={styles.dailyTaks}>{this.state.currentTitle}</Text>
             </TouchableOpacity>
         );
     };
@@ -38,14 +62,14 @@ class DailyTasks extends Component {
     nextTask = () => {
         this.state.currentTask++;
         this.state.currentTask %= this.state.tasks.length;
-        this.setState({ currentName: this.state.tasks[this.state.currentTask].name });
+        this.setState({ currentTitle: this.state.tasks[this.state.currentTask].title });
         this.listTask();
     };
 
     prevTask = () => {
         this.state.currentTask--;
         if (this.state.currentTask < 0) this.state.currentTask += this.state.tasks.length;
-        this.setState({ currentName: this.state.tasks[this.state.currentTask].name });
+        this.setState({ currentTitle: this.state.tasks[this.state.currentTask].title });
         this.listTask();
     };
 
@@ -90,7 +114,14 @@ class DailyTasks extends Component {
                     
                 </View>
                 <SafeAreaView style={styles.bottomBanner}>
-                    <Text style={styles.headerText} value="TAREAS DIARIAS">PARTE DE ABAJO</Text>
+                    <TouchableOpacity 
+                        onPress={ () => this.props.navigation.navigate('DailyTasks')}
+                        accessibilityLabel="Volver al Inicio"
+                        accessibilityRole="button"
+                        accessibilityHint="Pulsa para volver a la pantalla de Inicio"
+                        >
+                        <Text style={styles.headerText} value="HOME">HOME</Text>
+                    </TouchableOpacity>  
                 </SafeAreaView>
                 <StatusBar style="auto" />
             </View>

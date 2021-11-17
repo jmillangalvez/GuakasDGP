@@ -8,16 +8,16 @@ async function changeScreenOrientation() {
   await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT);
 }
   
-class loginAdmin extends Component {
+class loginEducator extends Component {
   constructor(props) {
     super(props);
-    this.state = { authenticated: false, userName:"", password:"", listAdmins: []};
+    this.state = { authenticated: false, userName:"", password:"", listEducators: []};
     //this.listAdmins = require('./data/admin.json');
   }
 
   async getAdmins() {
     try {
-      const response = await fetch('http://localhost:8000/admins/', {
+      const response = await fetch('http://localhost:8000/educators/', {
         method: 'GET',
         mode: 'cors',
         headers: {
@@ -26,9 +26,9 @@ class loginAdmin extends Component {
         },
       });
       const json = await response.json();
-      this.setState({ listAdmins: json.items });
-      console.log(this.state.listAdmins)
-      console.log(this.state.listAdmins[0].name)
+      this.setState({ listEducators: json.items });
+      console.log(this.state.listEducators)
+      console.log(this.state.listEducators[0].name)
     } catch (error) {
       console.log(error);
     }
@@ -40,8 +40,8 @@ class loginAdmin extends Component {
 
   checkAdminPassword = () => {
     var notFound = true;
-    for(var i = 0; i < this.state.listAdmins.length; i++){
-      if(this.state.listAdmins[i].userName === this.state.userName && this.state.listAdmins[i].password === this.state.password){
+    for(var i = 0; i < this.state.listEducators.length; i++){
+      if(this.state.listEducators[i].userName === this.state.userName && this.state.listEducators[i].password === this.state.password){
         this.setState({
           authenticated: true,
           password: ""
@@ -61,7 +61,7 @@ class loginAdmin extends Component {
           "Nombre de usuario o contraseña incorrectos. Por favor, vuelva a introducirlos de nuevo.",
       )
     }else{
-      this.props.navigation.navigate('admin_main')
+      this.props.navigation.navigate('EducatorMain')
       console.log("Entra")
     }
 
@@ -108,20 +108,21 @@ class loginAdmin extends Component {
     return (
       <View style={styles.mainView}>
         <SafeAreaView style={styles.banner}>
-          <Text style={styles.headerText} value="LOGIN ADMIN">LOGIN ADMIN</Text>
+          <Text style={styles.headerText} value="LOGIN EDUCADOR">LOGIN EDUCADOR</Text>
         </SafeAreaView>
 
         <View style = {styles.center}>
           {this.loginView()}
         </View>
+
         <View style = {styles.center}>
           <TouchableOpacity
             accessibilityLabel = "Entrar"
             accessibilityRole = "button"
             accessibilityHint = "Intenta loggearse con el usuario y credenciales introducidos."
             style={styles.loginAdminButton}
-            onPress={() => this.props.navigation.navigate('LoginEducator')}>
-            <Text>Cambiar login Educador</Text>
+            onPress={() => this.props.navigation.navigate('LoginAdmin')}>
+            <Text>Cambiar login Admin</Text>
           </TouchableOpacity>
         </View>
 
@@ -131,4 +132,4 @@ class loginAdmin extends Component {
   }
 }
 
-export default loginAdmin;
+export default loginEducator;
