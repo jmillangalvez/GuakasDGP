@@ -143,7 +143,36 @@ const styles = StyleSheet.create({
     fixToText: {
       flexDirection: 'row',
       justifyContent: 'space-between'
-    }
+    },
+    container: {
+      flex: 0.9, 
+      flexDirection: 'row', 
+      flexWrap: 'wrap',
+      alignItems: 'center',
+      justifyContent: 'space-evenly',
+      marginTop: 60
+    },
+    goBackText: {
+      fontSize: 18,
+      width: '100%',
+      height: '100%',
+    },
+    goBackView: {
+      position: 'absolute',
+      margin: 10,
+      left: 5,
+      top: 5,
+    },
+    buttonTouch: {
+      backgroundColor: "#bcbcbc",
+      justifyContent: 'center',
+      width: '42.5%',
+      height: '42.5%'
+    },
+    buttonText: {
+      fontSize: 40,
+      textAlign: 'center',
+      },
   });
 
   export default styles;
