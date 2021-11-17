@@ -1,0 +1,18 @@
+{ 
+    "tasks": [{ 
+        "id": 0, 
+        "name": "Tarea 1", 
+        "description": "This is the first task of the day",
+        "completed": false 
+    }, { 
+        "id": 1, 
+        "name": "Tarea 2",
+        "description": "This is the second task of the day",
+        "completed": true 
+    }, {
+        "id": 2,
+        "name": "Tarea 3",
+        "description": "This is the last task of the day",
+        "completed": false
+    }] 
+}
