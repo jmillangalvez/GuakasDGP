@@ -25,3 +25,8 @@ class Task(models.Model):
     description = models.CharField(max_length=250)
     finished = models.IntegerField()
     taskDate = models.DateField()
+
+class Assigned(models.Model):
+    assignedId = models.AutoField(primary_key=True)
+    studentId = models.IntegerField()
+    taskId = models.IntegerField()
