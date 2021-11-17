@@ -11,8 +11,30 @@ async function changeScreenOrientation() {
 class login extends Component {
   constructor(props) {
     super(props);
-    this.state = { choosingStudent: false, studentsRow: 0, idStudentChosen: -1};
+    this.state = { choosingStudent: false, studentsRow: 0, idStudentChosen: -1, data: [], nStudents: 0};
     this.students = require('./data/students.json');
+  }
+  
+  async getStudents() {
+    try {
+      const response = await fetch('http://localhost:8000/api/students/', {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+      });
+      const json = await response.json();
+      this.setState({ data: json.items });
+      this.setState({ nStudents: json.count });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  componentDidMount(){
+    this.getStudents();
   }
 
   chooseStudent = () => {
@@ -29,16 +51,18 @@ class login extends Component {
   }
 
   addStudents(){
+    console.log(this.state.data)
     var students = [];
     console.log(this.state.studentsRow);
     var nStudentsInRow = 4;
-    if((this.students.info.length - ((this.state.studentsRow + 1) * 4)) < 0){
-      nStudentsInRow = (this.state.studentsRow % 4);
+    if((this.state.data.length - ((this.state.studentsRow + 1) * 4)) < 0){
+      nStudentsInRow = (this.state.data.length % 4);
     }
+    console.log(nStudentsInRow)
     for (let i = 0 + (4*this.state.studentsRow), cont=0; cont < nStudentsInRow ; i++, cont++) {
       students.push(
       <TouchableOpacity style={styles.choosingButton} onPress={() => this.selectStudent(i)}>
-        <Text style={styles.buttonText}>{this.students.info[i].name}</Text>
+        <Text style={styles.buttonText}>{this.state.data[i].name}</Text>
       </TouchableOpacity>);
     }
 
