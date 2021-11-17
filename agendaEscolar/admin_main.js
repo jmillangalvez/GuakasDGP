@@ -27,7 +27,9 @@ function adminMenu({navigation}) {
         <TouchableOpacity onPress={() => this.props.navigation.navigate('adminMenu')}>
           <Button
           title="Salir"
-          accessibilityLabel="Volver al inicio de sesión"
+          accessibilityLabel="Inicio de sesión"
+          accessibilityRole="button"
+          accessibilityHint="Vuelve al inicio de sesión"
           />
         </TouchableOpacity>
       </View>
@@ -39,7 +41,9 @@ function adminMenu({navigation}) {
           <TouchableOpacity style={styles.enterButtonTouch} onPress={() => this.props.navigation.navigate('adminMenu') }>
             <Button
               title="Usuarios"
-              accessibilityLabel="Volver al inicio de sesión"
+              accessibilityLabel="Menú de estudiantes"
+              accessibilityRole="button"
+              accessibilityHint="Ir al menú de estudiantes"
             />
           </TouchableOpacity>
         </View>
@@ -50,6 +54,8 @@ function adminMenu({navigation}) {
             <Button
               title="Tareas"
               accessibilityLabel="Gestionar las tareas"
+              accessibilityRole="button"
+              accessibilityHint="Ir al menu de tareas"
             />
           </TouchableOpacity>
         </View>
@@ -61,6 +67,8 @@ function adminMenu({navigation}) {
           <Button
             title="Documentos"
             accessibilityLabel="Menu de documentos"
+            accessibilityRole="button"
+            accessibilityHint="Ir al menu de documentos"
           />
         </TouchableOpacity>
       </View>
