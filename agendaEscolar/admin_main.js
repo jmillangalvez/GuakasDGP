@@ -20,8 +20,13 @@ function adminMenu({navigation}) {
   changeScreenOrientation();
   return (
     <View style={styles.container}>
+      
+      {/* Accessibility rol  */}
+      <SafeAreaView style={styles.banner}>
+        <Text style={styles.headerText} value="PANTALLA PRINCIPAL ADMIN" accessibilityRole="header">PANTALLA PRINCIPAL ADMIN</Text>
+      </SafeAreaView> 
+
       <ScrollView style={styles.scrollView}>
-        
       <View style={styles.goBackView}>
         {/* Volver a la pantalla anterior */}
         <TouchableOpacity onPress={() => this.props.navigation.navigate('adminMenu')}>
