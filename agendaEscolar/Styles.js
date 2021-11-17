@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-    container: {
+  mainView: {
       backgroundColor: '#fff',
       width: '100%',
       height: '100%',
@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     banner: {
       backgroundColor: '#248aff',
       width: '100%',
-      height: 'auto',
+      height: '15%',
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
       fontSize: 60,
       fontWeight: 'bold'
     },
-    buttonView: {
+    enterButtonView: {
       marginTop: '5%', 
       width: 180,
       height: 180,
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
       borderRadius: 25,
       borderWidth: 3
     },
-    buttonTouch: {
+    enterButtonTouch: {
       marginTop: '5%',
       width: 160,
       height: 160,
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       borderRadius: 25,
     },
-    buttonChoose: {
+    chooseView: {
       marginTop: '5%',
       width: 150,
       height: 150,
@@ -95,7 +95,8 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
-    arrowImage: {
+
+    image: {
       width: '100%',
       height: '100%',
     },
@@ -138,6 +139,10 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       alignContent: 'center'
+    },
+    fixToText: {
+      flexDirection: 'row',
+      justifyContent: 'space-between'
     }
   });
 
