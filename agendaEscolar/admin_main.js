@@ -16,58 +16,51 @@ async function changeScreenOrientation() {
 }
 
 
-function adminMenu({navigation}) {
-  changeScreenOrientation();
-  return (
-    <View style={styles.container}>
-      <ScrollView style={styles.scrollView}>
-        
-      <View style={styles.goBackView}>
-        {/* Volver a la pantalla anterior */}
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('adminMenu')}>
-          <Button
-          title="Salir"
-          accessibilityLabel="Volver al inicio de sesión"
-          />
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.fixToText}>
-
-        {/* Ir al menu de estudiantes (Boceto 5) */}
-        <View style={styles.enterButtonView}>
-          <TouchableOpacity style={styles.enterButtonTouch} onPress={() => this.props.navigation.navigate('adminMenu') }>
-            <Button
-              title="Usuarios"
-              accessibilityLabel="Volver al inicio de sesión"
-            />
+class adminMenu extends Component {
+  constructor(props) {
+    super(props);
+    const data = require('./data/tasks.json');
+    const allTasks = data.tasks;
+    this.state = { tasks: {}, currentTask: 0, currentName: "" };
+    this.state.tasks = allTasks.filter(function(task){
+        if (!task.completed) return task;
+    });
+    this.state.currentName = this.state.tasks[0].name;
+  };
+  
+  render (){
+    changeScreenOrientation();
+    return(
+      <View style={styles.mainView}>        
+        <View style={styles.goBackView}>
+          {/* Volver a la pantalla anterior */}
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
+            <Text style={styles.loginAdminText}>Volver</Text>
           </TouchableOpacity>
         </View>
 
-        {/* Ir al menu de tareas (Boceto 11)*/}
-        <View style={styles.enterButtonView}>
-          <TouchableOpacity style={styles.enterButtonTouch} onPress={() => this.props.navigation.navigate('adminMenu') }>
-            <Button
-              title="Tareas"
-              accessibilityLabel="Gestionar las tareas"
-            />
-          </TouchableOpacity>
+        <View style={styles.fixToText}>
+
+          {/* Ir al menu de estudiantes (Boceto 5) */}
+          <View style={styles.enterButtonView}>
+            <TouchableOpacity style={styles.enterButtonTouch} onPress={() => this.props.navigation.navigate('adminMenu') }>
+              <Button
+                title="Usuarios"
+                accessibilityLabel="Volver al inicio de sesión"
+              />
+            </TouchableOpacity>
+          </View>
+
+          {/* Ir al menu de tareas (Boceto 11)*/}
+          <View style={styles.enterButtonView}>
+            <TouchableOpacity style={styles.enterButtonTouch} onPress={() => this.props.navigation.navigate('CreateNormalTask') }>
+              <Text style={styles.loginAdminText}>Tareas</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-
-      <View style={styles.enterButtonView}>
-        {/* Ir al menu de docs (Boceto 10) */}
-        <TouchableOpacity style={styles.enterButtonTouch} onPress={() => this.props.navigation.navigate('adminMenu') }>
-          <Button
-            title="Documentos"
-            accessibilityLabel="Menu de documentos"
-          />
-        </TouchableOpacity>
-      </View>
-      </ScrollView>
-    </View>
-
-  )
+    )
+  }
 }
 
 export default adminMenu;

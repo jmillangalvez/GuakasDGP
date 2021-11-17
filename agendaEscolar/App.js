@@ -6,6 +6,7 @@ import login from './Login';
 import DailyTasks from './DailyTasks';
 import loginAdmin from './loginAdmin';
 import admin_main from './admin_main';
+import CreateNormalTask from './CreateNormalTask';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +33,10 @@ const App = () => {
         <Stack.Screen
           name="StudentSubmenu"
           component={studentSubmenu}
+        />
+        <Stack.Screen
+          name="CreateNormalTask"
+          component={CreateNormalTask}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -143,7 +143,7 @@ class login extends Component {
         {choosingStudent? this.choosingStudentView() : null}
         {idStudentChosen != -1? this.studentChosenView(idStudentChosen) : null}
         <View style={styles.enterButtonView}> 
-          <TouchableOpacity style={styles.enterButtonTouch} onPress={() => this.props.navigation.navigate('') }>
+          <TouchableOpacity style={styles.enterButtonTouch} onPress={() => this.props.navigation.navigate('DailyTasks') }>
             <Image
             style={styles.image}
             source={require('./img/enter.png')}
@@ -152,7 +152,7 @@ class login extends Component {
           </TouchableOpacity>
         </View>
         <View style={styles.loginAdminView}> 
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('') }>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('LoginAdmin') }>
             <Text style={styles.loginAdminText}>Login Admin/Educador</Text>
           </TouchableOpacity>
         </View>

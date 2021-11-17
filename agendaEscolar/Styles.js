@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     choosingButton:  {
       height: '90%',
       borderWidth: 3,
-      fontSize: 25,
+      fontSize: 15,
       fontWeight: 'bold',
       flex: 1,
       alignItems: 'center',
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
       marginBottom: 15,
-      fontSize: 25,
+      fontSize: 5,
       fontWeight: 'bold',
     },
     choosingStudentView: {
@@ -158,7 +158,6 @@ const styles = StyleSheet.create({
       height: '100%',
     },
     goBackView: {
-      position: 'absolute',
       margin: 10,
       left: 5,
       top: 5,
@@ -172,7 +171,39 @@ const styles = StyleSheet.create({
     buttonText: {
       fontSize: 40,
       textAlign: 'center',
-      },
+    },
+    dailyTaskView: {
+      marginTop: '5%',
+      width: '50%',
+      height: '50%',
+      backgroundColor: "#faff6d",
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 25,
+      borderWidth: 3
+    },
+    dailyTaks: {
+      marginBottom: 15,
+      marginLeft: 100,
+      marginRight: 100,
+      fontSize: 25,
+      fontWeight: 'bold'
+    },
+    arrowButtonDailyTasks: {
+      flex: 0.5,
+      width: 100,
+      height: 100,
+      margin: 45,
+    },  
+    bottomBanner: {
+      backgroundColor: '#248aff',
+      width: '100%',
+      height: '15%',
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'absolute',
+      bottom: 0
+    },
   });
 
   export default styles;

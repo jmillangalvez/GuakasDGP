@@ -37,6 +37,9 @@ class loginAdmin extends Component {
           "Authentication Error",
           "Nombre de usuario o contraseña incorrectos. Por favor, vuelva a introducirlos de nuevo.",
       )
+    }else{
+      this.props.navigation.navigate('admin_main')
+      console.log("Entra")
     }
 
   };
@@ -76,7 +79,7 @@ class loginAdmin extends Component {
     
     changeScreenOrientation();
     return (
-      <View style={styles.container}>
+      <View style={styles.mainView}>
         <SafeAreaView style={styles.banner}>
           <Text style={styles.headerText} value="LOGIN ADMIN">LOGIN ADMIN</Text>
         </SafeAreaView>
