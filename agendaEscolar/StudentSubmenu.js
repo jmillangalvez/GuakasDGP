@@ -13,6 +13,10 @@ export default function studentSubmenu({navigation}) {
     changeScreenOrientation();
     return (
         <View style={styles.mainView}>
+            <SafeAreaView style={styles.banner}>
+                <Text style={styles.headerText} value="StudentSubmenu" accessibilityRole="header">Submenu Estudiante</Text>
+            </SafeAreaView>
+
             <View style={styles.goBackView}>
                 <Button
                     title="Volver"
