@@ -139,6 +139,40 @@ const styles = StyleSheet.create({
       width: 20,
       height: 100,
       margin: 100,
+    },
+    container2: {
+      flexDirection: "row",
+      flexWrap: "wrap",
+      backgroundColor: '#fff',
+      width: '100%',
+      height: '95%',
+      alignContent: 'center',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    taskButtonTouch: {
+      width: 300,
+      height: 300,
+      margin: 10,
+      backgroundColor: "#faff6d",
+      alignItems: 'center',
+      justifyContent: 'space-evenly',
+    },
+    taskButtonText: {
+      fontSize: 40,
+      textAlign: 'center',
+      fontWeight: 'bold',
+    },
+    goBackText: {
+      fontSize: 18,
+      width: '100%',
+      height: '100%',
+    },
+    goBackView: {
+      position: 'absolute',
+      margin: 10,
+      left: 5,
+      top: 5,
     }
   });
 
