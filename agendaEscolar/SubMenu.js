@@ -15,7 +15,7 @@ async function changeScreenOrientation() {
 function subMenu({ navigation }) {
   changeScreenOrientation();
   return (
-    <View style={styles.container}>
+    <View style={styles.container2}>
       <SafeAreaView style={styles.banner}
         accessibilityLabel="SUBMENU DE TAREAS FIJAS"
         accessibilityRole="header"

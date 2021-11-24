@@ -107,7 +107,51 @@ const styles = StyleSheet.create({
       width: '95%',
       justifyContent: 'center',
     },
+    loginAdminBox: {
+      height: 'auto',
+      width: '100%',
+      justifyContent: 'center',
+      textAlign: 'center',
+      alignItems: 'center',
+      padding: 30,
+      borderWidth: 4
+    },
+    loginAdminInput: {
+      justifyContent: 'center',
+      textAlign: 'center',
+      margin: 5,
+      borderWidth: 2,
+      borderRadius: 10,
+      padding: 5
+    },
+    loginAdminButton: {
+      justifyContent: 'center',
+      textAlign: 'center',
+      margin: 5,
+      borderWidth: 2,
+      borderRadius: 10,
+      padding: 10,
+      backgroundColor: '#248aff'
+    },
+    center: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      alignContent: 'center'
+    },
+    fixToText: {
+      flexDirection: 'row',
+      justifyContent: 'space-between'
+    },
     container: {
+      flex: 0.9, 
+      flexDirection: 'row', 
+      flexWrap: 'wrap',
+      alignItems: 'center',
+      justifyContent: 'space-evenly',
+      marginTop: 60
+    },
+    container2: {
       flexDirection: "row",
       flexWrap: "wrap",
       backgroundColor: '#fff',
@@ -116,6 +160,16 @@ const styles = StyleSheet.create({
       alignContent: 'center',
       alignItems: 'center',
       justifyContent: 'center',
+    },
+    buttonTouch: {
+      backgroundColor: "#bcbcbc",
+      justifyContent: 'center',
+      width: '42.5%',
+      height: '42.5%'
+    },
+    buttonText: {
+      fontSize: 40,
+      textAlign: 'center',
     },
     taskButtonTouch: {
       width: 300,
@@ -136,8 +190,10 @@ const styles = StyleSheet.create({
       height: '100%',
     },
     goBackView: {
-      width: '95%',
-      height: '5%'
+      position: 'absolute',
+      margin: 10,
+      left: 5,
+      top: 5,
     }
   });
 
