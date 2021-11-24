@@ -1,6 +1,6 @@
-./agendaEscolar/.expo
-./agendaEscolar/.expo-shared
-./agendaEscolar/node_modules
+/agendaEscolar/.expo
+/agendaEscolar/.expo-shared
+/agendaEscolar/node_modules
 
 # Compiled class file
 *.class
