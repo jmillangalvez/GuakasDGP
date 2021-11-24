@@ -14,6 +14,15 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
+    bottomBanner: {
+      backgroundColor: '#248aff',
+      width: '100%',
+      height: '15%',
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'absolute',
+      bottom: 0
+    },
     headerText: {
       fontSize: 60,
       fontWeight: 'bold'
@@ -95,7 +104,6 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
-
     image: {
       width: '100%',
       height: '100%',
@@ -108,71 +116,30 @@ const styles = StyleSheet.create({
       width: '95%',
       justifyContent: 'center',
     },
-    loginAdminBox: {
-      height: 'auto',
-      width: '100%',
-      justifyContent: 'center',
-      textAlign: 'center',
+    dailyTaskView: {
+      marginTop: '5%',
+      width: '50%',
+      height: 500,
+      backgroundColor: "#faff6d",
       alignItems: 'center',
-      padding: 30,
-      borderWidth: 4
-    },
-    loginAdminInput: {
       justifyContent: 'center',
-      textAlign: 'center',
-      margin: 5,
-      borderWidth: 2,
-      borderRadius: 10,
-      padding: 5
+      borderRadius: 25,
+      borderWidth: 3
     },
-    loginAdminButton: {
-      justifyContent: 'center',
-      textAlign: 'center',
-      margin: 5,
-      borderWidth: 2,
-      borderRadius: 10,
-      padding: 10,
-      backgroundColor: '#248aff'
+    dailyTaks: {
+      marginBottom: 15,
+      marginLeft: 100,
+      marginRight: 100,
+      fontSize: 25,
+      fontWeight: 'bold'
     },
-    center: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      alignContent: 'center'
-    },
-    fixToText: {
-      flexDirection: 'row',
-      justifyContent: 'space-between'
-    },
-    container: {
-      flex: 0.9, 
-      flexDirection: 'row', 
-      flexWrap: 'wrap',
-      alignItems: 'center',
-      justifyContent: 'space-evenly',
-      marginTop: 60
-    },
-    goBackText: {
-      fontSize: 18,
-      width: '100%',
-      height: '100%',
-    },
-    goBackView: {
-      position: 'absolute',
-      margin: 10,
-      left: 5,
-      top: 5,
-    },
-    buttonTouch: {
-      backgroundColor: "#bcbcbc",
-      justifyContent: 'center',
-      width: '42.5%',
-      height: '42.5%'
-    },
-    buttonText: {
-      fontSize: 40,
-      textAlign: 'center',
-      },
+    arrowButtonDailyTasks: {
+      borderWidth: 3,
+      flex: 0.5,
+      width: 20,
+      height: 100,
+      margin: 100,
+    }
   });
 
   export default styles;
