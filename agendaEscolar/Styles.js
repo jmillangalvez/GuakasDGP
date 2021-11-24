@@ -14,6 +14,15 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
+    bottomBanner: {
+      backgroundColor: '#248aff',
+      width: '100%',
+      height: '15%',
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'absolute',
+      bottom: 0
+    },
     headerText: {
       fontSize: 60,
       fontWeight: 'bold'
@@ -172,7 +181,31 @@ const styles = StyleSheet.create({
     buttonText: {
       fontSize: 40,
       textAlign: 'center',
-      },
+    },
+    dailyTaskView: {
+      marginTop: '5%',
+      width: '50%',
+      height: 500,
+      backgroundColor: "#faff6d",
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 25,
+      borderWidth: 3
+    },
+    dailyTaks: {
+      marginBottom: 15,
+      marginLeft: 100,
+      marginRight: 100,
+      fontSize: 25,
+      fontWeight: 'bold'
+    },
+    arrowButtonDailyTasks: {
+      borderWidth: 3,
+      flex: 0.5,
+      width: 20,
+      height: 100,
+      margin: 100,
+    }
   });
 
   export default styles;
