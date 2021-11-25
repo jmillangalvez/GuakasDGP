@@ -11,14 +11,37 @@ async function changeScreenOrientation() {
 class loginAdmin extends Component {
   constructor(props) {
     super(props);
-    this.state = { authenticated: false, name:"", password:""};
-    this.listAdmins = require('./data/admin.json');
+    this.state = { authenticated: false, userName:"", password:"", listAdmins: []};
+    //this.listAdmins = require('./data/admin.json');
+  }
+
+  async getAdmins() {
+    try {
+      const response = await fetch('http://localhost:8000/admins/', {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+      });
+      const json = await response.json();
+      this.setState({ listAdmins: json.items });
+      console.log(this.state.listAdmins)
+      console.log(this.state.listAdmins[0].name)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  componentDidMount(){
+    this.getAdmins();
   }
 
   checkAdminPassword = () => {
     var notFound = true;
-    for(var i = 0; i < this.listAdmins.admins.length; i++){
-      if(this.listAdmins.admins[i].name === this.state.name && this.listAdmins.admins[i].password === this.state.password){
+    for(var i = 0; i < this.state.listAdmins.length; i++){
+      if(this.state.listAdmins[i].userName === this.state.userName && this.state.listAdmins[i].password === this.state.password){
         this.setState({
           authenticated: true,
           password: ""
@@ -30,13 +53,16 @@ class loginAdmin extends Component {
     }
     if(notFound){
       this.setState({
-        name: "",
+        userName: "",
         password: ""
       });
       Alert.alert(
           "Authentication Error",
           "Nombre de usuario o contraseña incorrectos. Por favor, vuelva a introducirlos de nuevo.",
       )
+    }else{
+      this.props.navigation.navigate('admin_main')
+      console.log("Entra")
     }
 
   };
@@ -46,9 +72,11 @@ class loginAdmin extends Component {
       <View accessible={true} style={styles.loginAdminBox}>
         <TextInput
           style={styles.loginAdminInput}
-          onChangeText = {(text) => this.setState({name: text})}
-          defaultValue = {this.state.name}
+          onChangeText = {(text) => this.setState({userName: text})}
+          defaultValue = {this.state.userName}
           placeholder = "Usuario"
+          accessibilityLabel = "Usuario"
+          accessibilityHint = "Espacio para introducir el nombre de usuario."
         />
             
         <TextInput
@@ -57,6 +85,8 @@ class loginAdmin extends Component {
           defaultValue = {this.state.password}
           secureTextEntry = {true}
           placeholder = "Contraseña"
+          accessibilityLabel = "Contraseña"
+          accessibilityHint = "Espacio para introducir la contraseña."
         />
 
         <TouchableOpacity
@@ -72,11 +102,11 @@ class loginAdmin extends Component {
   }
 
   render(){
-    const { authenticated, name, password } = this.state;
+    const { authenticated, userName, password } = this.state;
     
     changeScreenOrientation();
     return (
-      <View style={styles.container}>
+      <View style={styles.mainView}>
         <SafeAreaView style={styles.banner}>
           <Text style={styles.headerText} value="LOGIN ADMIN">LOGIN ADMIN</Text>
         </SafeAreaView>
