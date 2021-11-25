@@ -61,8 +61,7 @@ class loginAdmin extends Component {
           "Nombre de usuario o contraseña incorrectos. Por favor, vuelva a introducirlos de nuevo.",
       )
     }else{
-      this.props.navigation.navigate('admin_main')
-      console.log("Entra")
+      this.props.navigation.navigate('AdminMain')
     }
 
   };

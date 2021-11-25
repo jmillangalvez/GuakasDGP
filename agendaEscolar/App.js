@@ -5,7 +5,7 @@ import studentSubmenu from './StudentSubmenu';
 import login from './Login';
 import DailyTasks from './DailyTasks';
 import loginAdmin from './loginAdmin';
-import admin_main from './admin_main';
+import AdminMain from './AdminMain';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,8 +26,8 @@ const App = () => {
           component={loginAdmin}
         />
         <Stack.Screen
-          name="admin_main"
-          component={admin_main}
+          name="AdminMain"
+          component={AdminMain}
         />
         <Stack.Screen
           name="StudentSubmenu"
