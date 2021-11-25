@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { Fragment, useState, useRef, useEffect, Component } from "react";
 import { Text, SafeAreaView, TouchableOpacity, View, Image } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
-import styles from "./styles";
+import styles from "./Styles";
 
 async function changeScreenOrientation() {
     await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT);
@@ -70,7 +70,7 @@ class DailyTasks extends Component {
     listTask = () => {
         return(
             <TouchableOpacity 
-                style={styles.choosingbutton} 
+                style={styles.choosingButton} 
                 onPress={ () => this.props.navigation.navigate('InfoTask', {
                     task: this.state.tasks[this.state.currentTask]
                 }) }
