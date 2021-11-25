@@ -33,6 +33,14 @@ const App = () => {
           name="StudentSubmenu"
           component={studentSubmenu}
         />
+        <Stack.Screen
+          name="m_tarea"
+          component={modificaTarea}
+        />
+        <Stack.Screen
+          name="ListaPictograma"
+          component={listaPictograma}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
