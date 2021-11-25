@@ -6,6 +6,7 @@ import login from './Login';
 import DailyTasks from './DailyTasks';
 import loginAdmin from './loginAdmin';
 import admin_main from './admin_main';
+import PictogramTask from "./PictogramTask";
 
 const Stack = createNativeStackNavigator();
 
@@ -14,12 +15,16 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen
-            name="Login"
-            component={login}
+          name="PictogramTask"
+          component={PictogramTask}
         />
         <Stack.Screen
-            name="DailyTasks"
-            component={DailyTasks}
+          name="Login"
+          component={login}
+        />
+        <Stack.Screen
+          name="DailyTasks"
+          component={DailyTasks}
         />
         <Stack.Screen
           name="LoginAdmin"

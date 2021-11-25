@@ -24,7 +24,7 @@ class DailyTasks extends Component {
         return(
             <TouchableOpacity 
                 style={styles.choosingButton} 
-                onPress={ () => this.props.navigation.navigate('Login') }
+                onPress={ () => this.props.navigation.navigate('PictogramTask') }
                 accessibilityLabel="Tarea seleccionada"
                 accessibilityRole="button"
                 accessibilityHint="Pulsa para mostrar la tarea"
