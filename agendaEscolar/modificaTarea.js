@@ -30,12 +30,12 @@ export default function modificaTarea ({navigation}) {
         />
         <Text style={styles.textText}>{`Título pictograma:        `}
         <TouchableOpacity style={styles.input} onPress={() => navigation.navigate('ListaPictograma')}>
-          <Image source={require('./assets/snack-icon.png')} style={styles.img}/>
+          <Image source={require('./img/pict1.png')} style={styles.img}/>
         </TouchableOpacity>
         </Text>
         <Text style={styles.textText}>{`Descripción pictogramas:\t`}
         <TouchableOpacity style={styles.input} onPress={() => navigation.navigate('ListaPictograma')}>
-          <Image source={require('./mas.png')} style={styles.img}/>
+          <Image source={require('./img/mas.png')} style={styles.img}/>
         </TouchableOpacity>
         </Text>
       </View>
