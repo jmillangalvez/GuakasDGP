@@ -5,6 +5,7 @@ import studentSubmenu from './StudentSubmenu';
 import login from './Login';
 import DailyTasks from './DailyTasks';
 import loginAdmin from './loginAdmin';
+import PictogramTask from "./PictogramTask";
 import AdminMain from './AdminMain';
 
 const Stack = createNativeStackNavigator();
@@ -14,12 +15,16 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen
-            name="Login"
-            component={login}
+          name="PictogramTask"
+          component={PictogramTask}
         />
         <Stack.Screen
-            name="DailyTasks"
-            component={DailyTasks}
+          name="Login"
+          component={login}
+        />
+        <Stack.Screen
+          name="DailyTasks"
+          component={DailyTasks}
         />
         <Stack.Screen
           name="LoginAdmin"

@@ -23,6 +23,16 @@ const styles = StyleSheet.create({
       position: 'absolute',
       bottom: 0
     },
+    sideBanner: {
+      backgroundColor: '#eb3d34',
+      width: '12.5%',
+      height: '70%',
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'absolute',
+      right: 0,
+      bottom: '15%'
+    },
     headerText: {
       fontSize: 60,
       fontWeight: 'bold'
@@ -104,10 +114,13 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
-
     image: {
       width: '100%',
       height: '100%',
+    },
+    pictogram: {
+      width: '500px',
+      height: '500px',
     },
     loginAdminText: {
       width: '100%',
