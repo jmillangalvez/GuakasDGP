@@ -29,7 +29,7 @@ class TaskSubmenu extends Component{
                         accessibilityRole="button"
                         accessibilityHint="Vuelve al menú del administrador"
                         color="#bcbcbc"
-                        onPress={() => navigation.navigate('AdminMain')}
+                        onPress={() => this.props.navigation.navigate('AdminMain')}
                     />
                 </View>
                 <View style={styles.container}>
