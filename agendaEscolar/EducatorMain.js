@@ -30,17 +30,21 @@ class EducatorMain extends Component {
   render (){
     changeScreenOrientation();
     return(
-      <View style={styles.mainView}> +
+      <View style={styles.mainView}>
 
         <SafeAreaView style={styles.banner}>
-          <Text style={styles.headerText} value="ProfesorMenu" accessibilityRole="header">Menu profesor</Text>
+          <Text style={styles.headerText} value="ProfesorMenu" accessibilityRole="header">Menu educador</Text>
         </SafeAreaView>
 
         <View style={styles.goBackView}>
-          {/* Volver a la pantalla anterior */}
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
-            <Text style={styles.loginAdminText}>Volver</Text>
-          </TouchableOpacity>
+          <Button
+            title="Volver"
+            accessibilityLabel="Volver"
+            accessibilityRole="button"
+            accessibilityHint="Vuelve al inicio de sesión"
+            color="#bcbcbc"
+            onPress={() => this.props.navigation.navigate('Login')}
+          />
         </View>
 
         <View style={styles.fixToText}>
