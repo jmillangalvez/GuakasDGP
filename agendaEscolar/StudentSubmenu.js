@@ -21,24 +21,23 @@ class StudentSubmenu extends Component{
                 <SafeAreaView style={styles.banner}>
                     <Text style={styles.headerText} value="StudentSubmenu" accessibilityRole="header">Submenu Estudiante</Text>
                 </SafeAreaView>
+
                 <View style={styles.goBackView}>
-                    {/* Volver a la pantalla anterior */}
-                    <TouchableOpacity 
+                    <Button 
                         title="Volver"
                         accessibilityLabel="Volver"
                         accessibilityRole="button"
                         accessibilityHint="Vuelve al menú del administrador"
                         color="#bcbcbc"
-                        onPress={() => this.props.navigation.navigate('AdminMain')}>
-                        <Text style={styles.loginAdminText}>Volver</Text>
-                    </TouchableOpacity>
+                        onPress={() => this.props.navigation.navigate('AdminMain')}
+                    />
                 </View>
                 <View style={styles.container}>
                     <TouchableOpacity
                         accessibilityLabel="Añadir estudiante"
                         accessibilityRole="button"
                         accessibilityHint="Añade a un estudiante"
-                        style={styles.enterButtonView} 
+                        style={styles.buttonTouch} 
                         onPress={() => this.props.navigation.navigate('AddStudent')}>
                         <Text style={styles.buttonText}>Añadir{"\n"} estudiante</Text>
                     </TouchableOpacity>
@@ -46,7 +45,7 @@ class StudentSubmenu extends Component{
                         accessibilityLabel="Añadir educador"
                         accessibilityRole="button"
                         accessibilityHint="Añade un educador"
-                        style={styles.enterButtonView} 
+                        style={styles.buttonTouch} 
                         onPress={() => this.props.navigation.navigate('AddTeacher')}>
                         <Text style={styles.buttonText}>Añadir{"\n"} educador</Text>
                     </TouchableOpacity>
@@ -54,7 +53,7 @@ class StudentSubmenu extends Component{
                         accessibilityLabel="Modificar estudiante"
                         accessibilityRole="button"
                         accessibilityHint="Modificar datos de un estudiante"
-                        style={styles.enterButtonView} 
+                        style={styles.buttonTouch} 
                         onPress={() => this.props.navigation.navigate('ModifyStudent')}>
                         <Text style={styles.buttonText}>Modificar{"\n"} estudiante</Text>
                     </TouchableOpacity>
@@ -62,7 +61,7 @@ class StudentSubmenu extends Component{
                         accessibilityLabel="Modificar educador"
                         accessibilityRole="button"
                         accessibilityHint="Modificar datos de un educador"
-                        style={styles.enterButtonView} 
+                        style={styles.buttonTouch} 
                         onPress={() => this.props.navigation.navigate('ModifyTeacher')}>
                         <Text style={styles.buttonText}>Modificar{"\n"} educador</Text>
                     </TouchableOpacity>
