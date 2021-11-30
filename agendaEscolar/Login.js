@@ -8,7 +8,7 @@ async function changeScreenOrientation() {
   await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT);
 }
   
-class login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = { choosingStudent: false, studentsRow: 0, idStudentChosen: -1, data: [], nStudents: 0};
@@ -164,4 +164,4 @@ class login extends Component {
   }
 }
 
-export default login;
+export default Login;

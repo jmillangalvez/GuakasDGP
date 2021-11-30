@@ -8,7 +8,7 @@ async function changeScreenOrientation() {
   await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT);
 }
   
-class loginAdmin extends Component {
+class LoginAdmin extends Component {
   constructor(props) {
     super(props);
     this.state = { authenticated: false, userName:"", password:"", listAdmins: []};
@@ -113,11 +113,23 @@ class loginAdmin extends Component {
         <View style = {styles.center}>
           {this.loginView()}
         </View>
+        <View style = {styles.center}>
+          <TouchableOpacity
+            accessibilityLabel = "Entrar"
+            accessibilityRole = "button"
+            accessibilityHint = "Intenta loggearse con el usuario y credenciales introducidos."
+            style={styles.loginAdminButton}
+            onPress={() => this.props.navigation.navigate('LoginEducator')}>
+            <Text>Cambiar login Educador</Text>
+          </TouchableOpacity>
+        </View>
 
         <StatusBar style="auto" />
       </View>
+      
+    
     );
   }
 }
 
-export default loginAdmin;
+export default LoginAdmin;

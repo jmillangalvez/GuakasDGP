@@ -9,7 +9,7 @@ async function changeScreenOrientation() {
   await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT);
 }
 
-class StudentSubmenu extends Component{
+class TaskSubmenu extends Component{
     constructor(props) {
         super(props);
     };
@@ -19,52 +19,51 @@ class StudentSubmenu extends Component{
         return (
             <View style={styles.mainView}>
                 <SafeAreaView style={styles.banner}>
-                    <Text style={styles.headerText} value="StudentSubmenu" accessibilityRole="header">Submenu Estudiante</Text>
+                    <Text style={styles.headerText} value="TaskSubmenu" accessibilityRole="header">Submenu Tareas</Text>
                 </SafeAreaView>
+
                 <View style={styles.goBackView}>
-                    {/* Volver a la pantalla anterior */}
-                    <TouchableOpacity 
+                    <Button
                         title="Volver"
                         accessibilityLabel="Volver"
                         accessibilityRole="button"
                         accessibilityHint="Vuelve al menú del administrador"
                         color="#bcbcbc"
-                        onPress={() => this.props.navigation.navigate('AdminMain')}>
-                        <Text style={styles.loginAdminText}>Volver</Text>
-                    </TouchableOpacity>
+                        onPress={() => navigation.navigate('AdminMain')}
+                    />
                 </View>
                 <View style={styles.container}>
                     <TouchableOpacity
                         accessibilityLabel="Añadir estudiante"
                         accessibilityRole="button"
                         accessibilityHint="Añade a un estudiante"
-                        style={styles.enterButtonView} 
-                        onPress={() => this.props.navigation.navigate('AddStudent')}>
-                        <Text style={styles.buttonText}>Añadir{"\n"} estudiante</Text>
+                        style={styles.buttonTouch} 
+                        onPress={() => this.props.navigation.navigate('CreateNormalTask')}>
+                        <Text style={styles.buttonText}>Añadir tarea fija</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         accessibilityLabel="Añadir educador"
                         accessibilityRole="button"
                         accessibilityHint="Añade un educador"
-                        style={styles.enterButtonView} 
-                        onPress={() => this.props.navigation.navigate('AddTeacher')}>
-                        <Text style={styles.buttonText}>Añadir{"\n"} educador</Text>
+                        style={styles.buttonTouch} 
+                        onPress={() => this.props.navigation.navigate('CreateCommandTask')}>
+                        <Text style={styles.buttonText}>Añadir comanda comedor</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         accessibilityLabel="Modificar estudiante"
                         accessibilityRole="button"
                         accessibilityHint="Modificar datos de un estudiante"
-                        style={styles.enterButtonView} 
-                        onPress={() => this.props.navigation.navigate('ModifyStudent')}>
-                        <Text style={styles.buttonText}>Modificar{"\n"} estudiante</Text>
+                        style={styles.buttonTouch} 
+                        onPress={() => this.props.navigation.navigate('ModifyNormalTask')}>
+                        <Text style={styles.buttonText}>Modificar tarea fija</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         accessibilityLabel="Modificar educador"
                         accessibilityRole="button"
                         accessibilityHint="Modificar datos de un educador"
-                        style={styles.enterButtonView} 
-                        onPress={() => this.props.navigation.navigate('ModifyTeacher')}>
-                        <Text style={styles.buttonText}>Modificar{"\n"} educador</Text>
+                        style={styles.buttonTouch} 
+                        onPress={() => this.props.navigation.navigate('ModifyCommandTask')}>
+                        <Text style={styles.buttonText}>Modificar comanda comedor</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -72,4 +71,4 @@ class StudentSubmenu extends Component{
     }
 }
 
-export default StudentSubmenu;
+export default TaskSubmenu;
