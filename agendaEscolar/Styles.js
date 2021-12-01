@@ -219,6 +219,10 @@ const styles = StyleSheet.create({
       width: 20,
       height: 100,
       margin: 100,
+    },
+    listView: {
+      width: '100%',
+      margin: 5,
     }
   });
 
