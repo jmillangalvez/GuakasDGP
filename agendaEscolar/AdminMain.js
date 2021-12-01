@@ -15,7 +15,7 @@ async function changeScreenOrientation() {
 }
 
 
-class EducatorMain extends Component {
+class AdminMain extends Component {
   constructor(props) {
     super(props);
     const data = require('./data/tasks.json');
@@ -30,10 +30,10 @@ class EducatorMain extends Component {
   render (){
     changeScreenOrientation();
     return(
-      <View style={styles.mainView}> +
+      <View style={styles.mainView}>
 
         <SafeAreaView style={styles.banner}>
-          <Text style={styles.headerText} value="ProfesorMenu" accessibilityRole="header">Menu profesor</Text>
+          <Text style={styles.headerText} value="AdminMenu" accessibilityRole="header">Menu administrador</Text>
         </SafeAreaView>
 
         <View style={styles.goBackView}>
@@ -43,10 +43,27 @@ class EducatorMain extends Component {
           </TouchableOpacity>
         </View>
 
-        <View style={styles.fixToText}>
+        <View style={styles.formLine}>
+
+          {/* Ir al menu de estudiantes (Boceto 5) */}
           <View style={styles.enterButtonView}>
-            <TouchableOpacity style={styles.enterButtonTouch} onPress={() => this.props.navigation.navigate('AssignTask') }>
-              <Text style={styles.loginAdminText}>Asignar Tarea</Text>
+            <TouchableOpacity style={styles.formLeft} onPress={() => this.props.navigation.navigate('StudentSubmenu') }>
+              <Text style={styles.loginAdminText}>Usuarios</Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* Ir al menu de tareas (Boceto 11)*/}
+          <View style={styles.enterButtonView}>
+            <TouchableOpacity style={styles.formLeft} onPress={() => this.props.navigation.navigate('TaskSubmenu') }>
+              <Text style={styles.loginAdminText}>Tareas</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styles.formLine}>
+          <View style={styles.enterButtonView}>
+            <TouchableOpacity style={styles.formLeft} onPress={() => this.props.navigation.navigate('DocumentSubmenu') }>
+              <Text style={styles.loginAdminText}>Documentos</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -55,4 +72,4 @@ class EducatorMain extends Component {
   }
 }
 
-export default EducatorMain;
+export default AdminMain;
