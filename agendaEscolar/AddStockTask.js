@@ -26,6 +26,7 @@ class AddStockTask extends Component {
     try {
       const response = await fetch('http://localhost:8000/tasks/', {
         method: 'POST',
+        mode: 'cors',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json'
