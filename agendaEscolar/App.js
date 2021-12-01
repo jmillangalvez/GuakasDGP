@@ -23,6 +23,7 @@ import TaskSubmenu from './TaskSubmenu';
 import TeacherMain from './TeacherMain';
 import ModifyStockTask from './ModifyStockTask';
 import InfoStockTask from './InfoStockTask';
+import StudentList from "./StudentList";
 
 const Stack = createNativeStackNavigator();
 
@@ -118,6 +119,10 @@ const App = () => {
           name="InfoStockTask"
           component={InfoStockTask}
         />
+	<Stack.Screen
+          name="StudentList"
+          component={StudentList}
+	/>
       </Stack.Navigator>
     </NavigationContainer>
   );
