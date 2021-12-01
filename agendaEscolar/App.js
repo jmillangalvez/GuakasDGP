@@ -2,6 +2,7 @@ import React from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import studentSubmenu from './StudentSubmenu';
+import AddStockTask from './AddStockTask'
 import login from './Login';
 import DailyTasks from './DailyTasks';
 import loginAdmin from './loginAdmin';
@@ -14,8 +15,8 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen
-            name="Login"
-            component={login}
+            name="AddStockTask"
+            component={AddStockTask}
         />
         <Stack.Screen
             name="DailyTasks"

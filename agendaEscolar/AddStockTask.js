@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React, { Component,useState } from "react";
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, SafeAreaView, TouchableOpacity, View, ScrollView} from 'react-native';
+import { SafeAreaView, TouchableOpacity, View, TextInput, Picker} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as ScreenOrientation from 'expo-screen-orientation';
@@ -10,6 +10,12 @@ import styles from './Styles';
 
 // Boceto 4: Pantalla principal del administrador
 // Para la navegacion, reemplazar adminMenu en navigation
+
+// Cambiar orientación de la pantalla
+async function changeScreenOrientation() {
+  await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.DEFAULT);
+}
+
 class AddStockTask extends Component {
   constructor(props) {
         super(props);
@@ -25,7 +31,7 @@ class AddStockTask extends Component {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          title: this.state.,
+          title: this.state.title,
           description: this.state.description,
           picto: this.state.picto
         })
@@ -35,15 +41,11 @@ class AddStockTask extends Component {
     }
   }
 
-    // Cambiar orientación de la pantalla
-  async function changeScreenOrientation() {
-    await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.DEFAULT);
-  }
-
   render() {
     changeScreenOrientation();
 
-    const { title: "", description: "", picto: 0} = this.state;
+    const { title, description, picto} = this.state;
+    
 
     return (
       <View style={styles.container}>
@@ -68,7 +70,7 @@ class AddStockTask extends Component {
 
           {/* Poner titulo a una tarea */}
           <View style={styles.Input}>
-              <TouchableOpacity onFocus={() => placeholder=''}>
+              <TouchableOpacity>
               <TextInput
                   onChangeText = { (newTitle) => this.setState({title: newTitle})}
                   label='Título tarea'
@@ -105,6 +107,18 @@ class AddStockTask extends Component {
                   accessibilityRole="input"
                   accessibilityHint="Introduce un título para el pictograma"
               />
+
+              {/* Solo puede haber uno */}
+              <Picker
+                selectedValue={this.state.picto}
+                style={{ height: 50, width: 150 }}
+                onValueChange={(itemValue, itemIndex) => this.state.picto = (itemValue)  }
+              >
+                <Picker.Item label ="foto" value="0" />
+                <Picker.Item label ="pictograma" value="1" />
+                <Picker.Item label ="video" value="2" />
+              </Picker>
+              {/* const [selectedValue, setSelectedValue] = useState(null); */}
           </View>
           {/* Descripción de los pictogramas: va con una imagen y el icono + */}
           {/* <View style={styles.Input}>
