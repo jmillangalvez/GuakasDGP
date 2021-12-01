@@ -24,12 +24,7 @@ class PictogramTask extends Component {
     listPicto() {
 
         if (this.state.currentPicto < this.state.pictograms.length) {
-            return (
-                <Image
-                    source={require(`./img/${this.state.pictograms[this.state.currentPicto]}`)}
-                    style={styles.pictogram}
-                />
-            );
+
         } else {
             return (
                 <TouchableOpacity
@@ -66,10 +61,7 @@ class PictogramTask extends Component {
         return (
             <View style={styles.mainView}>
                 <SafeAreaView style={styles.banner}>
-                <Image
-                            source={require(`./img/${this.state.pictograms[0]}`)}
-                            style={{ height: '100px', width: '100px' }}
-                        />
+
                 </SafeAreaView>
 
                 {this.state.currentPicto <= 1 ? null : <SafeAreaView style={[styles.sideBanner, { left: 0 }]}>

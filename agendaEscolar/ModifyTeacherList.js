@@ -17,15 +17,7 @@ class ModifyTeacherList extends Component {
 
       data:[
 
-        {
-          data:[
-            {name:'Tatiana López', image:require("./data/imagenesEducadores/1.jpg")},
-            {name:'Sergio Moreno', image:require("./data/imagenesEducadores/2.jpg")},
-            {name:'Antonio Rodríguez', image:require("./data/imagenesEducadores/3.jpg")},
-            {name:'Luis García', image:require("./data/imagenesEducadores/4.jpg")},
-            {name:'Marina Valero', image:require("./data/imagenesEducadores/5.jpg")}
-          ]
-        },
+       
 
       ]
     }

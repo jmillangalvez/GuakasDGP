@@ -218,7 +218,69 @@ const styles = StyleSheet.create({
       width: 20,
       height: 100,
       margin: 100,
-    }
+    },
+    addStudent: {
+      width: '50%',
+      height: '80%',
+      marginTop: '5%',
+      alignItems: 'center',
+    },
+    formLine: {
+      flexDirection: 'row',
+      marginBottom: '1%',
+    },
+    formLeft: {
+      width: 160,
+      marginRight: '1%',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    formRight: {
+      width: 200,
+      justifyContent: 'center',
+    },
+    formRightBG: {
+      backgroundColor: "#bcbcbc",
+      width: 200,
+      justifyContent: 'center',
+    },
+    formContent: {
+      marginTop: 5,
+      marginBottom: 5,
+      marginLeft: '2%',
+      width: '80%',
+    },
+    formContentBG: {
+      backgroundColor: "#bcbcbc",
+      marginTop: 5,
+      marginBottom: 5,
+      marginLeft: '2%',
+      width: '80%',
+    },
+    formContentLine: {
+      marginTop: 1,
+      marginLeft: '2%',
+      width: '90%',
+      borderBottomColor: "#bcbcbc",
+      borderBottomWidth: 2,
+    },
+    confirmButton: {
+      position: 'absolute',
+      alignSelf: 'center',
+      top: '80%',
+      backgroundColor: "#faff6d",
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 25,
+    },
+    addImageButton: {
+      marginTop: '5%',
+      width: 100,
+      height: 100,
+      backgroundColor: "#bcbcbc",
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
   });
 
   export default styles;

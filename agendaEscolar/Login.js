@@ -143,7 +143,7 @@ class Login extends Component {
         {choosingStudent? this.choosingStudentView() : null}
         {idStudentChosen != -1? this.studentChosenView(idStudentChosen) : null}
         <View style={styles.enterButtonView}> 
-          <TouchableOpacity style={styles.enterButtonTouch} onPress={() => this.props.navigation.navigate('DailyTasks', {
+          <TouchableOpacity style={styles.enterButtonTouch} onPress={() => this.props.navigation.navigate('InfoStockTask', {
             idStudent: idStudentChosen
           }) }>
             <Image

@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { Fragment, useState, useRef, useEffect, Component } from "react";
 import { Text, SafeAreaView, TouchableOpacity, View, Image, ViewPropTypes, Button, TextInput, Picker, Alert } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
+import * as ImagePicker from 'expo-image-picker';
 import styles from "./Styles";
 
 
@@ -9,12 +10,12 @@ async function changeScreenOrientation() {
     await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT);
 }
 
+
 class AddStudent extends Component {
 
   constructor(props){
     super(props);
-    this.state= {name:"", accesibilidad: 1}
-    this.students = require('./data/students.json');
+    this.state= {name:"", accesibilidad: 1, selectedImage:null}
   }
 
   aniadirEstudiante = () => {
@@ -44,6 +45,27 @@ class AddStudent extends Component {
       console.log(error);
     }
   }
+
+
+  //  WIP
+  /*async openImagePicker(){
+
+    let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert('Permission to access camera roll is required!');
+      return;
+    }
+
+    let pickerResult = await ImagePicker.launchImageLibraryAsync();
+    if (pickerResult.cancelled === true) {
+      return;
+    }
+
+    setSelectedImage({ localUri: pickerResult.uri });
+
+  }*/
+  
 
   render(){
     
@@ -94,24 +116,47 @@ class AddStudent extends Component {
 
             <View style={styles.formRight}>
             <Picker
-              accessibilityLabel="Clase asignada"
+              accessibilityLabel="Tipo de accesibilidad"
               accessibilityRole="spinbutton"
-              accessibilityHint="Selecciona a que clase esta asignado" 
+              accessibilityHint="Selecciona que tipo de accesibilidad necesita" 
               onValueChange = {(itemValue) => this.setState({accesibilidad: itemValue})}
             >
                 <Picker.Item
-                accessibilityLabel="Primero A"
+                accessibilityLabel="Texto"
                 accessibilityRole="Button"
-                accessibilityHint="Selecciona Primero A como clase" 
+                accessibilityHint="Selecciona texto como accesibilidad" 
                 label="Texto" value="1" />
                 <Picker.Item
-                accessibilityLabel="Primero B"
+                accessibilityLabel="Pictogramas"
                 accessibilityRole="Button"
-                accessibilityHint="Selecciona Primero B como clase" 
+                accessibilityHint="Selecciona pictogramas como accesibilidad" 
                 label="Pictogramas" value="2" />
               </Picker>
             </View>
+          </View> 
+
+          <View style={styles.formLine}>
+            <View style={styles.formLeft}>
+              <Text style={styles.formContent}>Foto:</Text>
+            </View>
+
+            <View style={styles.formRight}>
+            
+            <TouchableOpacity 
+              style={styles.addImageButton} 
+              onPress={this.openImagePicker}
+            >
+            <Image
+            style={styles.image}             
+            source={require("./img/fotoperfil.png")}
+            accessibilityLabel="Entrar en la aplicacion"
+            />
+            </TouchableOpacity>
+
+            </View>
           </View>        
+
+
         </View>
 
         <View style={styles.confirmButton}>

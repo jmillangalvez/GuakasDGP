@@ -19,20 +19,7 @@ class ModifyStudentList extends Component {
 
       data:[
 
-        {
-          data:[
-            {name:'Luis García', image:require("./data/imagenesAlumnos/1.jpg")},
-            {name:'María González', image:require("./data/imagenesAlumnos/2.jpg")},
-            {name:'Juana Fernández', image:require("./data/imagenesAlumnos/3.jpg")},
-            {name:'Martina Rodríguez', image:require("./data/imagenesAlumnos/4.jpg")},
-            {name:'Alejandra López', image:require("./data/imagenesAlumnos/5.jpg")},
-            {name:'Rodrigo Martínez', image:require("./data/imagenesAlumnos/6.jpg")},
-            {name:'Martín Sánchez', image:require("./data/imagenesAlumnos/7.jpg")},
-            {name:'Andrea Pérez', image:require("./data/imagenesAlumnos/8.jpg")},
-            {name:'Manuel Gómez', image:require("./data/imagenesAlumnos/9.jpg")},
-            {name:'Teresa Martín', image:require("./data/imagenesAlumnos/10.jpg")},
-          ]
-        },
+        
         
       ]
     }
