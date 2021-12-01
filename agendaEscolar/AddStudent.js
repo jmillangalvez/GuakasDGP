@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { Fragment, useState, useRef, useEffect, Component } from "react";
 import { Text, SafeAreaView, TouchableOpacity, View, Image, ViewPropTypes, Button, TextInput, Picker, Alert } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
-import * as ImagePicker from 'expo-image-picker';
+//import * as ImagePicker from 'expo-image-picker';
 import styles from "./Styles";
 
 
@@ -144,7 +144,7 @@ class AddStudent extends Component {
             
             <TouchableOpacity 
               style={styles.addImageButton} 
-              onPress={this.openImagePicker}
+              //onPress={this.openImagePicker}
             >
             <Image
             style={styles.image}             
