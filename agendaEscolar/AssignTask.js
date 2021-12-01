@@ -64,7 +64,7 @@ class AssignTask extends Component {
             onPress={() => this.props.navigation.navigate('EducatorMain') }
             accessibilityLabel="Volver"
             accessibilityRole="Button"
-            accessibilityHint="Vuelve al menu del administrador"
+            accessibilityHint="Vuelve al menu del educador"
             color="#bcbcbc"
             >
             <Text style={styles.loginAdminText}>Volver</Text>
