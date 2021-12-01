@@ -189,7 +189,8 @@ const styles = StyleSheet.create({
       backgroundColor: "#bcbcbc",
       justifyContent: 'center',
       width: '42.5%',
-      height: '42.5%'
+      height: '42.5%',
+      padding: 30
     },
     buttonText: {
       fontSize: 40,
@@ -218,6 +219,10 @@ const styles = StyleSheet.create({
       width: 20,
       height: 100,
       margin: 100,
+    },
+    listView: {
+      width: '100%',
+      margin: 5,
     }
   });
 
