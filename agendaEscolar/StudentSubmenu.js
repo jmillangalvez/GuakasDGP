@@ -19,52 +19,65 @@ class StudentSubmenu extends Component{
         return (
             <View style={styles.mainView}>
                 <SafeAreaView style={styles.banner}>
-                    <Text style={styles.headerText} value="StudentSubmenu" accessibilityRole="header">Submenu Estudiante</Text>
+                    <Text style={styles.headerText} value="StudentSubmenu" accessibilityRole="header">Submenu Usuarios</Text>
                 </SafeAreaView>
 
                 <View style={styles.goBackView}>
-                    <Button 
-                        title="Volver"
-                        accessibilityLabel="Volver"
-                        accessibilityRole="button"
-                        accessibilityHint="Vuelve al menú del administrador"
-                        color="#bcbcbc"
-                        onPress={() => this.props.navigation.navigate('AdminMain')}
-                    />
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('AdminMain')}>
+                        <Text style={styles.backText}>Volver</Text>
+                    </TouchableOpacity>
                 </View>
-                <View style={styles.container}>
-                    <TouchableOpacity
-                        accessibilityLabel="Añadir estudiante"
-                        accessibilityRole="button"
-                        accessibilityHint="Añade a un estudiante"
-                        style={styles.buttonTouch} 
-                        onPress={() => this.props.navigation.navigate('AddStudent')}>
-                        <Text style={styles.buttonText}>Añadir{"\n"} estudiante</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        accessibilityLabel="Añadir educador"
-                        accessibilityRole="button"
-                        accessibilityHint="Añade un educador"
-                        style={styles.buttonTouch} 
-                        onPress={() => this.props.navigation.navigate('AddTeacher')}>
-                        <Text style={styles.buttonText}>Añadir{"\n"} educador</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        accessibilityLabel="Modificar estudiante"
-                        accessibilityRole="button"
-                        accessibilityHint="Modificar datos de un estudiante"
-                        style={styles.buttonTouch} 
-                        onPress={() => this.props.navigation.navigate('ModifyStudentList')}>
-                        <Text style={styles.buttonText}>Modificar{"\n"} estudiante</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        accessibilityLabel="Modificar educador"
-                        accessibilityRole="button"
-                        accessibilityHint="Modificar datos de un educador"
-                        style={styles.buttonTouch} 
-                        onPress={() => this.props.navigation.navigate('ModifyTeacherList')}>
-                        <Text style={styles.buttonText}>Modificar{"\n"} educador</Text>
-                    </TouchableOpacity>
+                <View style={styles.fixToText}>
+                    {/* Ir al menu de estudiantes (Boceto 5) */}
+                    <View style={styles.enterButtonView}>
+                        <TouchableOpacity
+                            accessibilityLabel="Añadir estudiante"
+                            accessibilityRole="button"
+                            accessibilityHint="Añade a un estudiante"
+                            onPress={() => this.props.navigation.navigate('AddStudent')}>
+                            <Text style={styles.loginAdminText}>Añadir estudiante</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.middleView}>
+                    </View>
+
+                    {/* Ir al menu de tareas (Boceto 11)*/}
+                    <View style={styles.enterButtonView}>
+                        <TouchableOpacity
+                            accessibilityLabel="Añadir educador"
+                            accessibilityRole="button"
+                            accessibilityHint="Añade un educador"
+                            onPress={() => this.props.navigation.navigate('AddTeacher')}>
+                            <Text style={styles.loginAdminText}>Añadir educador</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                <View style={styles.fixToText}>
+                    {/* Ir al menu de estudiantes (Boceto 5) */}
+                    <View style={styles.enterButtonDownView}>
+                        <TouchableOpacity
+                            accessibilityLabel="Modificar estudiante"
+                            accessibilityRole="button"
+                            accessibilityHint="Modificar datos de un estudiante"
+                            onPress={() => this.props.navigation.navigate('ModifyStudentList')}>
+                            <Text style={styles.loginAdminText}> Modificar</Text>
+                            <Text style={styles.loginAdminText}>estudiante</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.middleView}>
+                    </View>
+
+                    {/* Ir al menu de tareas (Boceto 11)*/}
+                    <View style={styles.enterButtonDownView}>
+                        <TouchableOpacity
+                            accessibilityLabel="Modificar educador"
+                            accessibilityRole="button"
+                            accessibilityHint="Modificar datos de un educador"
+                            onPress={() => this.props.navigation.navigate('ModifyTeacherList')}>
+                            <Text style={styles.loginAdminText}>Modificar</Text>
+                            <Text style={styles.loginAdminText}>educador</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
         );

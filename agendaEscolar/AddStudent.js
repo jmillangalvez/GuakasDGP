@@ -64,18 +64,18 @@ class AddStudent extends Component {
             accessibilityHint="Vuelve al menu del administrador"
             color="#bcbcbc"
             >
-            <Text style={styles.loginAdminText}>Volver</Text>
+            <Text style={styles.backText}>Volver</Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.addStudent}>
 
-          <View style={styles.formLine}>
-            <View style={styles.formLeft}>
+          <View style={styles.fixToText}>
+            <View style={styles.formItem}>
               <Text style={styles.formContent}>Nombre:</Text>
             </View>
 
-            <View style={styles.formRight}>
+            <View style={styles.formItem}>
               <TextInput 
                 style={styles.formContentLine}
                 onChangeText = {(text) => this.setState({name: text})}
@@ -87,12 +87,12 @@ class AddStudent extends Component {
             </View>
           </View>
 
-          <View style={styles.formLine}>
-            <View style={styles.formLeft}>
+          <View style={styles.fixToText}>
+            <View style={styles.formItem}>
               <Text style={styles.formContent}>Tipo de accesibilidad:</Text>
             </View>
 
-            <View style={styles.formRight}>
+            <View style={styles.formItem}>
             <Picker
               accessibilityLabel="Clase asignada"
               accessibilityRole="spinbutton"
@@ -109,6 +109,16 @@ class AddStudent extends Component {
                 accessibilityRole="Button"
                 accessibilityHint="Selecciona Primero B como clase" 
                 label="Pictogramas" value="2" />
+                <Picker.Item
+                accessibilityLabel="Primero B"
+                accessibilityRole="Button"
+                accessibilityHint="Selecciona Primero B como clase" 
+                label="Texto y Pictogramas" value="3" />
+                <Picker.Item
+                accessibilityLabel="Primero B"
+                accessibilityRole="Button"
+                accessibilityHint="Selecciona Primero B como clase" 
+                label="Video/Audio" value="4" />
               </Picker>
             </View>
           </View>        

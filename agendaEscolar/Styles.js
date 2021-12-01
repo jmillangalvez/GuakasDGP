@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
       fontSize: 60,
       fontWeight: 'bold'
     },
-    enterButtonView: {
+    enterButtonLoginView: {
       marginTop: '5%', 
       width: 180,
       height: 180,
@@ -46,6 +46,44 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       borderRadius: 25,
       borderWidth: 3
+    },
+    enterButtonView: {
+      marginTop: '20%',
+      width: 250,
+      height: 150,
+      backgroundColor: "#faff6d",
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 25,
+      borderWidth: 3
+    },
+    formItem: {
+      marginTop: '10%',
+      marginRight: '10%',
+    },
+    confirmButton: {
+      marginTop: '5%',
+    },
+    removeButton: {
+      marginTop: '1%',
+    },
+    enterButtonDownView: {
+      marginTop: '10%',
+      width: 250,
+      height: 150,
+      backgroundColor: "#faff6d",
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 25,
+      borderWidth: 3
+    },
+    middleView: {
+      marginTop: '20%',
+      width: 150,
+      height: 150,
+      backgroundColor: "#fff",
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     enterButtonTouch: {
       marginTop: '5%',
@@ -125,6 +163,16 @@ const styles = StyleSheet.create({
     loginAdminText: {
       width: '100%',
       height: '100%',
+      fontSize: 30
+    },
+    backText: {
+      width: '100%',
+      height: '100%',
+      fontSize: 20
+    },
+    normalText: {
+      width: '100%',
+      height: '100%'
     },
     loginAdminView: {
       width: '95%',

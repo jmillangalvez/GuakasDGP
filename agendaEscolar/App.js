@@ -7,9 +7,13 @@ import AddStudent from './AddStudent';
 import AddTeacher from './AddTeacher';
 import AdminMain from './AdminMain';
 import AssignTask from './AssignTask';
+import AssignTaskList1 from './AssignTaskList1';
+import AssignTaskList2 from './AssignTaskList2';
 import CreateNormalTask from './CreateNormalTask';
 import DailyTasks from './DailyTasks';
 import EducatorMain from './EducatorMain';
+import EducatorCompletedTasks from './EducatorCompletedTasks';
+import EducatorAssignedTasks from './EducatorAssignedTasks';
 import InfoTask from './InfoTask';
 import LoginAdmin from './LoginAdmin';
 import LoginEducator from './LoginEducator';
@@ -30,34 +34,53 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-
-
-      <Stack.Screen
-          name="Login"
-          component={Login}
-        />
-
-
-
         <Stack.Screen
-          name="AddStockTask"
-          component={AddStockTask}
+          name="EducatorMain"
+          component={EducatorMain}
         />
         <Stack.Screen
-          name="AddStudent"
-          component={AddStudent}
+          name="TaskSubmenu"
+          component={TaskSubmenu}
         />
         <Stack.Screen
           name="AddTeacher"
           component={AddTeacher}
         />
         <Stack.Screen
+          name="AddStudent"
+          component={AddStudent}
+        />
+        <Stack.Screen
           name="AdminMain"
           component={AdminMain}
         />
         <Stack.Screen
+          name="EducatorAssignedTasks"
+          component={EducatorAssignedTasks}
+        />
+        <Stack.Screen
+          name="EducatorCompletedTasks"
+          component={EducatorCompletedTasks}
+        />
+        <Stack.Screen
+          name="Login"
+          component={Login}
+        />
+        <Stack.Screen
+          name="AddStockTask"
+          component={AddStockTask}
+        />
+        <Stack.Screen
           name="AssignTask"
           component={AssignTask}
+        />
+        <Stack.Screen
+          name="AssignTaskList1"
+          component={AssignTaskList1}
+        />
+        <Stack.Screen
+          name="AssignTaskList2"
+          component={AssignTaskList2}
         />
         <Stack.Screen
           name="CreateNormalTask"
@@ -66,10 +89,6 @@ const App = () => {
         <Stack.Screen
           name="DailyTasks"
           component={DailyTasks}
-        />
-        <Stack.Screen
-          name="EducatorMain"
-          component={EducatorMain}
         />
         <Stack.Screen
           name="InfoTask"
@@ -106,10 +125,6 @@ const App = () => {
         <Stack.Screen
           name="StudentSubmenu"
           component={StudentSubmenu}
-        />
-        <Stack.Screen
-          name="TaskSubmenu"
-          component={TaskSubmenu}
         />
         <Stack.Screen
           name="TeacherMain"

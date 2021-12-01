@@ -30,7 +30,7 @@ class EducatorMain extends Component {
   render (){
     changeScreenOrientation();
     return(
-      <View style={styles.mainView}> +
+      <View style={styles.mainView}>
 
         <SafeAreaView style={styles.banner}>
           <Text style={styles.headerText} value="ProfesorMenu" accessibilityRole="header">Menu profesor</Text>
@@ -39,14 +39,30 @@ class EducatorMain extends Component {
         <View style={styles.goBackView}>
           {/* Volver a la pantalla anterior */}
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
-            <Text style={styles.loginAdminText}>Volver</Text>
+            <Text style={styles.backText}>Volver</Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.fixToText}>
           <View style={styles.enterButtonView}>
-            <TouchableOpacity style={styles.enterButtonTouch} onPress={() => this.props.navigation.navigate('AssignTask') }>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('AssignTaskList1') }>
               <Text style={styles.loginAdminText}>Asignar Tarea</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.middleView}>
+          </View>
+          <View style={styles.enterButtonView}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('EducatorCompletedTasks') }>
+              <Text style={styles.loginAdminText}>     Tareas</Text>
+              <Text style={styles.loginAdminText}>Completadas</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        
+        <View style={styles.fixToText}>
+          <View style={styles.enterButtonView}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('EducatorAssignedTasks') }>
+              <Text style={styles.loginAdminText}>Tareas Asignadas</Text>
             </TouchableOpacity>
           </View>
         </View>

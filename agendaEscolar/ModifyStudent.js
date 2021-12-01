@@ -39,24 +39,24 @@ class ModifyStudent extends Component {
         </SafeAreaView>
 
         <View style={styles.goBackView}>
-          <Button
-            title="Volver"
+          <TouchableOpacity 
+            onPress={() => this.props.navigation.navigate('StudentSubmenu') }
             accessibilityLabel="Volver"
             accessibilityRole="Button"
-            accessibilityHint="Vuelve al submenú del estudiante"
+            accessibilityHint="Vuelve al menu del administrador"
             color="#bcbcbc"
-            onPress={() =>this.props.navigation.navigate('ModifyStudentList')}
-          />
+            >
+            <Text style={styles.backText}>Volver</Text>
+          </TouchableOpacity>
         </View>
 
         <View style={styles.addStudent}>
-
-          <View style={styles.formLine}>
-            <View style={styles.formLeft}>
+          <View style={styles.fixToText}>
+            <View style={styles.formItem}>
               <Text style={styles.formContent}>Nombre:</Text>
             </View>
 
-            <View style={styles.formRight}>
+            <View style={styles.formItem}>
               <TextInput 
                 style={styles.formContentLine}
                 onChangeText = {(text) => this.setState({name: text})}
@@ -69,12 +69,12 @@ class ModifyStudent extends Component {
             </View>
           </View>
 
-          <View style={styles.formLine}>
-            <View style={styles.formLeft}>
+          <View style={styles.fixToText}>
+            <View style={styles.formItem}>
               <Text style={styles.formContent}>Tipo de Multimedia:</Text>
             </View>
 
-            <View style={styles.formRightBG}>
+            <View style={styles.formItem}>
             <Picker
               accessibilityLabel="Tipo de Multimedia"
               accessibilityRole="spinbutton"

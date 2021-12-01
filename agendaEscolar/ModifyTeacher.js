@@ -41,26 +41,25 @@ class ModifyTeacher extends Component {
         </SafeAreaView>
 
         <View style={styles.goBackView}>
-          <Button
-            title="Volver"
+          <TouchableOpacity 
+            onPress={() => this.props.navigation.navigate('StudentSubmenu') }
             accessibilityLabel="Volver"
             accessibilityRole="Button"
-            accessibilityHint="Vuelve al submenú del estudiante"
+            accessibilityHint="Vuelve al menu del administrador"
             color="#bcbcbc"
-            onPress={() =>
-                this.props.navigation.navigate('ModifyTeacherList')
-              }
-          />
+            >
+            <Text style={styles.backText}>Volver</Text>
+          </TouchableOpacity>
         </View>
 
         <View style={styles.addStudent}>
 
-          <View style={styles.formLine}>
-            <View style={styles.formLeft}>
+          <View style={styles.fixToText}>
+            <View style={styles.formItem}>
               <Text style={styles.formContent}>Nombre:</Text>
             </View>
 
-            <View style={styles.formRight}>
+            <View style={styles.formItem}>
               <TextInput 
                 style={styles.formContentLine}
                 onChangeText = {(text) => this.setState({name: text})}
@@ -72,22 +71,22 @@ class ModifyTeacher extends Component {
             </View>
           </View>
 
-          <View style={styles.formLine}>
-            <View style={styles.formLeft}>
+          <View style={styles.fixToText}>
+            <View style={styles.formItem}>
               <Text style={styles.formContent}>Correo:</Text>
             </View>
 
-            <View style={styles.formRight}>
+            <View style={styles.formItem}>
               <Text>tatiana1231@gmail.com</Text>
             </View>
           </View>
 
-          <View style={styles.formLine}>
-            <View style={styles.formLeft}>
+          <View style={styles.fixToText}>
+            <View style={styles.formItem}>
               <Text style={styles.formContent}>Contraseña:</Text>
             </View>
 
-            <View style={styles.formRight}>
+            <View style={styles.formItem}>
               <TextInput 
                 style={styles.formContentLine}
                 onChangeText = {(text) => this.setState({pass: text})}
@@ -98,58 +97,12 @@ class ModifyTeacher extends Component {
                 accessibilityHint="Introduce la contraseña del profesor" 
               />
             </View>
-          </View>
-
-          <View style={styles.formLine}>
-            <View style={styles.formLeft}>
-              <Text style={styles.formContent}>Clase:</Text>
-            </View>
-
-            <View style={styles.formRightBG}>
-            <Picker
-              accessibilityLabel="Clase asignada"
-              accessibilityRole="spinbutton"
-              accessibilityHint="Selecciona a que clase esta asignado" 
-              onValueChange = {(itemValue) => this.setState({clase: itemValue})}
-            >
-                <Picker.Item
-                accessibilityLabel="Primero A"
-                accessibilityRole="Button"
-                accessibilityHint="Selecciona Primero A como clase" 
-                label="1A" value="1a" />
-                <Picker.Item
-                accessibilityLabel="Primero B"
-                accessibilityRole="Button"
-                accessibilityHint="Selecciona Primero B como clase" 
-                label="1B" value="1b" />
-                <Picker.Item
-                accessibilityLabel="Segundo A"
-                accessibilityRole="Button"
-                accessibilityHint="Selecciona Segundo A como clase" 
-                label="2A" value="2a" />
-                <Picker.Item 
-                accessibilityLabel="Segundo B"
-                accessibilityRole="Button"
-                accessibilityHint="Selecciona Segundo B como clase" 
-                label="2B" value="2b" />
-              </Picker>
-            </View>
-          </View>
-
-          {/* <View style={styles.formLine}>
-            <View style={styles.formLeft}>
-              <Text style={styles.formContent}>Fotografia:</Text>
-            </View>
-            <View style={styles.formRightBG}>
-              <Text>+</Text>
-            </View>
-          </View> */}
-        
+          </View>        
         </View>
 
         <View style={styles.confirmButton}>
           <Button
-            title="Añadir Educador"
+            title="Modificar Educador"
             accessibilityLabel="Añadir Educador"
             accessibilityRole="Button"
             accessibilityHint="Añade el Educador"

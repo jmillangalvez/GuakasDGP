@@ -39,30 +39,30 @@ class AdminMain extends Component {
         <View style={styles.goBackView}>
           {/* Volver a la pantalla anterior */}
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
-            <Text style={styles.loginAdminText}>Volver</Text>
+            <Text style={styles.backText}>Volver</Text>
           </TouchableOpacity>
         </View>
 
-        <View style={styles.formLine}>
-
+        <View style={styles.fixToText}>
           {/* Ir al menu de estudiantes (Boceto 5) */}
           <View style={styles.enterButtonView}>
-            <TouchableOpacity style={styles.formLeft} onPress={() => this.props.navigation.navigate('StudentSubmenu') }>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('StudentSubmenu') }>
               <Text style={styles.loginAdminText}>Usuarios</Text>
             </TouchableOpacity>
           </View>
-
+          <View style={styles.middleView}>
+          </View>
           {/* Ir al menu de tareas (Boceto 11)*/}
           <View style={styles.enterButtonView}>
-            <TouchableOpacity style={styles.formLeft} onPress={() => this.props.navigation.navigate('TaskSubmenu') }>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('TaskSubmenu') }>
               <Text style={styles.loginAdminText}>Tareas</Text>
             </TouchableOpacity>
           </View>
         </View>
 
-        <View style={styles.formLine}>
+        <View>
           <View style={styles.enterButtonView}>
-            <TouchableOpacity style={styles.formLeft} onPress={() => this.props.navigation.navigate('CompletedMenuList') }>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('CompletedMenuList') }>
               <Text style={styles.loginAdminText}>Documentos</Text>
             </TouchableOpacity>
           </View>

@@ -67,39 +67,39 @@ class AssignTask extends Component {
             accessibilityHint="Vuelve al menu del administrador"
             color="#bcbcbc"
             >
-            <Text style={styles.loginAdminText}>Volver</Text>
+            <Text style={styles.backText}>Volver</Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.addStudent}>
-          <View style={styles.formLine}>
-            <View style={styles.formLeft}>
-              <Text style={styles.formContent}>ID Tarea:</Text>
+          <View style={styles.fixToText}>
+            <View style={styles.formItem}>
+              <Text style={styles.formContent}>Prioridad:</Text>
             </View>
 
-            <View style={styles.formRight}>
+            <View style={styles.formItem}>
               <TextInput 
                 style={styles.formContentLine}
                 onChangeText = {(text) => this.setState({tarea: text})}
                 defaultValue = {this.state.titulo}
-                placeholder = "001, 002..."
+                placeholder = "Alta, Media, Baja"
                 accessibilityLabel="ID Tarea"
                 accessibilityHint="Introduce el id de la tarea" 
               />
             </View>
           </View>
 
-          <View style={styles.formLine}>
-            <View style={styles.formLeft}>
-              <Text style={styles.formContent}>ID Alumno Asignado:</Text>
+          <View style={styles.fixToText}>
+            <View style={styles.formItem}>
+              <Text style={styles.formContent}>Fecha:</Text>
             </View>
 
-            <View style={styles.formRight}>
+            <View style={styles.formItem}>
               <TextInput 
                 style={styles.formContentLine}
                 onChangeText = {(text) => this.setState({alumno: text})}
                 defaultValue = {this.state.titulo}
-                placeholder = "001, 002..."
+                placeholder = "01/01/2021"
                 accessibilityLabel="ID Alumno Asignado"
                 accessibilityHint="Introduce el id del alumno" 
               />
