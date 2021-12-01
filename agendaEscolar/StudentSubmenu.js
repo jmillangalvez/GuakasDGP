@@ -54,7 +54,7 @@ class StudentSubmenu extends Component{
                         accessibilityRole="button"
                         accessibilityHint="Modificar datos de un estudiante"
                         style={styles.buttonTouch} 
-                        onPress={() => this.props.navigation.navigate('ModifyStudent')}>
+                        onPress={() => this.props.navigation.navigate('ModifyStudentList')}>
                         <Text style={styles.buttonText}>Modificar{"\n"} estudiante</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
@@ -62,7 +62,7 @@ class StudentSubmenu extends Component{
                         accessibilityRole="button"
                         accessibilityHint="Modificar datos de un educador"
                         style={styles.buttonTouch} 
-                        onPress={() => this.props.navigation.navigate('ModifyTeacher')}>
+                        onPress={() => this.props.navigation.navigate('ModifyTeacherList')}>
                         <Text style={styles.buttonText}>Modificar{"\n"} educador</Text>
                     </TouchableOpacity>
                 </View>

@@ -21,9 +21,8 @@ import PictogramTask from './PictogramTask';
 import StudentSubmenu from './StudentSubmenu';
 import TaskSubmenu from './TaskSubmenu';
 import TeacherMain from './TeacherMain';
-import ModifyStockTask from './ModifyStockTask';
-import InfoStockTask from './InfoStockTask';
-import StudentList from "./StudentList";
+import CompletedMenu from './CompletedMenu';
+import CompletedMenuList from './CompletedMenuList';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,10 +30,15 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen
+
+
+      <Stack.Screen
           name="Login"
           component={Login}
         />
+
+
+
         <Stack.Screen
           name="AddStockTask"
           component={AddStockTask}
@@ -111,18 +115,18 @@ const App = () => {
           name="TeacherMain"
           component={TeacherMain}
         />
-        <Stack.Screen
-          name="ModifyStockTask"
-          component={ModifyStockTask}
+
+      <Stack.Screen
+          name="CompletedMenuList"
+          component={CompletedMenuList}
         />
-        <Stack.Screen
-          name="InfoStockTask"
-          component={InfoStockTask}
+
+      <Stack.Screen
+          name="CompletedMenu"
+          component={CompletedMenu}
         />
-	<Stack.Screen
-          name="StudentList"
-          component={StudentList}
-	/>
+
+
       </Stack.Navigator>
     </NavigationContainer>
   );

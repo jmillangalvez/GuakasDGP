@@ -9,21 +9,21 @@ import {
   Button
 } from 'react-native';
 
-class ModifyTeacherList extends Component {
+class CompletedMenuList extends Component {
 
   constructor(props) {
     super(props);
-    this.datosEducadores = {
+    this.menus = {
 
       data:[
 
         {
           data:[
-            {name:'Tatiana López', image:require("./data/imagenesEducadores/1.jpg")},
-            {name:'Sergio Moreno', image:require("./data/imagenesEducadores/2.jpg")},
-            {name:'Antonio Rodríguez', image:require("./data/imagenesEducadores/3.jpg")},
-            {name:'Luis García', image:require("./data/imagenesEducadores/4.jpg")},
-            {name:'Marina Valero', image:require("./data/imagenesEducadores/5.jpg")}
+            {fecha:'01-11-2021'},
+            {fecha:'08-11-2021'},
+            {fecha:'15-11-2021'},
+            {fecha:'22-11-2021'},
+            {fecha:'29-11-2021'}
           ]
         },
 
@@ -40,31 +40,32 @@ class ModifyTeacherList extends Component {
           title="Volver"
           color="#3a52e6"
           onPress={() =>
-            this.props.navigation.navigate('StudentSubmenu')}
+            this.props.navigation.navigate('AdminMain')}
           
         />
       
         <View style={styles.titulo}>
-          <Text  style={styles.name}>Selecciona un educador</Text>
+          <Text  style={styles.name}>Lista menús</Text>
         </View>
 
         <SectionList
-          sections={this.datosEducadores.data}
+          sections={this.menus.data}
 
           renderItem={({item}) => {
             
             return (
             <View style={styles.container}>
 
-              <TouchableOpacity onPress={() =>
-                  this.props.navigation.navigate('ModifyTeacher')
+            <TouchableOpacity onPress={() =>
+                  this.props.navigation.navigate('CompletedMenu')
                 }>
-                <Image style={styles.image} source={item.image}/>
+                <Image style={styles.image}  source={require('./data/imagenesMenu/vermenu.png')}/>
               </TouchableOpacity>
 
               <View style={styles.content}>
-                  <Text  style={styles.name}>{item.name}</Text>
+                  <Text  style={styles.name}>{item.fecha}</Text>
               </View>
+
 
             </View>
             )
@@ -112,4 +113,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ModifyTeacherList;
+export default CompletedMenuList;
