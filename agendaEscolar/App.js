@@ -21,7 +21,8 @@ import PictogramTask from './PictogramTask';
 import StudentSubmenu from './StudentSubmenu';
 import TaskSubmenu from './TaskSubmenu';
 import TeacherMain from './TeacherMain';
-import StudentList from "./StudentList";
+import ModifyStockTask from './ModifyStockTask';
+import InfoStockTask from './InfoStockTask';
 
 const Stack = createNativeStackNavigator();
 
@@ -110,8 +111,12 @@ const App = () => {
           component={TeacherMain}
         />
         <Stack.Screen
-          name="StudentList"
-          component={StudentList}
+          name="ModifyStockTask"
+          component={ModifyStockTask}
+        />
+        <Stack.Screen
+          name="InfoStockTask"
+          component={InfoStockTask}
         />
       </Stack.Navigator>
     </NavigationContainer>
