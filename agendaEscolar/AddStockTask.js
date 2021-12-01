@@ -1,10 +1,10 @@
 import React, { Component,useState } from "react";
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView, TouchableOpacity, View, TextInput, Picker} from 'react-native';
+import { SafeAreaView, TouchableOpacity, View, TextInput, Picker, Text} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as ScreenOrientation from 'expo-screen-orientation';
-import { Button, Input, Divider, Text } from 'react-native-elements';
+import { Button, Input, Divider } from 'react-native-elements';
 import styles from './Styles';
 
 
@@ -98,45 +98,28 @@ class AddStockTask extends Component {
           
           {/* Añadir título al pictograma: va con un icono + */}
           <View style={styles.Input}>
-              <TextInput
-                  onChangeText={ (num) => this.setState({picto: num})}
-                  label='Título pictograma'
-                  placeholder='Introduce un título'
-                  keyboardType="numeric"
-                  accessibilityLabel="título de pictograma"
-                  accessibilityRole="input"
-                  accessibilityHint="Introduce un título para el pictograma"
-              />
-
-              {/* Solo puede haber uno */}
+            <Text>{this.state.picto}</Text>
               <Picker
                 selectedValue={this.state.picto}
                 style={{ height: 50, width: 150 }}
-                onValueChange={(itemValue, itemIndex) => this.state.picto = (itemValue)  }
+                onValueChange={(itemValue, itemIndex) => this.setState({picto: itemValue})}
+                accessibilityLabel="tipo de pictograma"
+                accessibilityRole="input"
+                accessibilityHint="Asignar tipo de pictograma a alumno"
               >
                 <Picker.Item label ="foto" value="0" />
                 <Picker.Item label ="pictograma" value="1" />
                 <Picker.Item label ="video" value="2" />
               </Picker>
-              {/* const [selectedValue, setSelectedValue] = useState(null); */}
           </View>
-          {/* Descripción de los pictogramas: va con una imagen y el icono + */}
-          {/* <View style={styles.Input}>
-              <Input
-                  label='Descripción pictograma'
-                  // placeholder='Introduce un título'
-                  accessibilityLabel="título de pictograma"
-                  accessibilityRole="input"
-                  accessibilityHint="Introduce un título para el pictograma"
-              />
-          </View> */}
 
           {/* Botón para enviar el formulario */}
           <View>
-            <TouchableOpacity onPress={() => this.publishTask }>
+            <TouchableOpacity>
               <Button
                 title="Añadir comanda stock"
                 type="outline"
+                onPress={() => this.publishTask }
                 accessibilityLabel="Aádir comanda"
                 accessibilityRole="button"
                 accessibilityHint="Añade la comanda stock a la lista"
