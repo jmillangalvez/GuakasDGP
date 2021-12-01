@@ -1,67 +1,20 @@
 {
-  "info": [
-    {
-      "name": "A1",
-      "avatar": "1.jpg"
-    },
-    {
-      "name": "A2",
-      "avatar": "1.jpg"
-    },
-    {
-      "name": "A3",
-      "avatar": "1.jpg"
-    },
-    { 
-      "name": "A4",
-      "avatar": "1.jpg" },
-    { 
-      "name": "A5",
-      "avatar":"1.jpg"
-    },
-    {
-      "name": "A6",
-      "avatar":"1.jpg"
-    },
-    {
-      "name": "A7",
-      "avatar":"1.jpg"
-    },
-    {
-      "name": "A8",
-      "avatar":"1.jpg"
-    },
-    {
-      "name": "A9",
-      "avatar":"1.jpg"
-    },
-    {
-      "name": "A10",
-      "avatar":"1.jpg"
-    },
-    {
-      "name": "A11",
-      "avatar":"1.jpg"
-    },
-    {
-      "name": "A12",
-      "avatar":"1.jpg"
-    },
-    {
-      "name": "A13",
-      "avatar":"1.jpg"
-    },
-    {
-      "name": "A14",
-      "avatar":"1.jpg"
-    },
-    {
-      "name": "A15",
-      "avatar":"1.jpg"
-    },
-    {
-      "name": "A16",
-      "avatar":"1.jpg"
-    }
-  ]
+    "info": [
+        {"name":"A1"},
+        {"name":"A2"},
+        {"name":"A3"},
+        {"name":"A4"},
+        {"name":"A5"},
+        {"name":"A6"},
+        {"name":"A7"},
+        {"name":"A8"},
+        {"name":"A9"},
+        {"name":"A10"},
+        {"name":"A11"},
+        {"name":"A12"},
+        {"name":"A13"},
+        {"name":"A14"},
+        {"name":"A15"},
+        {"name":"A16"}
+    ]
 }
