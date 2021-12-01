@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Button, Text, SafeAreaView, TouchableOpacity, View, ScrollView } from 'react-native';
+import { StyleSheet, Button, Text, SafeAreaView, TouchableOpacity, View, ScrollView} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as ScreenOrientation from 'expo-screen-orientation';
@@ -21,50 +21,34 @@ class EducatorMain extends Component {
     const data = require('./data/tasks.json');
     const allTasks = data.tasks;
     this.state = { tasks: {}, currentTask: 0, currentName: "" };
-    this.state.tasks = allTasks.filter(function (task) {
-      if (!task.completed) return task;
+    this.state.tasks = allTasks.filter(function(task){
+        if (!task.completed) return task;
     });
     this.state.currentName = this.state.tasks[0].name;
   };
-
-  render() {
+  
+  render (){
     changeScreenOrientation();
-    return (
-      <View style={styles.mainView}>
+    return(
+      <View style={styles.mainView}> +
 
         <SafeAreaView style={styles.banner}>
-          <Text style={styles.headerText} value="ProfesorMenu" accessibilityRole="header">Menu educador</Text>
+          <Text style={styles.headerText} value="ProfesorMenu" accessibilityRole="header">Menu profesor</Text>
         </SafeAreaView>
 
         <View style={styles.goBackView}>
-          <Button
-            title="Volver"
-            accessibilityLabel="Volver"
-            accessibilityRole="button"
-            accessibilityHint="Vuelve al inicio de sesión"
-            color="#bcbcbc"
-            onPress={() => this.props.navigation.navigate('Login')}
-          />
+          {/* Volver a la pantalla anterior */}
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
+            <Text style={styles.loginAdminText}>Volver</Text>
+          </TouchableOpacity>
         </View>
 
-        <View style={styles.container}>
-          <TouchableOpacity
-            style={styles.buttonTouch}
-            onPress={() => this.props.navigation.navigate('StudentList')}>
-            <Text style={styles.buttonText}>Asignar tarea</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.buttonTouch}
-            onPress={() => this.props.navigation.navigate('')}>
-            <Text style={styles.buttonText}>Tareas completadas</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.buttonTouch}
-            onPress={() => this.props.navigation.navigate('')}>
-            <Text style={styles.buttonText}>Tareas asignadas</Text>
-          </TouchableOpacity>
+        <View style={styles.fixToText}>
+          <View style={styles.enterButtonView}>
+            <TouchableOpacity style={styles.enterButtonTouch} onPress={() => this.props.navigation.navigate('AssignTask') }>
+              <Text style={styles.loginAdminText}>Asignar Tarea</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     )

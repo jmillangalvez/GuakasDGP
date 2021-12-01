@@ -62,7 +62,7 @@ class AdminMain extends Component {
 
         <View style={styles.formLine}>
           <View style={styles.enterButtonView}>
-            <TouchableOpacity style={styles.formLeft} onPress={() => this.props.navigation.navigate('DocumentSubmenu') }>
+            <TouchableOpacity style={styles.formLeft} onPress={() => this.props.navigation.navigate('CompletedMenuList') }>
               <Text style={styles.loginAdminText}>Documentos</Text>
             </TouchableOpacity>
           </View>
