@@ -62,15 +62,14 @@ class CreateNormalTask extends Component {
         </SafeAreaView>
 
         <View style={styles.goBackView}>
-          <TouchableOpacity 
-            onPress={() => this.props.navigation.navigate('TaskSubmenu') }
+          <Button
+            title="Volver"
             accessibilityLabel="Volver"
-            accessibilityRole="Button"
-            accessibilityHint="Vuelve al menu del administrador"
+            accessibilityRole="button"
+            accessibilityHint="Vuelve al al menu del administrador"
             color="#bcbcbc"
-            >
-            <Text style={styles.loginAdminText}>Volver</Text>
-          </TouchableOpacity>
+            onPress={() => this.props.navigation.navigate('TaskSubmenu')}
+          />
         </View>
 
         <View style={styles.addStudent}>
