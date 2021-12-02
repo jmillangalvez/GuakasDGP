@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Picker, Text, SafeAreaView, TouchableOpacity, View, TextInput, Alert} from 'react-native';
+import { StyleSheet, Picker, Text, SafeAreaView, TouchableOpacity, View, TextInput, Alert, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as ScreenOrientation from 'expo-screen-orientation';
@@ -96,14 +96,15 @@ class CreateCommandTask extends Component {
             accessibilityHint="Vuelve al menu del administrador"
             color="#bcbcbc"
             >
-            <Text style={styles.loginAdminText}>Volver</Text>
+            <Text style={styles.backText}>Volver</Text>
           </TouchableOpacity>
         </View>
 
-        <View style={[{flexDirection: "row"}]}>
+        <View style={styles.fixToText}>
           <Text>Clases: </Text>
           <ReactSelect
             options={colourOptions}
+            style={styles.formItem}
             isMulti
             closeMenuOnSelect={false}
             hideSelectedOptions={false}
@@ -116,10 +117,11 @@ class CreateCommandTask extends Component {
             />
         </View>
 
-        <View style={[{flexDirection: "row"}]}>
+        <View style={styles.fixToText}>
           <Text>Platos: </Text>
           <ReactSelect
             options={platesOptions}
+            style={styles.formItem}
             isMulti
             closeMenuOnSelect={false}
             hideSelectedOptions={false}
@@ -131,6 +133,35 @@ class CreateCommandTask extends Component {
             value={this.state.optionSelectedP}
             />
         </View>
+
+        <View style={styles.fixToText}>
+            <View style={styles.formItem}>
+              <Text style={styles.formContent}>Fecha:</Text>
+            </View>
+
+            <View style={styles.formItem}>
+              <TextInput 
+                style={styles.formContentLine}
+                onChangeText = {(text) => this.setState({alumno: text})}
+                defaultValue = {this.state.titulo}
+                placeholder = "01/01/2021"
+                accessibilityLabel="ID Alumno Asignado"
+                accessibilityHint="Introduce el id del alumno" 
+              />
+            </View>
+          </View>
+
+        <View style={styles.confirmButton}>
+          <Button
+            title="Crear Tarea"
+            accessibilityLabel="Crear Tarea"
+            accessibilityRole="Button"
+            accessibilityHint="Crea la tarea"
+            color="#bcbcbc"
+            onPress ={() => this.createTask }
+          />
+        </View>
+
       </View>
     )
   }

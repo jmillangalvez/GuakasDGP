@@ -66,16 +66,19 @@ class EducatorAssignedTasks extends Component {
         return (
             <View style={styles.mainView}>
                 <SafeAreaView style={styles.banner}>
-                    <Text style={styles.headerText} accessibilityRole="header" value="TAREAS ASIGNADAS">TAREAS ASIGNADAS</Text>
+                    <Text style={styles.headerText} accessibilityRole="header" value="TAREAS ASIGNADAS">Tareas Asignadas</Text>
                 </SafeAreaView>
+                <View style={styles.goBackView}>
+                {/* Volver a la pantalla anterior */}
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('EducatorMain')}>
+                    <Text style={styles.backText}>Volver</Text>
+                </TouchableOpacity>
+                </View>
                 <View style={styles.dailyTaskView}>
                     
                     { this.listTask() }
 
                 </View>
-                <SafeAreaView style={styles.bottomBanner}>
-                    <Text style={styles.headerText} value="HOME">PARTE DE ABAJO</Text>
-                </SafeAreaView>
                 <StatusBar style="auto" />
             </View>
         );

@@ -9,22 +9,22 @@ import {
   Button
 } from 'react-native';
 
-class ModifyTeacherList extends Component {
+class ModifyNormalTaskList extends Component {
 
   constructor(props) {
     super(props);
-    this.datosEducadores = {
+    this.menus = {
 
       data:[
 
         {
-          data:[
-            {name:'Tatiana López', image:require("./data/imagenesEducadores/1.jpg")},
-            {name:'Sergio Moreno', image:require("./data/imagenesEducadores/2.jpg")},
-            {name:'Antonio Rodríguez', image:require("./data/imagenesEducadores/3.jpg")},
-            {name:'Luis García', image:require("./data/imagenesEducadores/4.jpg")},
-            {name:'Marina Valero', image:require("./data/imagenesEducadores/5.jpg")}
-          ]
+            data:[
+                {name:'Poner Microondas', image:require("./data/imagenesAlumnos/1.jpg")},
+                {name:'Borrar Pizarra', image:require("./data/imagenesAlumnos/2.jpg")},
+                {name:'Recoger Clase', image:require("./data/imagenesAlumnos/3.jpg")},
+                {name:'Pasar Lista', image:require("./data/imagenesAlumnos/4.jpg")},
+                {name:'Subir Sillas', image:require("./data/imagenesAlumnos/5.jpg")},
+              ]
         },
 
       ]
@@ -40,31 +40,31 @@ class ModifyTeacherList extends Component {
           title="Volver"
           color="#248aff"
           onPress={() =>
-            this.props.navigation.navigate('StudentSubmenu')}
+            this.props.navigation.navigate('TaskSubmenu')}
           
         />
       
         <View style={styles.titulo}>
-          <Text  style={styles.name}>Selecciona un educador</Text>
+          <Text  style={styles.name}>Lista menús</Text>
         </View>
 
         <SectionList
-          sections={this.datosEducadores.data}
+          sections={this.menus.data}
 
           renderItem={({item}) => {
             
             return (
             <View style={styles.container}>
 
-              <TouchableOpacity onPress={() =>
-                  this.props.navigation.navigate('ModifyTeacher')
+            <TouchableOpacity onPress={() =>
+                  this.props.navigation.navigate('ModifyNormalTask')
                 }>
                 <Image style={styles.image} source={item.image}/>
               </TouchableOpacity>
 
-              <View style={styles.content}>
-                  <Text  style={styles.name}>{item.name}</Text>
-              </View>
+                <View style={styles.content}>
+                    <Text  style={styles.name}>{item.name}</Text>
+                </View>
 
             </View>
             )
@@ -112,4 +112,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ModifyTeacherList;
+export default ModifyNormalTaskList;

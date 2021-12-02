@@ -42,7 +42,7 @@ class AssignTaskList1 extends Component {
 
           <Button
             title="Volver"
-            color="#3a52e6"
+            color="#248aff"
             onPress={() =>
               this.props.navigation.navigate('AssignTaskList1')}
             

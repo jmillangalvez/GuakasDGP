@@ -132,6 +132,15 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       margin: 10
     },
+    taskButton:  {
+      height: '90%',
+      width: '60%',
+      borderWidth: 3,
+      fontSize: 25,
+      fontWeight: 'bold',
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
     buttonText: {
       marginBottom: 15,
       fontSize: 25,
@@ -148,7 +157,7 @@ const styles = StyleSheet.create({
       width: 250,
       height: 100,
       flex: 0.75,
-      margin: 10,
+      margin: 5,
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -245,8 +254,8 @@ const styles = StyleSheet.create({
     },
     dailyTaskView: {
       marginTop: '5%',
-      width: '50%',
-      height: 500,
+      width: '70%',
+      height: 350,
       backgroundColor: "#faff6d",
       alignItems: 'center',
       justifyContent: 'center',
@@ -261,9 +270,7 @@ const styles = StyleSheet.create({
       fontWeight: 'bold'
     },
     arrowButtonDailyTasks: {
-      borderWidth: 3,
-      flex: 0.5,
-      width: 20,
+      width: 100,
       height: 100,
       margin: 100,
     }
