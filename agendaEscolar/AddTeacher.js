@@ -64,17 +64,17 @@ class AddTeacher extends Component {
             accessibilityHint="Vuelve al menu del administrador"
             color="#bcbcbc"
             >
-            <Text style={styles.loginAdminText}>Volver</Text>
+            <Text style={styles.backText}>Volver</Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.addStudent}>
-          <View style={styles.formLine}>
-            <View style={styles.formLeft}>
+          <View style={styles.fixToText}>
+            <View style={styles.formItem}>
               <Text style={styles.formContent}>Nombre:</Text>
             </View>
 
-            <View style={styles.formRight}>
+            <View style={styles.formItem}>
               <TextInput 
                 style={styles.formContentLine}
                 onChangeText = {(text) => this.setState({name: text})}
@@ -86,12 +86,12 @@ class AddTeacher extends Component {
             </View>
           </View>
 
-          <View style={styles.formLine}>
-            <View style={styles.formLeft}>
+          <View style={styles.fixToText}>
+            <View style={styles.formItem}>
               <Text style={styles.formContent}>Correo:</Text>
             </View>
 
-            <View style={styles.formRight}>
+            <View style={styles.formItem}>
               <TextInput 
                 style={styles.formContentLine}
                 onChangeText = {(text) => this.setState({email: text})}
@@ -103,12 +103,12 @@ class AddTeacher extends Component {
             </View>
           </View>
 
-          <View style={styles.formLine}>
-            <View style={styles.formLeft}>
+          <View style={styles.fixToText}>
+            <View style={styles.formItem}>
               <Text style={styles.formContent}>Contraseña:</Text>
             </View>
 
-            <View style={styles.formRight}>
+            <View style={styles.formItem}>
               <TextInput 
                 style={styles.formContentLine}
                 onChangeText = {(text) => this.setState({pass: text})}
@@ -120,43 +120,6 @@ class AddTeacher extends Component {
               />
             </View>
           </View>
-
-          <View style={styles.formLine}>
-            <View style={styles.formLeft}>
-              <Text style={styles.formContent}>Clase:</Text>
-            </View>
-
-            <View style={styles.formRightBG}>
-            <Picker
-              accessibilityLabel="Clase asignada"
-              accessibilityRole="spinbutton"
-              accessibilityHint="Selecciona a que clase esta asignado" 
-              onValueChange = {(itemValue) => this.setState({clase: itemValue})}
-            >
-                <Picker.Item
-                accessibilityLabel="Primero A"
-                accessibilityRole="Button"
-                accessibilityHint="Selecciona Primero A como clase" 
-                label="1A" value="1a" />
-                <Picker.Item
-                accessibilityLabel="Primero B"
-                accessibilityRole="Button"
-                accessibilityHint="Selecciona Primero B como clase" 
-                label="1B" value="1b" />
-                <Picker.Item
-                accessibilityLabel="Segundo A"
-                accessibilityRole="Button"
-                accessibilityHint="Selecciona Segundo A como clase" 
-                label="2A" value="2a" />
-                <Picker.Item 
-                accessibilityLabel="Segundo B"
-                accessibilityRole="Button"
-                accessibilityHint="Selecciona Segundo B como clase" 
-                label="2B" value="2b" />
-              </Picker>
-            </View>
-          </View>
-        
         </View>
 
         <View style={styles.confirmButton}>

@@ -1,149 +1,131 @@
+import React, { Component } from "react";
 import { StatusBar } from 'expo-status-bar';
-import React, { Fragment, useState, useRef, useEffect, Component } from "react";
-import { Text, SafeAreaView, TouchableOpacity, View, Image, ViewPropTypes, Button, TextInput, Picker, Alert } from 'react-native';
+import { StyleSheet, SafeAreaView, TouchableOpacity, View, ScrollView} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as ScreenOrientation from 'expo-screen-orientation';
-import styles from "./Styles";
+import { Button, Input, Divider, Text } from 'react-native';
+import styles from './Styles';
 
-
+// Cambiar orientación de la pantalla
 async function changeScreenOrientation() {
-    await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT);
+  await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.DEFAULT);
 }
-
-
+// Boceto 4: Pantalla principal del administrador
+// Para la navegacion, reemplazar adminMenu en navigation
 class AddStockTask extends Component {
-
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state= {destination:"",item:"",cant:0}
-  }
+    this.state = { title: "", description: "", picto: 0};
+  };
 
-  aniadirTask = () => {
-    this.createStudentDB();
-
-    Alert.alert(
-      "Operación satisfactoria",
-      "La tarea ha sido añadida",
-    )
-  }
-
-  async createTaskDB() {
-    /*
+  async publishTask(){
     try {
-      const response = await fetch('http://localhost:8000/api/students/', {
+      const response = await fetch('http://localhost:8000/tasks/', {
         method: 'POST',
-        mode: 'cors',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            name: this.state.name,
-            accesibilityType: this.state.accesibilidad
+          title: this.state.title,
+          description: this.state.description,
+          picto: this.state.picto
         })
       });
     } catch (error) {
-      console.log(error);
-    }*/
-  }  
+      consolge.log("Error al enviar formulario: " + error);
+    }
+  }
 
-  render(){
-    
+  render() {
     changeScreenOrientation();
-    return(
-      
-      <View style={styles.mainView}>
 
+    const { title, description, picto } = this.state;
+    return (
+      <View style={styles.container}>
+        
+        {/* Accessibility rol  */}
         <SafeAreaView style={styles.banner}>
-          <Text style={styles.headerText} value="AniadirStockTask" accessibilityRole="header">Añadir Comanda Stock</Text>
-        </SafeAreaView>
-
+          <Text value="PANTALLA PRINCIPAL ADMIN" accessibilityRole="header"></Text>
+        </SafeAreaView> 
         <View style={styles.goBackView}>
-          <TouchableOpacity 
-            onPress={() => this.props.navigation.navigate('EducatorMain') }  //Arreglar en la parte de navegacion
-            accessibilityLabel="Volver"
-            accessibilityRole="Button"
-            accessibilityHint="" //rt
-            color="#bcbcbc"
-            >
-            <Text style={styles.loginAdminText}>Volver</Text>
+          {/* Volver a la pantalla anterior */}
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('')}>
+            <Button
+            title="Volver"
+            type="clear"
+            accessibilityLabel="Submenú tareas"
+            accessibilityRole="button"
+            accessibilityHint="Vuelve al submenú de tareas"
+            />
           </TouchableOpacity>
         </View>
-
-        <View style={styles.addStudent}>
-
-          <View style={styles.formLine}>
-            <View style={styles.formLeft}>
-              <Text style={styles.formContent}>Donde ir:</Text>
-            </View>
-
-            <View style={styles.formRight}>
-              <TextInput 
-                style={styles.formContentLine}
-                onChangeText = {(text) => this.setState({destination: text})}
-                defaultValue = {this.state.destination}
-                placeholder = "Almacen, Cocina..."
-                accessibilityLabel="Destino"
-                accessibilityHint="Introduce a donde ir a realizar la comanda" 
+          {/* Poner titulo a una tarea */}
+          <View style={styles.Input}>
+              <TouchableOpacity onFocus={() => placeholder=''}>
+              <TextInput
+                  onChangeText = { (newTitle) => this.setState({title: newTitle})}
+                  label='Título tarea'
+                  placeholder='Introduce una tarea'
+                  accessibilityLabel="Introduce una tarea"
+                  accessibilityRole="input"
+                  accessibilityHint="Introducir el título de una tarea"
               />
-            </View>
+              </TouchableOpacity>
           </View>
-
-
-          <View style={styles.formLine}>
-            <View style={styles.formLeft}>
-              <Text style={styles.formContent}>Producto:</Text>
-            </View>
-
-            <View style={styles.formRight}>
-              <TextInput 
-                style={styles.formContentLine}
-                onChangeText = {(text) => this.setState({item: text})}
-                defaultValue = {this.state.item}
-                placeholder = "Cartulina, tijeras"
-                accessibilityLabel="Producto"
-                accessibilityHint="Introduce que producto se pide" 
-              />
-            </View>
-          </View>
-
-          <View style={styles.formLine}>
-            <View style={styles.formLeft}>
-              <Text style={styles.formContent}>Cantidad:</Text>
-            </View>
-
-            <View style={styles.formRight}>
-              <TextInput 
-                style={styles.formContentLine}
-                onChangeText = {(text) => this.setState({cant: text})}
-                defaultValue = {this.state.cant}
-                placeholder = "0"
-                accessibilityLabel="Cantidad"
-                keyboardType='numeric'
-                accessibilityHint="Introduce cuantos productos se requieren" 
-              />
-            </View>
-          </View>
-
+          {/* Añadir descripción de una tarea */}
           
-
-        </View>
-
-        <View style={styles.confirmButton}>
-          <Button
-            title="Añadir Tarea"
-            accessibilityLabel="Añadir Tarea"
-            accessibilityRole="Button"
-            accessibilityHint="Añade la tarea de stock"
-            color="#bcbcbc"
-            onPress={this.aniadirTask}
-          />
-        </View>
-        
+          <View style={styles.Input}>
+              <TextInput
+                  onChangeText = { (newText) => this.setState({description: newText})}
+                  label='Descripción texto'
+                  placeholder='Introduce una descripción'
+                  accessibilityLabel="descripción de tarea"
+                  accessibilityRole="input"
+                  accessibilityHint="Describir la tarea a realizar"
+              />
+          </View>
+          
+          {/* Añadir título al pictograma: va con un icono + */}
+          <View style={styles.Input}>
+              <TextInput
+                  onChangeText={ (num) => this.setState({picto: num})}
+                  label='Título pictograma'
+                  placeholder='Introduce un título'
+                  keyboardType="numeric"
+                  accessibilityLabel="título de pictograma"
+                  accessibilityRole="input"
+                  accessibilityHint="Introduce un título para el pictograma"
+              />
+          </View>
+          {/* Descripción de los pictogramas: va con una imagen y el icono + */}
+          {/* <View style={styles.Input}>
+              <Input
+                  label='Descripción pictograma'
+                  // placeholder='Introduce un título'
+                  accessibilityLabel="título de pictograma"
+                  accessibilityRole="input"
+                  accessibilityHint="Introduce un título para el pictograma"
+              />
+          </View> */}
+          {/* Botón para enviar el formulario */}
+          <View>
+            <TouchableOpacity onPress={() => this.publishTask }>
+              <Button
+                title="Añadir comanda stock"
+                type="outline"
+                accessibilityLabel="Aádir comanda"
+                accessibilityRole="button"
+                accessibilityHint="Añade la comanda stock a la lista"
+              />
+            </TouchableOpacity>
+          </View>
 
       </View>
 
     );
-  }
+  };
 }
 
 export default AddStockTask;

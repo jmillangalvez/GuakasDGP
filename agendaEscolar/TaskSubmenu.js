@@ -23,48 +23,63 @@ class TaskSubmenu extends Component{
                 </SafeAreaView>
 
                 <View style={styles.goBackView}>
-                    <Button
-                        title="Volver"
-                        accessibilityLabel="Volver"
-                        accessibilityRole="button"
-                        accessibilityHint="Vuelve al menú del administrador"
-                        color="#bcbcbc"
-                        onPress={() => this.props.navigation.navigate('AdminMain')}
-                    />
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('AdminMain')}>
+                        <Text style={styles.backText}>Volver</Text>
+                    </TouchableOpacity>
                 </View>
-                <View style={styles.container}>
-                    <TouchableOpacity
-                        accessibilityLabel="Añadir estudiante"
-                        accessibilityRole="button"
-                        accessibilityHint="Añade a un estudiante"
-                        style={styles.buttonTouch} 
-                        onPress={() => this.props.navigation.navigate('CreateNormalTask')}>
-                        <Text style={styles.buttonText}>Añadir tarea fija</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        accessibilityLabel="Añadir educador"
-                        accessibilityRole="button"
-                        accessibilityHint="Añade un educador"
-                        style={styles.buttonTouch} 
-                        onPress={() => this.props.navigation.navigate('CreateCommandTask')}>
-                        <Text style={styles.buttonText}>Añadir comanda comedor</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        accessibilityLabel="Modificar estudiante"
-                        accessibilityRole="button"
-                        accessibilityHint="Modificar datos de un estudiante"
-                        style={styles.buttonTouch} 
-                        onPress={() => this.props.navigation.navigate('ModifyNormalTask')}>
-                        <Text style={styles.buttonText}>Modificar tarea fija</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        accessibilityLabel="Modificar educador"
-                        accessibilityRole="button"
-                        accessibilityHint="Modificar datos de un educador"
-                        style={styles.buttonTouch} 
-                        onPress={() => this.props.navigation.navigate('ModifyCommandTask')}>
-                        <Text style={styles.buttonText}>Modificar comanda comedor</Text>
-                    </TouchableOpacity>
+                <View style={styles.fixToText}>
+                    {/* Ir al menu de estudiantes (Boceto 5) */}
+                    <View style={styles.enterButtonView}>
+                        <TouchableOpacity
+                            accessibilityLabel="Añadir estudiante"
+                            accessibilityRole="button"
+                            accessibilityHint="Añade a un estudiante"
+                            onPress={() => this.props.navigation.navigate('CreateNormalTask')}>
+                            <Text style={styles.loginAdminText}>Añadir tarea fija</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.middleView}>
+                    </View>
+
+                    {/* Ir al menu de tareas (Boceto 11)*/}
+                    <View style={styles.enterButtonView}>
+                        <TouchableOpacity
+                            accessibilityLabel="Añadir educador"
+                            accessibilityRole="button"
+                            accessibilityHint="Añade un educador"
+                            onPress={() => this.props.navigation.navigate('CreateCommandTask')}>
+                            <Text style={styles.loginAdminText}>Añadir comanda</Text>
+                            <Text style={styles.loginAdminText}>      comedor</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                <View style={styles.fixToText}>
+                    {/* Ir al menu de estudiantes (Boceto 5) */}
+                    <View style={styles.enterButtonDownView}>
+                        <TouchableOpacity
+                            accessibilityLabel="Modificar estudiante"
+                            accessibilityRole="button"
+                            accessibilityHint="Modificar datos de un estudiante"
+                            onPress={() => this.props.navigation.navigate('ModifyNormalTask')}>
+                            <Text style={styles.loginAdminText}>Modificar tarea</Text>
+                            <Text style={styles.loginAdminText}>         fija</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.middleView}>
+                    </View>
+
+                    {/* Ir al menu de tareas (Boceto 11)*/}
+                    <View style={styles.enterButtonDownView}>
+                        <TouchableOpacity
+                            accessibilityLabel="Modificar educador"
+                            accessibilityRole="button"
+                            accessibilityHint="Modificar datos de un educador"
+                            onPress={() => this.props.navigation.navigate('ModifyCommandTask')}>
+                            <Text style={styles.loginAdminText}>Modificar</Text>
+                            <Text style={styles.loginAdminText}>comanda</Text>
+                            <Text style={styles.loginAdminText}>comedor</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
         );

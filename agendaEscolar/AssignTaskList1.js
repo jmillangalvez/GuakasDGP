@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 
-class ModifyStudentList extends Component {
+class AssignTaskList1 extends Component {
 
   constructor(props) {
     super(props);
@@ -27,10 +27,6 @@ class ModifyStudentList extends Component {
             {name:'Martina Rodríguez', image:require("./data/imagenesAlumnos/4.jpg")},
             {name:'Alejandra López', image:require("./data/imagenesAlumnos/5.jpg")},
             {name:'Rodrigo Martínez', image:require("./data/imagenesAlumnos/6.jpg")},
-            {name:'Martín Sánchez', image:require("./data/imagenesAlumnos/7.jpg")},
-            {name:'Andrea Pérez', image:require("./data/imagenesAlumnos/8.jpg")},
-            {name:'Manuel Gómez', image:require("./data/imagenesAlumnos/9.jpg")},
-            {name:'Teresa Martín', image:require("./data/imagenesAlumnos/10.jpg")},
           ]
         },
         
@@ -65,7 +61,7 @@ class ModifyStudentList extends Component {
               <View style={styles.container}>
 
                 <TouchableOpacity onPress={() =>
-                  this.props.navigation.navigate('ModifyStudent')
+                  this.props.navigation.navigate('AssignTaskList2')
                 }>
                   <Image style={styles.image} source={item.image}/>
                 </TouchableOpacity>
@@ -121,4 +117,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ModifyStudentList;
+export default AssignTaskList1;

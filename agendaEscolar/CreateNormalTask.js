@@ -62,23 +62,25 @@ class CreateNormalTask extends Component {
         </SafeAreaView>
 
         <View style={styles.goBackView}>
+        <TouchableOpacity>
           <Button
             title="Volver"
             accessibilityLabel="Volver"
             accessibilityRole="button"
             accessibilityHint="Vuelve al al menu del administrador"
             color="#bcbcbc"
-            onPress={() => this.props.navigation.navigate('TaskSubmenu')}
-          />
+            />
+            <Text style={styles.backText}>Volver</Text>
+          </TouchableOpacity>
         </View>
 
         <View style={styles.addStudent}>
-          <View style={styles.formLine}>
-            <View style={styles.formLeft}>
+          <View style={styles.fixToText}>
+            <View style={styles.formItem}>
               <Text style={styles.formContent}>Titulo de la tarea:</Text>
             </View>
 
-            <View style={styles.formRight}>
+            <View style={styles.formItem}>
               <TextInput 
                 style={styles.formContentLine}
                 onChangeText = {(text) => this.setState({titulo: text})}
@@ -90,18 +92,36 @@ class CreateNormalTask extends Component {
             </View>
           </View>
 
-          <View style={styles.formLine}>
-            <View style={styles.formLeft}>
+          <View style={styles.fixToText}>
+            <View style={styles.formItem}>
               <Text style={styles.formContent}>Descripción:</Text>
             </View>
 
-            <View style={styles.formRight}>
+            <View style={styles.formItem}>
               <TextInput 
                 style={styles.formContentBox}
                 onChangeText = {(text) => this.setState({descripcion: text})}
                 defaultValue = {this.state.descripcion}
                 multiline={true}
                 placeholder = ".............................."
+                accessibilityLabel="Descripcion tarea"
+                accessibilityHint="Introduce la descripción de la tarea" 
+              />
+            </View>
+          </View>
+
+          <View style={styles.fixToText}>
+            <View style={styles.formItem}>
+              <Text style={styles.formContent}>Prioridad:</Text>
+            </View>
+
+            <View style={styles.formItem}>
+              <TextInput 
+                style={styles.formContentBox}
+                onChangeText = {(text) => this.setState({descripcion: text})}
+                defaultValue = {this.state.descripcion}
+                multiline={true}
+                placeholder = "Alta, Media, Baja"
                 accessibilityLabel="Descripcion tarea"
                 accessibilityHint="Introduce la descripción de la tarea" 
               />
