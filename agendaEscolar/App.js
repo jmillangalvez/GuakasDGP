@@ -23,6 +23,8 @@ import LoginEducator from './LoginEducator';
 import ModifyStudent from './ModifyStudent';
 import ModifyNormalTask from './ModifyNormalTask';
 import ModifyStudentList from './ModifyStudentList';
+import ModifyCommandTask from './ModifyCommandTask';
+import ModifyCommandTaskList from './ModifyCommandTaskList';
 import ModifyTeacher from './ModifyTeacher';
 import ModifyTeacherList from './ModifyTeacherList';
 import PictogramTask from './PictogramTask';
@@ -69,6 +71,14 @@ const App = () => {
         <Stack.Screen
           name="ModifyNormalTaskList"
           component={ModifyNormalTaskList}
+        />
+        <Stack.Screen
+          name="ModifyCommandTask"
+          component={ModifyCommandTask}
+        />
+        <Stack.Screen
+          name="ModifyCommandTaskList"
+          component={ModifyCommandTaskList}
         />
         <Stack.Screen
           name="AddTeacher"

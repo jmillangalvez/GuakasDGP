@@ -1,32 +1,22 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Image,
-  SectionList,
-  Button
-} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Image, SectionList, Button, SafeAreaView} from 'react-native';
+import styles from './Styles';
 
 class ModifyNormalTaskList extends Component {
 
   constructor(props) {
-    super(props);
-    this.menus = {
-
+  super(props);
+    this.normalTaskList = {
       data:[
-
         {
-            data:[
-                {name:'Poner Microondas', image:require("./data/imagenesAlumnos/1.jpg")},
-                {name:'Borrar Pizarra', image:require("./data/imagenesAlumnos/2.jpg")},
-                {name:'Recoger Clase', image:require("./data/imagenesAlumnos/3.jpg")},
-                {name:'Pasar Lista', image:require("./data/imagenesAlumnos/4.jpg")},
-                {name:'Subir Sillas', image:require("./data/imagenesAlumnos/5.jpg")},
-              ]
+          data:[
+            {title:'Titulo1', description:'Descripcion de la Tarea1', titlePictogram:require("./data/imagenesMenu/verdura.png")},
+            {title:'Titulo2', description:'Descripcion de la Tarea1', titlePictogram:require("./data/imagenesMenu/verdura.png")},
+            {title:'Titulo3', description:'Descripcion de la Tarea1', titlePictogram:require("./data/imagenesMenu/verdura.png")},
+            {title:'Titulo4', description:'Descripcion de la Tarea1', titlePictogram:require("./data/imagenesMenu/verdura.png")},
+            {title:'Titulo5', description:'Descripcion de la Tarea1', titlePictogram:require("./data/imagenesMenu/verdura.png")},
+          ]
         },
-
       ]
     }
   }
@@ -35,81 +25,42 @@ class ModifyNormalTaskList extends Component {
   render() {
     return (
       <View>
+        <SafeAreaView style={styles.banner}>
+          <Text style={styles.headerText} value="ModifyNormalTaskList" accessibilityRole="header">Selecciona una tarea</Text>
+        </SafeAreaView>
 
-        <Button
-          title="Volver"
-          color="#248aff"
-          onPress={() =>
-            this.props.navigation.navigate('TaskSubmenu')}
-          
-        />
-      
-        <View style={styles.titulo}>
-          <Text  style={styles.name}>Lista menús</Text>
+        <View style={styles.goBackView}>
+          <TouchableOpacity 
+            accessibilityLabel = "Volver"
+            accessibilityRole = "button"
+            accessibilityHint = "Vuelve al submenú anterior."
+            onPress={() => this.props.navigation.navigate('TaskSubmenu')}>
+            <Text style={styles.backText}>Volver</Text>
+          </TouchableOpacity>
         </View>
 
         <SectionList
-          sections={this.menus.data}
+          sections={this.normalTaskList.data}
 
           renderItem={({item}) => {
-            
-            return (
-            <View style={styles.container}>
-
-            <TouchableOpacity onPress={() =>
-                  this.props.navigation.navigate('ModifyNormalTask')
-                }>
-                <Image style={styles.image} source={item.image}/>
+          
+          return (
+            <View style={styles.listContainer}>
+              <TouchableOpacity 
+                onPress={() => this.props.navigation.navigate('ModifyNormalTask')}>
+                <Image style={styles.listImage} source={item.titlePictogram}/>
               </TouchableOpacity>
 
-                <View style={styles.content}>
-                    <Text  style={styles.name}>{item.name}</Text>
-                </View>
+              <View style={styles.listContent}>
+                <Text  style={styles.listText}>{item.title}: {item.description}</Text>
+              </View>
 
             </View>
-            )
+          )
         }}/>
-
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  root:{
-    marginTop:50,
-    padding:10,
-  },
-  titulo: {
-
-    marginTop: 40,
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 100
-
-  },
-  container: {
-    paddingVertical: 12,
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-
-  },
-  content: {
-    marginLeft: 16,
-    flex: 1,
-    justifyContent: 'center',
-    height: 100
-  },
-  image:{
-    width:100,
-    height:100,
-    borderRadius:20,
-    marginLeft:20
-  },
-  name:{
-    fontSize:40,
-  },
-});
 
 export default ModifyNormalTaskList;

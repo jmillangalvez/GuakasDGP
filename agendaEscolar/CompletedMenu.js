@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Image,
-  SectionList,
-  Button,
-} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Image, SectionList, Button, SafeAreaView} from 'react-native';
+import styles from './Styles';
 
 class CompletedMenu extends Component {
 
@@ -70,89 +63,61 @@ class CompletedMenu extends Component {
 
   }
 
-
   render() {
-    return (
-      
+    return (   
       <View>
+        <SafeAreaView style={styles.banner}>
+          <Text style={styles.headerText} value="ModifyCommandTaskList" accessibilityRole="header">Menú</Text>
+        </SafeAreaView>
 
-        <Button
-          title="Volver"
-          color="#3a52e6"
-          onPress={() =>
-            this.props.navigation.navigate('CompletedMenuList')}
-        />
+        <View style={styles.goBackView}>
+          <TouchableOpacity 
+            accessibilityLabel = "Volver"
+            accessibilityRole = "button"
+            accessibilityHint = "Vuelve al submenú anterior."
+            onPress={() => this.props.navigation.navigate('AdminMain')}>
+            <Text style={styles.backText}>Volver</Text>
+          </TouchableOpacity>
+        </View>
       
         <SectionList
-
           sections={this.datosMenu.data}
 
           renderItem={({item}) => {
-            
             return (
+              <View style={styles.listContainer}>
 
-            <View style={styles.container}>
+                <View>
+                  <Image style={styles.listImage} source={item.image1}/>
+                </View>
 
-              <View>
-                <Image style={styles.image} source={item.image1}/>
+                <View>
+                  <Image style={styles.listImage} source={item.image2}/>
+                </View>
+
+                <View>
+                  <Image style={styles.listImage} source={item.image3}/>
+                </View>
+
+                <View>
+                  <Image style={styles.listImage} source={item.image4}/>
+                </View>
+
+                <View>
+                  <Image style={styles.listImage} source={item.image5}/>
+                </View>
+
+                <View>
+                  <Image style={styles.listImage} source={item.image6}/>
+                </View>
+
               </View>
-
-              <View>
-                <Image style={styles.image} source={item.image2}/>
-              </View>
-
-              <View>
-                <Image style={styles.image} source={item.image3}/>
-              </View>
-
-              <View>
-                <Image style={styles.image} source={item.image4}/>
-              </View>
-
-              <View>
-                <Image style={styles.image} source={item.image5}/>
-              </View>
-
-              <View>
-                <Image style={styles.image} source={item.image6}/>
-              </View>
-
-            </View>
-
             )
-        }}/>
-
+          }}
+        />
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  root:{
-    marginTop:50,
-    padding:10,
-  },
-  container: {
-    paddingVertical: 12,
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-
-  },
-  content: {
-    marginLeft: 16,
-    flex: 1,
-    justifyContent: 'center',
-    height: 100
-  },
-  image:{
-    width:100,
-    height:100,
-    borderRadius:20,
-    marginLeft:20
-  },
-  name:{
-    fontSize:40,
-  },
-});
 
 export default CompletedMenu;

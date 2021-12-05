@@ -1,14 +1,6 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Image,
-  SectionList,
-  Button
-} from 'react-native';
-
+import {StyleSheet, Text, View, TouchableOpacity, Image, SectionList, Button, SafeAreaView} from 'react-native';
+import styles from './Styles';
 
 class ModifyStudentList extends Component {
 
@@ -16,9 +8,7 @@ class ModifyStudentList extends Component {
     super(props);
 
     this.datosEstudiantes = {
-
       data:[
-
         {
           data:[
             {name:'Luis García', image:require("./data/imagenesAlumnos/1.jpg")},
@@ -36,89 +26,48 @@ class ModifyStudentList extends Component {
         
       ]
     }
-
   }
 
 
   render() {
     return (
+      <View>
+        <SafeAreaView style={styles.banner}>
+          <Text style={styles.headerText} value="ModifyStudentList" accessibilityRole="header">Selecciona un estudiante</Text>
+        </SafeAreaView>
 
-        <View>
-
-          <Button
-            title="Volver"
-            color="#248aff"
-            onPress={() =>
-              this.props.navigation.navigate('StudentSubmenu')}
-            
-          />
-        
-          <View style={styles.titulo}>
-            <Text  style={styles.name}>Selecciona un alumno</Text>
-          </View>
-
-          <SectionList sections={this.datosEstudiantes.data}
-
-            renderItem={({item}) => {
-              
-              return (
-              <View style={styles.container}>
-
-                <TouchableOpacity onPress={() =>
-                  this.props.navigation.navigate('ModifyStudent')
-                }>
-                  <Image style={styles.image} source={item.image}/>
-                </TouchableOpacity>
-
-                <View style={styles.content}>
-                    <Text  style={styles.name}>{item.name}</Text>
-                </View>
-
-              </View>
-              )
-          }}/>
-
+        <View style={styles.goBackView}>
+          <TouchableOpacity 
+            accessibilityLabel = "Volver"
+            accessibilityRole = "button"
+            accessibilityHint = "Vuelve al submenú anterior."
+            onPress={() => this.props.navigation.navigate('StudentSubmenu')}>
+            <Text style={styles.backText}>Volver</Text>
+          </TouchableOpacity>
         </View>
 
+        <SectionList
+        sections={this.datosEstudiantes.data}
+
+        renderItem={({item}) => {
+        
+        return (
+          <View style={styles.listContainer}>
+            <TouchableOpacity 
+              onPress={() => this.props.navigation.navigate('ModifyStudent')}>
+              <Image style={styles.listImage} source={item.image}/>
+            </TouchableOpacity>
+
+            <View style={styles.listContent}>
+              <Text  style={styles.listText}>{item.name}</Text>
+            </View>
+
+          </View>
+          )
+        }}/>
+      </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  root:{
-    marginTop:50,
-    padding:10,
-  },
-  titulo: {
-
-    marginTop: 40,
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 100
-
-  },
-  container: {
-    paddingVertical: 12,
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-
-  },
-  content: {
-    marginLeft: 16,
-    flex: 1,
-    justifyContent: 'center',
-    height: 100
-  },
-  image:{
-    width:100,
-    height:100,
-    borderRadius:20,
-    marginLeft:20
-  },
-  name:{
-    fontSize:40,
-  },
-});
 
 export default ModifyStudentList;
