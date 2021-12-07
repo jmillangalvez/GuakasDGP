@@ -1,20 +1,20 @@
 {
     "info": [
-        {"name":"A1"},
-        {"name":"A2"},
-        {"name":"A3"},
-        {"name":"A4"},
-        {"name":"A5"},
-        {"name":"A6"},
-        {"name":"A7"},
-        {"name":"A8"},
-        {"name":"A9"},
-        {"name":"A10"},
-        {"name":"A11"},
-        {"name":"A12"},
-        {"name":"A13"},
-        {"name":"A14"},
-        {"name":"A15"},
-        {"name":"A16"}
+        {"name":"A1", "avatar": "./data/imagenesAlumnos/1.jpg"},
+        {"name":"A2", "avatar": "./data/imagenesAlumnos/2.jpg"},
+        {"name":"A3", "avatar": "./data/imagenesAlumnos/3.jpg"},
+        {"name":"A4", "avatar": "./data/imagenesAlumnos/4.jpg"},
+        {"name":"A5", "avatar": "./data/imagenesAlumnos/5.jpg"},
+        {"name":"A6", "avatar": "./data/imagenesAlumnos/6.jpg"},
+        {"name":"A7", "avatar": "./data/imagenesAlumnos/7.jpg"},
+        {"name":"A8", "avatar": "./data/imagenesAlumnos/8.jpg"},
+        {"name":"A9", "avatar": "./data/imagenesAlumnos/9.jpg"},
+        {"name":"A10", "avatar": "./data/imagenesAlumnos/10.jpg"},
+        {"name":"A11", "avatar": "./data/imagenesAlumnos/10.jpg"},
+        {"name":"A12", "avatar": "./data/imagenesAlumnos/10.jpg"},
+        {"name":"A13", "avatar": "./data/imagenesAlumnos/10.jpg"},
+        {"name":"A14", "avatar": "./data/imagenesAlumnos/10.jpg"},
+        {"name":"A15", "avatar": "./data/imagenesAlumnos/10.jpg"},
+        {"name":"A16", "avatar": "./data/imagenesAlumnos/10.jpg"}
     ]
 }

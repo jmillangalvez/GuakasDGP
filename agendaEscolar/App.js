@@ -17,6 +17,7 @@ import EducatorAssignedTasks from './EducatorAssignedTasks';
 import InfoTask from './InfoTask';
 import LoginAdmin from './LoginAdmin';
 import LoginEducator from './LoginEducator';
+import StudentList from './StudentList';
 import ModifyStudent from './ModifyStudent';
 import ModifyStudentList from './ModifyStudentList';
 import ModifyTeacher from './ModifyTeacher';
@@ -109,6 +110,10 @@ const App = () => {
         <Stack.Screen
           name="ModifyStudentList"
           component={ModifyStudentList}
+        />
+        <Stack.Screen
+          name="StudentList"
+          component={StudentList}
         />
         <Stack.Screen
           name="ModifyTeacher"

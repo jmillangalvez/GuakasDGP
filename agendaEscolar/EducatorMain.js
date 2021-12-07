@@ -45,7 +45,7 @@ class EducatorMain extends Component {
 
         <View style={styles.fixToText}>
           <View style={styles.enterButtonView}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('AssignTaskList1') }>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('StudentList') }>
               <Text style={styles.loginAdminText}>Asignar Tarea</Text>
             </TouchableOpacity>
           </View>

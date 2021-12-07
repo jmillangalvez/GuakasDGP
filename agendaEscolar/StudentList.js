@@ -36,6 +36,7 @@ class StudentList extends Component {
         const studentList = require('./data/students.json');
 
         changeScreenOrientation();
+        console.log(studentList.info)
 
         return (
             <View style={styles.mainView}>

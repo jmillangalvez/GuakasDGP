@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Button, Text, SafeAreaView, TouchableOpacity, View, TextInput, Alert} from 'react-native';
+import { StyleSheet, Button, Text, SafeAreaView, TouchableOpacity, View, TextInput, Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as ScreenOrientation from 'expo-screen-orientation';
@@ -21,7 +21,7 @@ class CreateNormalTask extends Component {
     this.state = { titulo: "", descripcion: "" };
   };
 
-  createTask = () =>{
+  createTask = () => {
     this.createTaskDB();
     Alert.alert(
       "Operación satisfactoria",
@@ -39,37 +39,36 @@ class CreateNormalTask extends Component {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            title: this.state.titulo,
-            description: this.state.descripcion,
-            finished: 0,
-            taskDate: "2021-11-18"
+          title: this.state.titulo,
+          description: this.state.descripcion,
+          finished: 0,
+          taskDate: "2021-11-18"
         })
       });
     } catch (error) {
       console.log(error);
     }
   }
-  
-  render (){
+
+  render() {
     const { titulo, descripcion } = this.state;
 
     changeScreenOrientation();
-    return(
-      <View style={styles.mainView}>   
+    return (
+      <View style={styles.mainView}>
 
         <SafeAreaView style={styles.banner}>
           <Text style={styles.headerText} value="CrearTareaNormal" accessibilityRole="header">Crear Tarea Normal</Text>
         </SafeAreaView>
 
         <View style={styles.goBackView}>
-        <TouchableOpacity>
-          <Button
-            title="Volver"
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('TaskSubmenu')}
             accessibilityLabel="Volver"
-            accessibilityRole="button"
-            accessibilityHint="Vuelve al al menu del administrador"
+            accessibilityRole="Button"
+            accessibilityHint="Vuelve al menu del administrador"
             color="#bcbcbc"
-            />
+          >
             <Text style={styles.backText}>Volver</Text>
           </TouchableOpacity>
         </View>
@@ -81,13 +80,13 @@ class CreateNormalTask extends Component {
             </View>
 
             <View style={styles.formItem}>
-              <TextInput 
+              <TextInput
                 style={styles.formContentLine}
-                onChangeText = {(text) => this.setState({titulo: text})}
-                defaultValue = {this.state.titulo}
-                placeholder = "Titulo Tarea"
+                onChangeText={(text) => this.setState({ titulo: text })}
+                defaultValue={this.state.titulo}
+                placeholder="Titulo Tarea"
                 accessibilityLabel="Titulo Tarea"
-                accessibilityHint="Introduce el titulo de la tarea" 
+                accessibilityHint="Introduce el titulo de la tarea"
               />
             </View>
           </View>
@@ -98,14 +97,14 @@ class CreateNormalTask extends Component {
             </View>
 
             <View style={styles.formItem}>
-              <TextInput 
+              <TextInput
                 style={styles.formContentBox}
-                onChangeText = {(text) => this.setState({descripcion: text})}
-                defaultValue = {this.state.descripcion}
+                onChangeText={(text) => this.setState({ descripcion: text })}
+                defaultValue={this.state.descripcion}
                 multiline={true}
-                placeholder = ".............................."
+                placeholder=".............................."
                 accessibilityLabel="Descripcion tarea"
-                accessibilityHint="Introduce la descripción de la tarea" 
+                accessibilityHint="Introduce la descripción de la tarea"
               />
             </View>
           </View>
@@ -116,14 +115,14 @@ class CreateNormalTask extends Component {
             </View>
 
             <View style={styles.formItem}>
-              <TextInput 
+              <TextInput
                 style={styles.formContentBox}
-                onChangeText = {(text) => this.setState({descripcion: text})}
-                defaultValue = {this.state.descripcion}
+                onChangeText={(text) => this.setState({ descripcion: text })}
+                defaultValue={this.state.descripcion}
                 multiline={true}
-                placeholder = "Alta, Media, Baja"
+                placeholder="Alta, Media, Baja"
                 accessibilityLabel="Descripcion tarea"
-                accessibilityHint="Introduce la descripción de la tarea" 
+                accessibilityHint="Introduce la descripción de la tarea"
               />
             </View>
           </View>
