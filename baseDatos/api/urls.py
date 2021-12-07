@@ -6,5 +6,6 @@ urlpatterns = [
     path('educators/', EducatorView.as_view()),
     path('admins/', AdminView.as_view()),
     path('tasks/', TaskView.as_view()),
+    path('tasks/<int:taskId>/', TaskView.as_view()),
     path('assigneds/', AssignedView.as_view()),
 ]
