@@ -163,6 +163,25 @@ class TaskView(View):
         }
         return JsonResponse(data, status=201)
     
+    def put(self, request, taskId):
+        data = json.loads(request.body.decode("utf-8"))
+        t_id = data.get('taskId')
+        t_title = data.get('title')
+        t_description = data.get('description')
+        t_finished = data.get('finished')
+        t_taskDate = data.get('taskDate')
+        
+        Task.objects.filter(taskId=taskId).update(
+            title=t_title,
+            description=t_description,
+            finished=t_finished,
+            taskDate=t_taskDate
+        )
+        mess = {
+            "message": "New item added to Cart"
+        }
+        return JsonResponse(mess) 
+           
     def get(self, request):
         items_count = Task.objects.count()
         items = Task.objects.all()
@@ -177,11 +196,24 @@ class TaskView(View):
                 'taskDate': item.taskDate,
             })
 
-        data = {
-            'items': items_data,
-            'count': items_count,
-        }
+        if taskId==-1:
+            data = {
+                'items': items_data,
+                'count': items_count,
+            }
+        else:
+            data = {
+                'item': items_data[taskId]
+            }
 
+        return JsonResponse(data)
+
+    def delete(self, request, taskId):
+        Task.objects.filter(taskId=taskId).delete()
+        
+        data = {
+            "message": "Task item deleted"
+        }
         return JsonResponse(data)
 
 @method_decorator(csrf_exempt, name='dispatch')
