@@ -2,6 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import React, { Fragment, useState, useRef, useEffect, Component } from "react";
 import { Text, SafeAreaView, TouchableOpacity, View, Image, ViewPropTypes, Button, TextInput, Picker, Alert } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import styles from "./Styles";
 
 
@@ -13,18 +15,58 @@ class ModifyNormalTask extends Component {
 
   constructor(props){
     super(props);
-    this.state= {name:"", tipo:"texto"}
-    this.students = require('./data/students.json');
+    this.state= {taskId:1 ,titulo:"", descripcion:""}
+  };
+
+  deleteTask = () =>{
+    this.deleteTaskDB();
+    Alert.alert(
+      "Operación satisfactoria",
+      "La tarea ha sido eliminada",
+    )
+    this.props.navigation.navigate('TaskSubmenu')
   }
 
-  aniadirAlumno = () => {
-    console.log(this.state.name)
-    console.log(this.state.tipo)
+  async deleteTaskDB(){
+    try {
+      const response = await fetch('http://localhost:8000/tasks/1/', {
+        method: 'DELETE',
+        headers: {
+          'Content-type': 'application/json'
+         }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
+  modifyTask = () =>{
+    this.modifyTaskDB();
     Alert.alert(
-      "----------",
-      "El Alumno ha sido añadido Correctamente",
+      "Operación satisfactoria",
+      "La tarea ha sido eliminada",
     )
+    this.props.navigation.navigate('TaskSubmenu')
+  }
+
+  async modifyTaskDB() {
+    try {
+      const response = await fetch('http://localhost:8000/tasks/1/', {
+        method: 'PUT',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            title: this.state.titulo,
+            description: this.state.descripcion,
+            finished: 0,
+            taskDate: "2021-11-18"
+        })
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   render(){
@@ -113,7 +155,7 @@ class ModifyNormalTask extends Component {
             accessibilityRole="Button"
             accessibilityHint="Modifica el estudiante"
             color="#bcbcbc"
-            onPress={() =>this.props.navigation.navigate('ModifyNormalTask')}
+            onPress={this.modifyTask}
           />
         </View>
         
@@ -124,7 +166,7 @@ class ModifyNormalTask extends Component {
             accessibilityRole="Button"
             accessibilityHint="Eliminar el estudiante"
             color="#A52A2A"
-            onPress={() =>this.props.navigation.navigate('ModifyNormalTask')}
+            onPress={this.deleteTask}
           />
         </View>
 
