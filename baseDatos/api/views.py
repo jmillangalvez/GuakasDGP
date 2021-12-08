@@ -182,7 +182,7 @@ class TaskView(View):
         }
         return JsonResponse(mess) 
            
-    def get(self, request):
+    def get(self, request, taskId=-1):
         items_count = Task.objects.count()
         items = Task.objects.all()
 

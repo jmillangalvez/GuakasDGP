@@ -6,7 +6,9 @@ class ModifyNormalTaskList extends Component {
 
   constructor(props) {
   super(props);
-    this.normalTaskList = {
+  this.state = {tasks:[{data:[]}]};
+  this.getTasks();
+    /*this.normalTaskList = {
       data:[
         {
           data:[
@@ -16,11 +18,30 @@ class ModifyNormalTaskList extends Component {
             {title:'Titulo4', description:'Descripcion de la Tarea1', titlePictogram:require("./data/imagenesMenu/verdura.png")},
             {title:'Titulo5', description:'Descripcion de la Tarea1', titlePictogram:require("./data/imagenesMenu/verdura.png")},
           ]
-        },
+        }
       ]
     }
+    console.log(this.normalTaskList.data);
+    */
   }
 
+  async getTasks() {
+    try {
+        const response = await fetch('http://localhost:8000/tasks/', {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+            },
+        });
+        const json = await response.json();
+        this.setState({ tasks:[{data: json.items}] });
+        console.log(this.state.tasks);
+    } catch (error) {
+        console.log("Error en getTasks "+error);
+    }
+}
 
   render() {
     return (
@@ -40,19 +61,18 @@ class ModifyNormalTaskList extends Component {
         </View>
 
         <SectionList
-          sections={this.normalTaskList.data}
+          sections={this.state.tasks}
 
           renderItem={({item}) => {
           
           return (
             <View style={styles.listContainer}>
               <TouchableOpacity 
-                onPress={() => this.props.navigation.navigate('ModifyNormalTask')}>
-                <Image style={styles.listImage} source={item.titlePictogram}/>
+                onPress={() => this.props.navigation.navigate('ModifyNormalTask', {item})}>
+                <Image style={styles.listImage} source={require('./data/imagenesMenu/verdura.png')}/>
               </TouchableOpacity>
-
               <View style={styles.listContent}>
-                <Text  style={styles.listText}>{item.title}: {item.description}</Text>
+                <Text  style={styles.listText}>{item.taskId}. {item.title}: {item.description}</Text>
               </View>
 
             </View>

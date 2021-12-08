@@ -24,17 +24,19 @@ class ModifyNormalTask extends Component {
       "Operación satisfactoria",
       "La tarea ha sido eliminada",
     )
-    this.props.navigation.navigate('TaskSubmenu')
   }
 
   async deleteTaskDB(){
     try {
-      const response = await fetch('http://localhost:8000/tasks/1/', {
+      const response = await fetch('http://localhost:8000/tasks/' + this.props.route.params.item.taskId + '/', {
         method: 'DELETE',
+        mode: 'cors',
         headers: {
+          Accept: 'application/json',
           'Content-type': 'application/json'
          }
       });
+      this.props.navigation.navigate('TaskSubmenu')
     } catch (error) {
       console.log(error);
     }
@@ -51,7 +53,7 @@ class ModifyNormalTask extends Component {
 
   async modifyTaskDB() {
     try {
-      const response = await fetch('http://localhost:8000/tasks/1/', {
+      const response = await fetch('http://localhost:8000/tasks/' + this.props.route.params.item.taskId + '/', {
         method: 'PUT',
         mode: 'cors',
         headers: {
@@ -102,7 +104,7 @@ class ModifyNormalTask extends Component {
               <TextInput 
                 style={styles.formContentLine}
                 onChangeText = {(text) => this.setState({titulo: text})}
-                defaultValue = {this.state.titulo}
+                defaultValue = {this.props.route.params.item.title}
                 placeholder = "Titulo Tarea"
                 accessibilityLabel="Titulo Tarea"
                 accessibilityHint="Introduce el titulo de la tarea" 
@@ -119,7 +121,7 @@ class ModifyNormalTask extends Component {
               <TextInput 
                 style={styles.formContentBox}
                 onChangeText = {(text) => this.setState({descripcion: text})}
-                defaultValue = {this.state.descripcion}
+                defaultValue = {this.props.route.params.item.description}
                 multiline={true}
                 placeholder = ".............................."
                 accessibilityLabel="Descripcion tarea"
