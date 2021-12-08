@@ -18,7 +18,7 @@ async function changeScreenOrientation() {
 class AssignTask extends Component {
   constructor(props) {
     super(props);
-    this.state = { tarea: "", alumno: "" };
+    this.state = { tarea: "", alumno: "", idStudent: props.route.params.idStudent, idTask: props.route.params.idTask};
   };
 
   asignar = () =>{

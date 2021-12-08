@@ -55,7 +55,6 @@ class ModifyStudentList extends Component {
           contentContainerStyle={{flexGrow: 1}}
           data = {this.state.estudiantes}
           renderItem = {({item}) => {
-            console.log(item)
             return(
               <View style={styles.listContainer}>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('ModifyStudent', {idStudent: item.idStudent})}>
