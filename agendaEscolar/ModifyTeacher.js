@@ -13,21 +13,94 @@ class ModifyTeacher extends Component {
 
   constructor(props){
     super(props);
-    this.state= {name:"", email:"",pass:"", clase:"1a"}
-    this.students = require('./data/students.json');
+    this.state= {name:"", email:"",pass:"", data: [], nTeachers: 0}
+    this.getTeachers()
   }
 
   aniadirProfesor = () => {
-    console.log(this.state.name)
-    console.log(this.state.email)
-    console.log(this.state.pass)
-    console.log(this.state.clase)
-
-    Alert.alert(
-      "----------",
-      "El Profesor ha sido añadido Correctamente",
-    )
+    this.createTeacherBD();
+    
   }
+
+  eliminarProfesor = () => {
+    this.deleteTeacherBD();
+    
+  }
+
+  async getTeachers() {
+    try {
+      const response = await fetch('http://localhost:8000/educators/', {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+      });
+      const json = await response.json();
+      this.setState({ data: json.items });
+      this.setState({ nTeachers: json.count });
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async createTeacherBD() {
+
+      try {
+        const response = await fetch('http://localhost:8000/educators/', {
+          method: 'UPDATE',
+          mode: 'cors',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+              name: this.state.name,
+              userName: this.state.email,
+              password: this.state.pass
+          })
+        });
+  
+        alert("El profesor ha sido actualizado")
+        this.props.navigation.navigate('StudentSubmenu')
+  
+      } catch (error) {
+        alert("El profesor no ha sido actualizado")
+        console.log(error);
+      }
+
+    
+  }
+
+  async deleteTeacherBD() {
+
+    try {
+      const response = await fetch('http://localhost:8000/educators/' + this.props.route.params.item.educatorID, {
+        method: 'DELETE',
+        mode: 'cors',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            name: this.state.name,
+            userName: this.state.email,
+            password: this.state.pass
+        })
+      });
+
+      alert("El profesor ha sido eliminado")
+      this.props.navigation.navigate('StudentSubmenu')
+
+    } catch (error) {
+      alert("El profesor no ha sido eliminado")
+      console.log(error);
+    }
+
+  
+}
 
   render(){
     
@@ -63,7 +136,7 @@ class ModifyTeacher extends Component {
               <TextInput 
                 style={styles.formContentLine}
                 onChangeText = {(text) => this.setState({name: text})}
-                defaultValue = "Tatiana López"
+                defaultValue = {this.props.route.params.item.name} 
                 placeholder = "Nombre Profesor"
                 accessibilityLabel="Nombre Profesor"
                 accessibilityHint="Introduce el nombre del profesor" 
@@ -77,7 +150,7 @@ class ModifyTeacher extends Component {
             </View>
 
             <View style={styles.formItem}>
-              <Text>tatiana1231@gmail.com</Text>
+              <Text>{this.props.route.params.item.userName}</Text>
             </View>
           </View>
 
@@ -90,8 +163,7 @@ class ModifyTeacher extends Component {
               <TextInput 
                 style={styles.formContentLine}
                 onChangeText = {(text) => this.setState({pass: text})}
-                defaultValue = "estaeslacontra"
-                placeholder = "*********"
+                defaultValue = {this.props.route.params.item.password}
                 secureTextEntry = {true}
                 accessibilityLabel="Contraseña Profesor"
                 accessibilityHint="Introduce la contraseña del profesor" 
@@ -107,9 +179,7 @@ class ModifyTeacher extends Component {
             accessibilityRole="Button"
             accessibilityHint="Añade el Educador"
             color="#bcbcbc"
-            onPress={() =>
-                this.props.navigation.navigate('ModifyTeacherList')
-              }
+            onPress={this.aniadirProfesor}
           />
         </View>
 
@@ -120,7 +190,7 @@ class ModifyTeacher extends Component {
             accessibilityRole="Button"
             accessibilityHint="Eliminar el educador"
             color="#A52A2A"
-            onPress={() =>this.props.navigation.navigate('ModifyTeacherList')}
+            onPress={this.eliminarProfesor}
           />
         </View>
         

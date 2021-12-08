@@ -13,36 +13,81 @@ class AddTeacher extends Component {
 
   constructor(props){
     super(props);
-    this.state= {name:"", email:"",pass:"", clase:"1a"}
-    this.students = require('./data/students.json');
+    this.state= {name:"", email:"",pass:"", data: [], nTeachers: 0}
+    this.getTeachers()
   }
 
   aniadirProfesor = () => {
-    this.createStudentDB();
-    Alert.alert(
-      "Operación satisfactoria",
-      "El profesor ha sido añadido",
-    )
+    this.createTeacherBD();
+    
   }
 
-  async createStudentDB() {
+  async getTeachers() {
     try {
       const response = await fetch('http://localhost:8000/educators/', {
-        method: 'POST',
+        method: 'GET',
         mode: 'cors',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-            name: this.state.name,
-            userName: this.state.email,
-            password: this.state.pass
-        })
       });
+      const json = await response.json();
+      this.setState({ data: json.items });
+      this.setState({ nTeachers: json.count });
+
     } catch (error) {
       console.log(error);
     }
+  }
+
+  async createTeacherBD() {
+
+    this.sameEmail = false;
+    
+    for (var i = 0; i < this.state.nTeachers; i++) {
+
+      
+      if(this.state.email == this.state.data[i].userName){
+
+        this.sameEmail = true;
+        break;
+
+      }
+
+   }
+
+    if(this.sameEmail == false){
+
+      try {
+        const response = await fetch('http://localhost:8000/educators/', {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+              name: this.state.name,
+              userName: this.state.email,
+              password: this.state.pass
+          })
+        });
+  
+        alert("El profesor ha sido añadido")
+        this.props.navigation.navigate('StudentSubmenu')
+  
+      } catch (error) {
+        console.log(error);
+      }
+
+    }else{
+
+      alert("Correo en uso");
+
+    }
+
+    
   }
 
   render(){
