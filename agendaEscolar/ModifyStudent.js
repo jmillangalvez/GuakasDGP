@@ -13,7 +13,7 @@ class ModifyStudent extends Component {
 
   constructor(props){
     super(props);
-    this.state= {name:"", tipo:"texto"}
+    this.state= {name:"", tipo:"texto", idStudent: props.route.params.idStudent}
     this.students = require('./data/students.json');
   }
 
