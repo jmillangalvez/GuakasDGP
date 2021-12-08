@@ -6,7 +6,10 @@ class ModifyTeacherList extends Component {
 
   constructor(props) {
     super(props);
-    this.datosEducadores = {
+    this.state= {data: []};
+    this.getTeachers();
+
+    /*this.datosEducadores = {
 
       data:[
         {
@@ -20,9 +23,33 @@ class ModifyTeacherList extends Component {
         },
 
       ]
-    }
+    }*/
+
   }
 
+  aniadirDatos = () => {
+    
+
+    
+  }
+
+  async getTeachers() {
+    try {
+      const response = await fetch('http://localhost:8000/educators/', {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+      });
+      const json = await response.json();
+      this.setState({ data:[{data: json.items}]});
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   render() {
     return (
@@ -42,24 +69,25 @@ class ModifyTeacherList extends Component {
         </View>
 
         <SectionList
-        sections={this.datosEducadores.data}
+          sections={this.state.data}
 
-        renderItem={({item}) => {
-        
-        return (
-          <View style={styles.listContainer}>
-            <TouchableOpacity 
-              onPress={() => this.props.navigation.navigate('ModifyTeacher')}>
-              <Image style={styles.listImage} source={item.image}/>
-            </TouchableOpacity>
+          renderItem={({item}) => {
+          
+          return (
+              <View style={styles.listContainer}>
+                <TouchableOpacity 
+                  onPress={() => this.props.navigation.navigate('ModifyTeacher', {item})}>
+                  <Image style={styles.listImage} source={require("./data/imagenesEducadores/default.png")}/>
+                </TouchableOpacity>
 
-            <View style={styles.listContent}>
-              <Text  style={styles.listText}>{item.name}</Text>
-            </View>
+                <View style={styles.listContent}>
+                  <Text  style={styles.listText}>{item.name}</Text>
+                </View>
 
-          </View>
-          )
+              </View>
+            )
         }}/>
+        
       </View>
     );
   }
