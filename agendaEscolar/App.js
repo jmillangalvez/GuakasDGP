@@ -33,6 +33,8 @@ import StudentList from './StudentList';
 import TaskSubmenu from './TaskSubmenu';
 import TeacherMain from './TeacherMain';
 import ModifyNormalTaskList from "./ModifyNormalTaskList";
+import TaskEnd from "./TaskEnd";
+import ConfirmTask from "./ConfirmTask";
 
 const Stack = createNativeStackNavigator();
 
@@ -41,12 +43,32 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen
-          name="CreateCommandTask"
-          component={CreateCommandTask}
-        />
-        <Stack.Screen
           name="Login"
           component={Login}
+        />
+        <Stack.Screen
+          name="EducatorCompletedTasks"
+          component={EducatorCompletedTasks}
+        />
+        <Stack.Screen
+          name="ConfirmTask"
+          component={ConfirmTask}
+        />
+        <Stack.Screen
+          name="TaskEnd"
+          component={TaskEnd}
+        />
+        <Stack.Screen
+          name="ModifyNormalTaskList"
+          component={ModifyNormalTaskList}
+        />
+        <Stack.Screen
+          name="TaskSubmenu"
+          component={TaskSubmenu}
+        />
+        <Stack.Screen
+          name="CreateCommandTask"
+          component={CreateCommandTask}
         />
         <Stack.Screen
           name="PictogramTask"
@@ -61,16 +83,8 @@ const App = () => {
           component={EducatorMain}
         />
         <Stack.Screen
-          name="TaskSubmenu"
-          component={TaskSubmenu}
-        />
-        <Stack.Screen
           name="ModifyNormalTask"
           component={ModifyNormalTask}
-        />
-        <Stack.Screen
-          name="ModifyNormalTaskList"
-          component={ModifyNormalTaskList}
         />
         <Stack.Screen
           name="ModifyCommandTask"
@@ -99,10 +113,6 @@ const App = () => {
         <Stack.Screen
           name="EducatorAssignedTasks"
           component={EducatorAssignedTasks}
-        />
-        <Stack.Screen
-          name="EducatorCompletedTasks"
-          component={EducatorCompletedTasks}
         />
         <Stack.Screen
           name="AddStockTask"

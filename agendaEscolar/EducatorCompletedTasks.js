@@ -12,7 +12,7 @@ class EducatorCompletedTasks extends Component {
     constructor(props) {
         super(props);
         this.state = { tasks: [] };
-        this.componentDidMount;
+        this.getTasks();
     };
 
     async getTasks() {
@@ -34,10 +34,6 @@ class EducatorCompletedTasks extends Component {
         }
     }
 
-    componentDidMount(){
-        this.getTasks();
-    }
-
     listTask = () => {
         var component = [];
         this.state.tasks.forEach(task => {
@@ -49,9 +45,7 @@ class EducatorCompletedTasks extends Component {
     showTask = (task) => {
         return(
             <TouchableOpacity 
-                /*
-                Debe mandar a la información de la tarea
-                onPress={ () => this.props.navigation.navigate('') }*/
+                onPress={ () => this.props.navigation.navigate('ConfirmTask',{task}) }
                 accessibilityLabel="Tarea seleccionada"
                 accessibilityRole="button"
                 accessibilityHint="Pulsa para mostrar la tarea"

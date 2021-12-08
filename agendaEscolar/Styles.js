@@ -47,16 +47,6 @@ const styles = StyleSheet.create({
       borderRadius: 25,
       borderWidth: 3
     },
-    enterButtonView: {
-      marginTop: '20%',
-      width: 250,
-      height: 150,
-      backgroundColor: "#faff6d",
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 25,
-      borderWidth: 3
-    },
     formItem: {
       marginTop: '10%',
       marginRight: '10%',
@@ -195,6 +185,24 @@ const styles = StyleSheet.create({
     loginAdminView: {
       width: '95%',
       justifyContent: 'center',
+    },
+    taskConfirmBox: {
+      marginTop: '10%',
+      backgroundColor: '#faff6d',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 25,
+      borderWidth: 3
+    },
+    enterButtonView: {
+      marginTop: '20%',
+      width: 250,
+      height: 150,
+      backgroundColor: "#faff6d",
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 25,
+      borderWidth: 3
     },
     loginAdminBox: {
       height: 'auto',
