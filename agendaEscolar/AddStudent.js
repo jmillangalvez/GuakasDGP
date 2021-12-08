@@ -14,7 +14,6 @@ class AddStudent extends Component {
   constructor(props){
     super(props);
     this.state= {name:"", accesibilidad: 1}
-    this.students = require('./data/students.json');
   }
 
   aniadirEstudiante = () => {
@@ -28,7 +27,7 @@ class AddStudent extends Component {
 
   async createStudentDB() {
     try {
-      const response = await fetch('http://localhost:8000/api/students/', {
+      const response = await fetch('http://localhost:8000/api/v1/students/', {
         method: 'POST',
         mode: 'cors',
         headers: {

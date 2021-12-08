@@ -13,18 +13,36 @@ class ModifyStudent extends Component {
 
   constructor(props){
     super(props);
-    this.state= {name:"", tipo:"texto"}
-    this.students = require('./data/students.json');
+    this.state= {name:"", tipo:"texto",id:8}
+        //id:props.route.params.idStudent
   }
 
   aniadirAlumno = () => {
-    console.log(this.state.name)
-    console.log(this.state.tipo)
+    this.addStudentDB();
 
     Alert.alert(
       "----------",
       "El Alumno ha sido añadido Correctamente",
     )
+  }
+
+  async addStudentDB() {
+    let url = 'http://localhost:8000/api/v1/students/' + this.state.id + '/'
+    try {
+      const response = await fetch(url, {
+        method: 'PUT',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: this.state.name,
+          accesibilityType: this.state.tipo
+      })
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   render(){
@@ -35,7 +53,7 @@ class ModifyStudent extends Component {
       <View style={styles.mainView}>
 
         <SafeAreaView style={styles.banner}>
-          <Text style={styles.headerText} value="ModificarEstudiante">Modificar Estudiante</Text>
+          <Text style={styles.headerText} value="ModificarEstudiante" accessibilityRole="header">Modificar Estudiante</Text>
         </SafeAreaView>
 
         <View style={styles.goBackView}>

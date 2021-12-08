@@ -11,7 +11,8 @@ async function changeScreenOrientation() {
 class InfoStockTask extends Component {
     constructor(props) {
         super(props);
-        this.state= {destination:"ALMACEN",item:"CARTULINAS",cant:"3"}
+        //this.state= {destination:"ALMACEN",item:"CARTULINAS",cant:"3"}
+        this.state= { task: props.route.params.task }
     };
 
     render() {
@@ -29,7 +30,7 @@ class InfoStockTask extends Component {
                     accessibilityRole="button"
                     accessibilityHint="Pulsa para mostrar la tarea"
                     >
-                    <Text style={styles.dailyTaks}>IR A {this.state.destination} A POR {this.state.cant} {this.state.item}</Text>
+                    <Text style={styles.dailyTaks}>IR A {this.state.task.place} A POR {this.state.task.quantity} {this.state.task.material}</Text>
                     
                 </View>
                 <SafeAreaView style={styles.bottomBanner}>

@@ -14,11 +14,12 @@ class AddStockTask extends Component {
 
   constructor(props){
     super(props);
-    this.state= {destination:"",item:"",cant:"0"}
+    this.state= {destination:"",item:"",cant:"0",id:props.route.params.task.idStockTask }
+    //id:props.route.params.idTask
   }
 
   aniadirTask = () => {
-    this.createStudentDB();
+    this.modifyTaskDB();
 
     Alert.alert(
       "Operación satisfactoria",
@@ -26,25 +27,25 @@ class AddStockTask extends Component {
     )
   }
 
-  async createTaskDB() {
-    /*
+  async modifyTaskDB() {
+    let url = 'http://localhost:8000/api/v1/stockTasks/' + this.state.id + '/'
     try {
-      const response = await fetch('http://localhost:8000/api/students/', {
-        method: 'POST',
+      const response = await fetch(url, {
+        method: 'PUT',
         mode: 'cors',
         headers: {
-          Accept: 'application/json',
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            name: this.state.name,
-            accesibilityType: this.state.accesibilidad
-        })
+          place: this.state.destination,
+          material: this.state.item,
+          quantity: this.state.cant
+      })
       });
     } catch (error) {
       console.log(error);
-    }*/
-  }  
+    }
+  }
 
   render(){
     
