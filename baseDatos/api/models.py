@@ -3,30 +3,71 @@ from django.db import models
 # Create your models here.
 
 class Student(models.Model):
-    studentId = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=100)
-    accesibilityType = models.IntegerField()
-
-class Educator(models.Model):
-    educatorId = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=100)
-    userName = models.CharField(max_length=20)
-    password = models.CharField(max_length=20)
-
-class Admin(models.Model):
-    adminId = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=100)
-    userName = models.CharField(max_length=20)
-    password = models.CharField(max_length=20)
+    idStudent = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100, default='test')
+    accessibilityType = models.IntegerField()
+    picture = models.CharField(max_length=100, default='test')
 
 class Task(models.Model):
-    taskId = models.AutoField(primary_key=True)
-    title = models.CharField(max_length=50)
-    description = models.CharField(max_length=250)
-    finished = models.IntegerField()
-    taskDate = models.DateField()
+    idTask = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=50, default='test')
+    pictogramTitle = models.CharField(max_length=100, default='test')
+    description = models.CharField(max_length=250, default='test')
+    pictogramDescription = models.CharField(max_length=100, default='test')
 
-class Assigned(models.Model):
-    assignedId = models.AutoField(primary_key=True)
-    studentId = models.IntegerField()
-    taskId = models.IntegerField()
+class DinningTask(models.Model):
+    idDinningTask = models.AutoField(primary_key=True)
+    classes = models.CharField(max_length=250, default='test')
+    menus = models.CharField(max_length=250, default='test')
+
+class StockTask(models.Model):
+    idStockTask = models.AutoField(primary_key=True)
+    place = models.CharField(max_length=50, default='test')
+    pictogramPlace = models.CharField(max_length=100, default='test')
+    quantity = models.IntegerField()
+    pictogramQuantity = models.CharField(max_length=100, default='test')
+    material = models.CharField(max_length=50, default='test')
+    pictogramMaterial = models.CharField(max_length=100, default='test')
+    idStudent = models.IntegerField()
+    idEducator = models.IntegerField()
+    priority = models.IntegerField()
+    date = models.DateField()
+
+class AssignedTask(models.Model):
+    idAssignedTask = models.AutoField(primary_key=True)
+    idTask = models.IntegerField()
+    idStudent = models.IntegerField()
+    idEducator = models.IntegerField()
+    priority = models.IntegerField()
+    assignedDate = models.DateField()
+    completedDate = models.DateField()
+    completed = models.IntegerField()
+
+class Admin(models.Model):
+    idAdmin = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100, default='test')
+    email = models.CharField(max_length=50, default='test')
+    password = models.CharField(max_length=20, default='test')
+
+class Educator(models.Model):
+    idEducator = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100, default='test')
+    email = models.CharField(max_length=50, default='test')
+    password = models.CharField(max_length=20, default='test')
+    picture = models.CharField(max_length=100, default='test')
+
+class AssignedStudent(models.Model):
+    idAssignedStudent = models.AutoField(primary_key=True)
+    idEducator = models.IntegerField()
+    idStudent = models.IntegerField()
+
+class ClassMenu(models.Model):
+    idClassMenu = models.AutoField(primary_key=True)
+    idEducator = models.IntegerField()
+    date = models.DateField()
+    numNormalMenu = models.IntegerField()
+    numNoMeatMenu = models.IntegerField()
+    numCrushedMenu = models.IntegerField()
+    numDessertFruit = models.IntegerField()
+    numDessertCrushedFruit = models.IntegerField()
+    numDessertYogurtCustard = models.IntegerField()

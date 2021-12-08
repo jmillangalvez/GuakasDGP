@@ -41,12 +41,12 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen
-          name="CreateCommandTask"
-          component={CreateCommandTask}
-        />
-        <Stack.Screen
           name="Login"
           component={Login}
+        />
+        <Stack.Screen
+          name="CreateCommandTask"
+          component={CreateCommandTask}
         />
         <Stack.Screen
           name="PictogramTask"
