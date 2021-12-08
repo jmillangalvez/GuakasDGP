@@ -13,7 +13,7 @@ class AddTeacher extends Component {
 
   constructor(props){
     super(props);
-    this.state= {name:"", email:"",pass:"", clase:"1a", picture: '8.jpg'}
+    this.state= {name:"", email:"",pass:"", clase:"1a", picture: '2.jpg'}
     this.students = require('./data/students.json');
   }
 

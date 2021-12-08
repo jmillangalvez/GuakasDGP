@@ -62,7 +62,7 @@ class ModifyTeacherList extends Component {
                 </TouchableOpacity>
 
                 <View style={styles.listContent}>
-                  <TouchableOpacity onPress={() => this.props.navigation.navigate('ModifyTeacher', {idEdcuator: item.idEducator})}>
+                  <TouchableOpacity onPress={() => this.props.navigation.navigate('ModifyTeacher', {idEducator: item.idEducator})}>
                     <Text  style={styles.listText}>{item.name}</Text>
                   </TouchableOpacity>
                 </View>

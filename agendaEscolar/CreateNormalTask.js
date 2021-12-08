@@ -18,7 +18,7 @@ async function changeScreenOrientation() {
 class CreateNormalTask extends Component {
   constructor(props) {
     super(props);
-    this.state = { titulo: "", descripcion: "" };
+    this.state = { titulo: "", descripcion: "", tituloPic: "", descripcionPic: ""  };
   };
 
   createTask = () =>{
@@ -31,7 +31,7 @@ class CreateNormalTask extends Component {
 
   async createTaskDB() {
     try {
-      const response = await fetch('http://localhost:8000/tasks/', {
+      const response = await fetch('http://localhost:8000/api/v1/tasks/', {
         method: 'POST',
         mode: 'cors',
         headers: {
@@ -40,9 +40,9 @@ class CreateNormalTask extends Component {
         },
         body: JSON.stringify({
             title: this.state.titulo,
+            pictogramTitle: this.state.tituloPic,
             description: this.state.descripcion,
-            finished: 0,
-            taskDate: "2021-11-18"
+            pictogramDescription: this.state.descripcionPic,
         })
       });
     } catch (error) {
@@ -76,7 +76,7 @@ class CreateNormalTask extends Component {
         <View style={styles.addStudent}>
           <View style={styles.fixToText}>
             <View style={styles.formItem}>
-              <Text style={styles.formContent}>Titulo de la tarea:</Text>
+              <Text style={styles.formContent}>Titulo:</Text>
             </View>
 
             <View style={styles.formItem}>
@@ -85,6 +85,23 @@ class CreateNormalTask extends Component {
                 onChangeText = {(text) => this.setState({titulo: text})}
                 defaultValue = {this.state.titulo}
                 placeholder = "Titulo Tarea"
+                accessibilityLabel="Titulo Tarea"
+                accessibilityHint="Introduce el titulo de la tarea" 
+              />
+            </View>
+          </View>
+
+          <View style={styles.fixToText}>
+            <View style={styles.formItem}>
+              <Text style={styles.formContent}>Titulo en pictograna:</Text>
+            </View>
+
+            <View style={styles.formItem}>
+              <TextInput 
+                style={styles.formContentLine}
+                onChangeText = {(text) => this.setState({tituloPic: text})}
+                defaultValue = {this.state.tituloPic}
+                placeholder = "Titulo Pictograma"
                 accessibilityLabel="Titulo Tarea"
                 accessibilityHint="Introduce el titulo de la tarea" 
               />
@@ -111,16 +128,16 @@ class CreateNormalTask extends Component {
 
           <View style={styles.fixToText}>
             <View style={styles.formItem}>
-              <Text style={styles.formContent}>Prioridad:</Text>
+              <Text style={styles.formContent}>Descripción en pictograna:</Text>
             </View>
 
             <View style={styles.formItem}>
               <TextInput 
                 style={styles.formContentBox}
-                onChangeText = {(text) => this.setState({descripcion: text})}
-                defaultValue = {this.state.descripcion}
+                onChangeText = {(text) => this.setState({descripcionPic: text})}
+                defaultValue = {this.state.descripcionPic}
                 multiline={true}
-                placeholder = "Alta, Media, Baja"
+                placeholder = ".............................."
                 accessibilityLabel="Descripcion tarea"
                 accessibilityHint="Introduce la descripción de la tarea" 
               />

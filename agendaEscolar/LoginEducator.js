@@ -11,13 +11,13 @@ async function changeScreenOrientation() {
 class LoginEducator extends Component {
   constructor(props) {
     super(props);
-    this.state = { authenticated: false, userName:"", password:"", listEducators: []};
+    this.state = { authenticated: false, email:"", password:"", listEducators: []};
     //this.listAdmins = require('./data/admin.json');
   }
 
   async getAdmins() {
     try {
-      const response = await fetch('http://localhost:8000/educators/', {
+      const response = await fetch('http://localhost:8000/api/v1/educators/', {
         method: 'GET',
         mode: 'cors',
         headers: {
@@ -41,7 +41,7 @@ class LoginEducator extends Component {
   checkAdminPassword = () => {
     var notFound = true;
     for(var i = 0; i < this.state.listEducators.length; i++){
-      if(this.state.listEducators[i].userName === this.state.userName && this.state.listEducators[i].password === this.state.password){
+      if(this.state.listEducators[i].email === this.state.email && this.state.listEducators[i].password === this.state.password){
         this.setState({
           authenticated: true,
           password: ""
@@ -53,7 +53,7 @@ class LoginEducator extends Component {
     }
     if(notFound){
       this.setState({
-        userName: "",
+        email: "",
         password: ""
       });
       Alert.alert(
@@ -72,8 +72,8 @@ class LoginEducator extends Component {
       <View accessible={true} style={styles.loginAdminBox}>
         <TextInput
           style={styles.loginAdminInput}
-          onChangeText = {(text) => this.setState({userName: text})}
-          defaultValue = {this.state.userName}
+          onChangeText = {(text) => this.setState({email: text})}
+          defaultValue = {this.state.email}
           placeholder = "Usuario"
           accessibilityLabel = "Usuario"
           accessibilityHint = "Espacio para introducir el nombre de usuario."
@@ -102,7 +102,7 @@ class LoginEducator extends Component {
   }
 
   render(){
-    const { authenticated, userName, password } = this.state;
+    const { authenticated, email, password } = this.state;
     
     changeScreenOrientation();
     return (

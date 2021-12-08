@@ -13,17 +13,88 @@ class ModifyNormalTask extends Component {
 
   constructor(props){
     super(props);
-    this.state= {name:"", tipo:"texto"}
-    this.students = require('./data/students.json');
+    this.state= {titulo: "", descripcion: "", tituloPic: "", descripcionPic: "" , idTask: props.route.params.idTask, task: ''}
   }
 
-  aniadirAlumno = () => {
-    console.log(this.state.name)
-    console.log(this.state.tipo)
+  async getTasks() {
+    try {
+      const response = await fetch('http://localhost:8000/api/v1/tasks/', {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+      });
+      const json = await response.json();
+      let tasks = json.items;
+      let notFound = true;
+      for (let i = 0; i < tasks.length && notFound; i++) {
+        if(tasks[i].idTask == this.state.idTask){
+          notFound = false;
+          this.setState({task: tasks[i]});
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  componentDidMount(){
+    this.getTasks();
+  }
+
+  async deleteTask() {
+    let url = 'http://localhost:8000/api/v1/tasks/' + this.state.idTask + '/'
+    try {
+      const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          'Content-type': 'application/json'
+         }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  eliminarTarea = () => {
+    this.deleteTask();
 
     Alert.alert(
-      "----------",
-      "El Alumno ha sido añadido Correctamente",
+      "Operación satisfactoria",
+      "El estudiante ha sido añadido",
+    )
+  }
+
+
+  async modifyTask() {
+    let url = 'http://localhost:8000/api/v1/tasks/' + this.state.idTask + '/'
+    try {
+      const response = await fetch(url, {
+        method: 'PUT',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            title: this.state.titulo,
+            pictogramTitle: this.state.tituloPic,
+            description: this.state.descripcion,
+            pictogramDescription: this.state.descripcionPic,
+        })
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  modificarTarea = () => {
+    this.modifyTask();
+
+    Alert.alert(
+      "Operación satisfactoria",
+      "El estudiante ha sido añadido",
     )
   }
 
@@ -52,15 +123,15 @@ class ModifyNormalTask extends Component {
 
         <View style={styles.addStudent}>
           <View style={styles.fixToText}>
-          <View style={styles.formItem}>
-              <Text style={styles.formContent}>Titulo de la tarea:</Text>
+            <View style={styles.formItem}>
+              <Text style={styles.formContent}>Titulo:</Text>
             </View>
 
             <View style={styles.formItem}>
               <TextInput 
                 style={styles.formContentLine}
                 onChangeText = {(text) => this.setState({titulo: text})}
-                defaultValue = {this.state.titulo}
+                defaultValue = {this.state.task.title}
                 placeholder = "Titulo Tarea"
                 accessibilityLabel="Titulo Tarea"
                 accessibilityHint="Introduce el titulo de la tarea" 
@@ -69,7 +140,24 @@ class ModifyNormalTask extends Component {
           </View>
 
           <View style={styles.fixToText}>
-          <View style={styles.formItem}>
+            <View style={styles.formItem}>
+              <Text style={styles.formContent}>Titulo en pictograna:</Text>
+            </View>
+
+            <View style={styles.formItem}>
+              <TextInput 
+                style={styles.formContentLine}
+                onChangeText = {(text) => this.setState({tituloPic: text})}
+                defaultValue = {this.state.task.pictogramTitle}
+                placeholder = "Titulo Pictograma"
+                accessibilityLabel="Titulo Tarea"
+                accessibilityHint="Introduce el titulo de la tarea" 
+              />
+            </View>
+          </View>
+
+          <View style={styles.fixToText}>
+            <View style={styles.formItem}>
               <Text style={styles.formContent}>Descripción:</Text>
             </View>
 
@@ -77,7 +165,7 @@ class ModifyNormalTask extends Component {
               <TextInput 
                 style={styles.formContentBox}
                 onChangeText = {(text) => this.setState({descripcion: text})}
-                defaultValue = {this.state.descripcion}
+                defaultValue = {this.state.task.description}
                 multiline={true}
                 placeholder = ".............................."
                 accessibilityLabel="Descripcion tarea"
@@ -88,22 +176,21 @@ class ModifyNormalTask extends Component {
 
           <View style={styles.fixToText}>
             <View style={styles.formItem}>
-              <Text style={styles.formContent}>Prioridad:</Text>
+              <Text style={styles.formContent}>Descripción en pictograna:</Text>
             </View>
 
             <View style={styles.formItem}>
               <TextInput 
                 style={styles.formContentBox}
-                onChangeText = {(text) => this.setState({descripcion: text})}
-                defaultValue = {this.state.descripcion}
+                onChangeText = {(text) => this.setState({descripcionPic: text})}
+                defaultValue = {this.state.task.pictogramDescription}
                 multiline={true}
-                placeholder = "Alta, Media, Baja"
+                placeholder = ".............................."
                 accessibilityLabel="Descripcion tarea"
                 accessibilityHint="Introduce la descripción de la tarea" 
               />
             </View>
           </View>
-        
         </View>
 
         <View style={styles.confirmButton}>
@@ -113,7 +200,7 @@ class ModifyNormalTask extends Component {
             accessibilityRole="Button"
             accessibilityHint="Modifica el estudiante"
             color="#bcbcbc"
-            onPress={() =>this.props.navigation.navigate('ModifyNormalTask')}
+            onPress={this.modificarTarea}
           />
         </View>
         
@@ -124,7 +211,7 @@ class ModifyNormalTask extends Component {
             accessibilityRole="Button"
             accessibilityHint="Eliminar el estudiante"
             color="#A52A2A"
-            onPress={() =>this.props.navigation.navigate('ModifyNormalTask')}
+            onPress={this.eliminarTarea}
           />
         </View>
 

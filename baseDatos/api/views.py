@@ -30,7 +30,7 @@ class StudentView(View):
 
         return JsonResponse(data, status=201)
     
-    def get(self, request):
+    def get(self, request, idStudent=-1):
         items_count = Student.objects.count()
         items = Student.objects.all()
 
@@ -42,11 +42,24 @@ class StudentView(View):
                 'accessibilityType': item.accessibilityType,
                 'picture': item.picture,
             })
-
-        data = {
-            'items': items_data,
-            'count': items_count,
-        }
+        
+        if idStudent==-1:
+            data = {
+                'items': items_data,
+                'count': items_count,
+            }
+        else:
+            index = 0
+            for student in items_data:
+                print(student)
+                if(student["idStudent"] == idStudent):
+                    break
+                else:
+                    index+=1
+            
+            data = {
+                'item': items_data[index]
+            }
 
         return JsonResponse(data)
     
@@ -104,7 +117,7 @@ class EducatorView(View):
 
         return JsonResponse(data, status=201)
     
-    def get(self, request):
+    def get(self, request, idEducator=-1):
         items_count = Educator.objects.count()
         items = Educator.objects.all()
 
@@ -118,10 +131,23 @@ class EducatorView(View):
                 'picture': item.picture,
             })
 
-        data = {
-            'items': items_data,
-            'count': items_count,
-        }
+        if idEducator==-1:
+            data = {
+                'items': items_data,
+                'count': items_count,
+            }
+        else:
+            index = 0
+            for student in items_data:
+                print(student)
+                if(student["idEducator"] == idEducator):
+                    break
+                else:
+                    index+=1
+            
+            data = {
+                'item': items_data[index]
+            }
 
         return JsonResponse(data)
     
@@ -252,7 +278,7 @@ class TaskView(View):
         }
         return JsonResponse(data, status=201)
     
-    def get(self, request):
+    def get(self, request, idTask=-1):
         items_count = Task.objects.count()
         items = Task.objects.all()
 
@@ -266,10 +292,23 @@ class TaskView(View):
                 'pictogramDescription': item.pictogramDescription,
             })
 
-        data = {
-            'items': items_data,
-            'count': items_count,
-        }
+        if idTask==-1:
+            data = {
+                'items': items_data,
+                'count': items_count,
+            }
+        else:
+            index = 0
+            for student in items_data:
+                print(student)
+                if(student["idTask"] == idTask):
+                    break
+                else:
+                    index+=1
+            
+            data = {
+                'item': items_data[index]
+            }
 
         return JsonResponse(data)
     
