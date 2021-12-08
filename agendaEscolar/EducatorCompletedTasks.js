@@ -11,9 +11,31 @@ async function changeScreenOrientation() {
 class EducatorCompletedTasks extends Component {
     constructor(props) {
         super(props);
-        this.state = { tasks: [] };
+        //Cuando la navegacion a esta página sea correcta descomentar línea 15
+        //this.state = { tasks: [], idStudent: props.route.params.idStudent };
+        this.state = { tasks: [], idStudent: 1 };
         this.componentDidMount;
     };
+
+    async getAssigneds() {
+        try {
+            const response = await fetch('http://localhost:8000/assigneds/', {
+                method: 'GET',
+                mode: 'cors',
+                headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+                },
+            });
+            const json = await response.json();
+            const auxIdStudent = this.state.idStudent;
+            this.setState({ tasksId: json.items.filter(function(assigned){
+                if (assigned.studentId == auxIdStudent) return (assigned.taskId);
+            }) });
+        } catch (error) {
+            console.log("Error en getAssigneds "+error);
+        }
+    }
 
     async getTasks() {
         try {
@@ -26,15 +48,23 @@ class EducatorCompletedTasks extends Component {
                 },
             });
             const json = await response.json();
-            this.setState({ tasks: json.items.filter(function(task){
+            const taskCompleted = json.items.filter(function(task){
                 if (task.finished == 1) return task;
-            }) });
+            });
+            const finalTasks = [];
+            taskCompleted.forEach(elementTaskCompleted => {
+                this.state.tasksId.forEach(elementTaskId => {
+                    if (elementTaskId.taskId == elementTaskCompleted.taskId) finalTasks.push(elementTaskCompleted);
+                })
+            });         
+            this.setState({ tasks: finalTasks });
         } catch (error) {
             console.log("Error en getTasks "+error);
         }
     }
 
     componentDidMount(){
+        this.getAssigneds();
         this.getTasks();
     }
 
@@ -63,25 +93,56 @@ class EducatorCompletedTasks extends Component {
 
     render() {
         changeScreenOrientation();
-        return (
-            <View style={styles.mainView}>
-                <SafeAreaView style={styles.banner}>
-                    <Text style={styles.headerText} accessibilityRole="header" value="TAREAS COMPLETADAS">TAREAS COMPLETADAS</Text>
-                </SafeAreaView>
-                <View style={styles.goBackView}>
-                {/* Volver a la pantalla anterior */}
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('EducatorMain')}>
-                    <Text style={styles.backText}>Volver</Text>
-                </TouchableOpacity>
-                </View>
-                <View style={styles.dailyTaskView}>
-                    
-                    { this.listTask() }
+        if (this.state.tasks.length > 0) {
+            return (
+                <View style={styles.mainView}>
+                    <SafeAreaView style={styles.banner}>
+                        <Text style={styles.headerText} accessibilityRole="header" value="TAREAS COMPLETADAS">TAREAS COMPLETADAS</Text>
+                    </SafeAreaView>
+                    <View style={styles.goBackView}>
+                    {/* Volver a la pantalla anterior */}
+                    <TouchableOpacity
+                    accessibilityLabel="Volver al inicio"
+                    accessibilityRole="button"
+                    accessibilityHint="Vuelve al menú de inicio del educador"
+                    onPress={() => this.props.navigation.navigate('EducatorMain')}>
+                        <Text style={styles.backText}>Volver</Text>
+                    </TouchableOpacity>
+                    </View>
+                    <View style={styles.dailyTaskView}>
+                        
+                        { this.listTask() }
 
+                    </View>
+                    <StatusBar style="auto" />
                 </View>
-                <StatusBar style="auto" />
-            </View>
-        );
+            );
+        }
+
+        else {
+            return (
+                <View style={styles.mainView}>
+                    <SafeAreaView style={styles.banner}>
+                        <Text style={styles.headerText} accessibilityRole="header" value="TAREAS ASIGNADAS">TAREAS ASIGNADAS</Text>
+                    </SafeAreaView>
+                    <View style={styles.goBackView}>
+                    {/* Volver a la pantalla anterior */}
+                    <TouchableOpacity 
+                    accessibilityLabel="Volver al inicio"
+                    accessibilityRole="button"
+                    accessibilityHint="Vuelve al menú de inicio del educador"
+                    onPress={() => this.props.navigation.navigate('EducatorMain')}>
+                        <Text style={styles.backText}>Volver</Text>
+                    </TouchableOpacity>
+                    </View>
+                    <View style={styles.dailyTaskView}>
+                        <Text style={styles.dailyTaks}>Este alumno no tiene tareas completadas todavía.</Text>
+                        <Text style={styles.dailyTaks}>Cuando complete alguna, se mostrarán listadas en esta pantalla.</Text>
+                    </View>
+                    <StatusBar style="auto" />
+                </View>
+            );
+        }
     };
 }
 
