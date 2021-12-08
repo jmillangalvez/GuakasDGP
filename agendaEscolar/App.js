@@ -35,6 +35,7 @@ import TeacherMain from './TeacherMain';
 import ModifyNormalTaskList from "./ModifyNormalTaskList";
 import TaskEnd from "./TaskEnd";
 import ConfirmTask from "./ConfirmTask";
+import TaskBegin from "./TaskBegin";
 
 const Stack = createNativeStackNavigator();
 
@@ -47,12 +48,20 @@ const App = () => {
           component={Login}
         />
         <Stack.Screen
+          name="EducatorMain"
+          component={EducatorMain}
+        />
+        <Stack.Screen
           name="EducatorCompletedTasks"
           component={EducatorCompletedTasks}
         />
         <Stack.Screen
           name="ConfirmTask"
           component={ConfirmTask}
+        />
+        <Stack.Screen
+          name="TaskBegin"
+          component={TaskBegin}
         />
         <Stack.Screen
           name="TaskEnd"
@@ -77,10 +86,6 @@ const App = () => {
         <Stack.Screen
           name="DailyTasks"
           component={DailyTasks}
-        />
-        <Stack.Screen
-          name="EducatorMain"
-          component={EducatorMain}
         />
         <Stack.Screen
           name="ModifyNormalTask"

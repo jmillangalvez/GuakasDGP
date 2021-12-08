@@ -11,8 +11,9 @@ async function changeScreenOrientation() {
 class DailyTasks extends Component {
     constructor(props) {
         super(props);
-        this.state = { tasks: [], tasksId: [], currentTask: 0, currentTitle: "", idStudent: props.route.params.idStudent };
-        this.componentDidMount;
+        this.state = { tasks: [], tasksId: [], currentTask: 0, currentTitle: "", idStudent: props.route.params.idStudent+1 };
+        this.getAssigneds();
+        this.getTasks();
     };
 
     async getAssigneds() {
@@ -46,32 +47,33 @@ class DailyTasks extends Component {
                 },
             });
             const json = await response.json();
-            const tasksUnifinished = json.items.filter(function(task){
+            const tasksUnfinished = json.items.filter(function(task){
                 if (task.finished == 0) return task;
             });
             const finalTasks = [];
-            tasksUnifinished.forEach(elementTaskUnfinished => {
+            tasksUnfinished.forEach(elementTaskUnfinished => {
                 this.state.tasksId.forEach(elementTaskId => {
                     if (elementTaskId.taskId == elementTaskUnfinished.taskId) finalTasks.push(elementTaskUnfinished);
                 })
-            });         
+            });
             this.setState({ tasks: finalTasks });
             this.setState({ currentTitle: this.state.tasks[0].title });
+            console.log(this.state);
         } catch (error) {
             console.log("Error en getTasks "+error);
         }
     }
-
+/* 
     componentDidMount(){
         this.getAssigneds();
         this.getTasks();
     }
-
+ */
     listTask = () => {
         return(
             <TouchableOpacity 
                 style={styles.taskButton} 
-                onPress={ () => this.props.navigation.navigate('InfoTask', {
+                onPress={ () => this.props.navigation.navigate('TaskBegin', {
                     task: this.state.tasks[this.state.currentTask]
                 }) }
                 accessibilityLabel="Tarea seleccionada"
@@ -99,59 +101,117 @@ class DailyTasks extends Component {
 
     render() {
         changeScreenOrientation();
-        return (
-            <View style={styles.mainView}>
-                <SafeAreaView style={styles.banner}>
-                    <Text style={styles.headerText} value="TAREAS DIARIAS">TAREAS DIARIAS</Text>
-                </SafeAreaView>
-                <View style={[styles.dailyTaskView, {flexDirection: "row"}]}>
-                    
-                    <TouchableOpacity
-                        style={styles.arrowButtonDailyTasks} 
-                        onPress={() => this.prevTask() }
-                        accessibilityLabel="Tarea Anterior"
-                        accessibilityRole="button"
-                        accessibilityHint="Muestra la tarea anterior sin completar del día"
-                        >
-                        <Image
-                            style={styles.image}
-                            source={require('./img/arrowLeft.png')}
-                        />
-                    </TouchableOpacity>
 
-                    
-                    { this.listTask() }
+        if (this.state.tasks.length > 1) {
+            return (
+                <View style={styles.mainView}>
+                    <SafeAreaView style={styles.banner}>
+                        <Text style={styles.headerText} value="TAREAS DIARIAS">TAREAS DIARIAS</Text>
+                    </SafeAreaView>
+                    <View style={[styles.dailyTaskView, {flexDirection: "row"}]}>
+                        
+                        <TouchableOpacity
+                            style={styles.arrowButtonDailyTasks} 
+                            onPress={() => this.prevTask() }
+                            accessibilityLabel="Tarea Anterior"
+                            accessibilityRole="button"
+                            accessibilityHint="Muestra la tarea anterior sin completar del día"
+                            >
+                            <Image
+                                style={styles.image}
+                                source={require('./img/arrowLeft.png')}
+                            />
+                        </TouchableOpacity>
 
-     
-                    <TouchableOpacity 
-                        style={styles.arrowButtonDailyTasks} 
-                        onPress={() => this.nextTask() }
-                        accessibilityLabel="Tarea Siguiente"
-                        accessibilityRole="button"
-                        accessibilityHint="Muestra la siguiente tarea sin completar del día"
-                        >
-                        <Image
-                            style={styles.image}
-                            source={require('./img/arrowRight.png')}
-                        />
-                    </TouchableOpacity>
-                    
+                        
+                        { this.listTask() }
+
+        
+                        <TouchableOpacity 
+                            style={styles.arrowButtonDailyTasks} 
+                            onPress={() => this.nextTask() }
+                            accessibilityLabel="Tarea Siguiente"
+                            accessibilityRole="button"
+                            accessibilityHint="Muestra la siguiente tarea sin completar del día"
+                            >
+                            <Image
+                                style={styles.image}
+                                source={require('./img/arrowRight.png')}
+                            />
+                        </TouchableOpacity>
+                        
+                    </View>
+                    <SafeAreaView style={styles.bottomBanner}>
+                        <TouchableOpacity
+                            accessibilityLabel="Volver al inicio"
+                            accessibilityRole="button"
+                            accessibilityHint="Vuelve al menú de inicio"
+                            onPress={() => this.props.navigation.navigate('DailyTasks')}>
+                            <Image
+                                source={require('./img/casa.png')}
+                                style={{ height: '100px', width: '100px' }}
+                            />
+                        </TouchableOpacity>
+                    </SafeAreaView>
+                    <StatusBar style="auto" />
                 </View>
-                <SafeAreaView style={styles.bottomBanner}>
-                    <TouchableOpacity
-                        accessibilityLabel="Volver al inicio"
-                        accessibilityRole="button"
-                        accessibilityHint="Vuelve al menú de inicio"
-                        onPress={() => this.props.navigation.navigate('DailyTasks')}>
-                        <Image
-                            source={require('./img/casa.png')}
-                            style={{ height: '100px', width: '100px' }}
-                        />
-                    </TouchableOpacity>
-                </SafeAreaView>
-                <StatusBar style="auto" />
-            </View>
-        );
+            );
+        }
+
+        else if (this.state.tasks.length == 1) {
+            return (
+                <View style={styles.mainView}>
+                    <SafeAreaView style={styles.banner}>
+                        <Text style={styles.headerText} value="TAREAS DIARIAS">TAREAS DIARIAS</Text>
+                    </SafeAreaView>
+                    <View style={styles.dailyTaskView}>
+                        
+                        { this.listTask() }
+                        
+                    </View>
+                    <SafeAreaView style={styles.bottomBanner}>
+                        <TouchableOpacity
+                            accessibilityLabel="Volver al inicio"
+                            accessibilityRole="button"
+                            accessibilityHint="Vuelve al menú de inicio"
+                            onPress={() => this.props.navigation.navigate('DailyTasks')}>
+                            <Image
+                                source={require('./img/casa.png')}
+                                style={{ height: '100px', width: '100px' }}
+                            />
+                        </TouchableOpacity>
+                    </SafeAreaView>
+                    <StatusBar style="auto" />
+                </View>
+            );
+        }
+
+        else{
+            return (
+                <View style={styles.mainView}>
+                    <SafeAreaView style={styles.banner}>
+                        <Text style={styles.headerText} value="TAREAS DIARIAS">TAREAS DIARIAS</Text>
+                    </SafeAreaView>
+                    <View style={styles.dailyTaskView}>
+                        <Text style={styles.dailyTaks}>No te quedan tareas por realizar.</Text>
+                        <Text style={styles.dailyTaks}>!Buen trabajo!</Text>
+                    </View>
+                    <SafeAreaView style={styles.bottomBanner}>
+                        <TouchableOpacity
+                            accessibilityLabel="Volver al inicio"
+                            accessibilityRole="button"
+                            accessibilityHint="Vuelve al menú de inicio"
+                            onPress={() => this.props.navigation.navigate('DailyTasks')}>
+                            <Image
+                                source={require('./img/casa.png')}
+                                style={{ height: '100px', width: '100px' }}
+                            />
+                        </TouchableOpacity>
+                    </SafeAreaView>
+                    <StatusBar style="auto" />
+                </View>
+            );
+        }
     };
 }
 

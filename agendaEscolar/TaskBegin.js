@@ -2,50 +2,46 @@ import React, {Component} from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 
-// Bocetos 19 y 20: Mostrar tarea fija sin completar mediante texto
-// Falta por implementar el backend, accesibilidad y añadir imagen: hecho.png a carpeta img
-
 async function changeScreenOrientation() {
     await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT);
 }
 
-class TaskEnd extends Component  {
+class TaskBegin extends Component  {
   constructor(props){
     super(props);
-    this.state={title: props.route.params.title}
+    this.state= { title: props.route.params.task.title , description: props.route.params.task.description };
+    console.log(this.state);
   }
 
   render() {
-    const title = this.state.title;
+      const {title, description} = this.state;
       changeScreenOrientation();
       return (
         <View style={styles.container}>
-        {/*Go to prev screen (Boceto 19)*/}
-        <View style={styles.arrowContainer}>
-          <TouchableOpacity style={{alignSelf: "center"}} onPress={() => this.props.navigation.navigate('DailyTask')}>
-            <Image source={require('./img/arrowLeft.png')} style={styles.img}/>
-          </TouchableOpacity>
+          {/*Title and description of the task*/}
+          <View style={styles.box}> 
+            <Text style={styles.headerText}>{title}
+            </Text>
+            <Text style={styles.infoText}>{description}
+            </Text>
+          </View>
+    
+          <View style={styles.arrowContainer}>
+            <TouchableOpacity style={{alignSelf: "center"}} onPress={() => this.props.navigation.navigate('TaskEnd', {title})}>
+              <Image source={require('./img/arrowRight.png')} style={styles.img}/>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.bottomBanner}>
+            <TouchableOpacity style={{alignSelf: "center"}} onPress={() => this.props.navigation.navigate('DailyTasks')}>
+              <Image source={require('./img/casa.png')} style={styles.img}/>
+            </TouchableOpacity>
+          </View>
         </View>
-        
-        {/*Title and image of task done*/}
-        <View style={styles.box}> 
-          <Text style={{fontSize: 60, marginTop: 320, marginBottom: 30,fontWeight: 'bold'}}>{title}
-          </Text>
-          <Image source={require('./img/hecho.png')} style={{backgroundColor: "#FFC85F", resizeMode: "center", height: 300, width: 300}}/>
-        </View>
-        
-        {/*Bottom banner to go daily task screen (Boceto 18)*/}
-        <View style={styles.bottomBanner}>
-          <TouchableOpacity style={{alignSelf: "center"}} onPress={() => this.props.navigation.navigate('DailyTasks')}>
-            <Image source={require('./img/casa.png')} style={styles.img}/>
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
+      );
   }
 }
 
-export default TaskEnd;
+export default TaskBegin;
 
 const styles = StyleSheet.create({
     container: {
