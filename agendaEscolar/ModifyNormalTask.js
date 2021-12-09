@@ -79,7 +79,7 @@ class ModifyNormalTask extends Component {
       <View style={styles.mainView}>
 
         <SafeAreaView style={styles.banner}>
-          <Text style={styles.headerText} value="ModificarEstudiante">Modificar Tarea Fija</Text>
+          <Text style={styles.headerText} value="ModificarEstudiante" accessibilityRole="header">Modificar Tarea Fija</Text>
         </SafeAreaView>
 
         <View style={styles.goBackView}>
@@ -87,7 +87,7 @@ class ModifyNormalTask extends Component {
             onPress={() => this.props.navigation.navigate('TaskSubmenu') }
             accessibilityLabel="Volver"
             accessibilityRole="Button"
-            accessibilityHint="Vuelve al menu del administrador"
+            accessibilityHint="Vuelve al menu de tareas"
             color="#bcbcbc"
             >
             <Text style={styles.backText}>Volver</Text>

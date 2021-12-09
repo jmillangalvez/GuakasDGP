@@ -5,24 +5,9 @@ import styles from './Styles';
 class ModifyNormalTaskList extends Component {
 
   constructor(props) {
-  super(props);
-  this.state = {tasks:[{data:[]}]};
-  this.getTasks();
-    /*this.normalTaskList = {
-      data:[
-        {
-          data:[
-            {title:'Titulo1', description:'Descripcion de la Tarea1', titlePictogram:require("./data/imagenesMenu/verdura.png")},
-            {title:'Titulo2', description:'Descripcion de la Tarea1', titlePictogram:require("./data/imagenesMenu/verdura.png")},
-            {title:'Titulo3', description:'Descripcion de la Tarea1', titlePictogram:require("./data/imagenesMenu/verdura.png")},
-            {title:'Titulo4', description:'Descripcion de la Tarea1', titlePictogram:require("./data/imagenesMenu/verdura.png")},
-            {title:'Titulo5', description:'Descripcion de la Tarea1', titlePictogram:require("./data/imagenesMenu/verdura.png")},
-          ]
-        }
-      ]
-    }
-    console.log(this.normalTaskList.data);
-    */
+    super(props);
+    this.state = {tasks:[{data:[]}]};
+    this.getTasks();
   }
 
   async getTasks() {
@@ -54,7 +39,7 @@ class ModifyNormalTaskList extends Component {
           <TouchableOpacity 
             accessibilityLabel = "Volver"
             accessibilityRole = "button"
-            accessibilityHint = "Vuelve al submenú anterior."
+            accessibilityHint = "Vuelve al submenú anterior"
             onPress={() => this.props.navigation.navigate('TaskSubmenu')}>
             <Text style={styles.backText}>Volver</Text>
           </TouchableOpacity>
@@ -67,7 +52,10 @@ class ModifyNormalTaskList extends Component {
           
           return (
             <View style={styles.listContainer}>
-              <TouchableOpacity 
+              <TouchableOpacity
+                accessibilityLabel = "Modificar tarea"
+                accessibilityRole = "button"
+                accessibilityHint = "Modifica una tarea normal"
                 onPress={() => this.props.navigation.navigate('ModifyNormalTask', {item})}>
                 <Image style={styles.listImage} source={require('./data/imagenesMenu/verdura.png')}/>
               </TouchableOpacity>

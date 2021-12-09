@@ -23,7 +23,11 @@ class TaskSubmenu extends Component{
                 </SafeAreaView>
 
                 <View style={styles.goBackView}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('AdminMain')}>
+                    <TouchableOpacity
+                        accessibilityLabel = "Volver"
+                        accessibilityRole = "button"
+                        accessibilityHint = "Vuelve al menú de administrador"
+                        onPress={() => this.props.navigation.navigate('AdminMain')}>
                         <Text style={styles.backText}>Volver</Text>
                     </TouchableOpacity>
                 </View>
