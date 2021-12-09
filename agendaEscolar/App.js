@@ -33,7 +33,8 @@ import StudentList from './StudentList';
 import TaskSubmenu from './TaskSubmenu';
 import TeacherMain from './TeacherMain';
 import ModifyNormalTaskList from "./ModifyNormalTaskList";
-import CalendarMenu from './CalendarMenu'
+import CalendarMenu from './CalendarMenu';
+import TaskDates from "./TaskDates";
 
 const Stack = createNativeStackNavigator();
 
@@ -41,9 +42,13 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen
-          name="CalendarMenu"
-          component={CalendarMenu}
+        <Stack.Screen
+          name="Login"
+          component={Login}
+        />
+        <Stack.Screen
+          name="DailyTasks"
+          component={DailyTasks}
         />
         <Stack.Screen
           name="CalendarMenu"
@@ -54,16 +59,8 @@ const App = () => {
           component={CreateCommandTask}
         />
         <Stack.Screen
-          name="Login"
-          component={Login}
-        />
-        <Stack.Screen
           name="PictogramTask"
           component={PictogramTask}
-        />
-        <Stack.Screen
-          name="DailyTasks"
-          component={DailyTasks}
         />
         <Stack.Screen
           name="EducatorMain"

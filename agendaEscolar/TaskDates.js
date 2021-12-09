@@ -3,17 +3,24 @@ import React, { Fragment, useState, useRef, useEffect, Component } from "react";
 import { Text, SafeAreaView, TouchableOpacity, View, Image } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import styles from "./Styles";
-import { Button } from 'react-native-elements/dist/buttons/Button';
+import CalendarMenu from './CalendarMenu';
 
 async function changeScreenOrientation() {
     await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT);
 }
 
-class DailyTasks extends Component {
+class TaskDates extends Component {
     constructor(props) {
         super(props);
-        this.state = { tasks: [], tasksId: [], currentTask: 0, currentTitle: "", idStudent: props.route.params.idStudent };
+        this.state = { 
+            tasks: [],
+            tasksId: [],
+            currentTask: 0,
+            currentTitle: "",
+            idStudent: props.route.params.idStudent,
+             };
         this.componentDidMount;
+        // idStudent: props.route.params.idStudent
     };
 
     async getAssigneds() {
@@ -102,19 +109,6 @@ class DailyTasks extends Component {
         changeScreenOrientation();
         return (
             <View style={styles.mainView}>
-                <SafeAreaView style={styles.banner}>
-                    <Text style={styles.headerText} value="TAREAS DIARIAS">TAREAS DIARIAS</Text>
-                </SafeAreaView>
-                <View style={styles.goBackView}>
-                    {/* Volver a la pantalla anterior */}
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
-                        <Text style={styles.backText}>Volver</Text>
-                    </TouchableOpacity>
-                    {/* Ir al calendario */}
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('CalendarMenu', {idStudent: this.state.idStudent})}>
-                        <Text style={styles.backText}>Resumen Semanal</Text>
-                    </TouchableOpacity>
-                </View>
                 <View style={[styles.dailyTaskView, {flexDirection: "row"}]}>
                     
                     <TouchableOpacity
@@ -166,4 +160,4 @@ class DailyTasks extends Component {
     };
 }
 
-export default DailyTasks;
+export default TaskDates;
