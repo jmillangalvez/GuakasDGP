@@ -18,7 +18,7 @@ async function changeScreenOrientation() {
 class AssignTask extends Component {
   constructor(props) {
     super(props);
-    this.state = { tarea: "", alumno: "" };
+    this.state = { prio: -1, fecha: "", idStudent: props.route.params.idStudent, idTask: props.route.params.idTask, idEducator: props.route.params.idEducator};
   };
 
   asignar = () =>{
@@ -31,7 +31,7 @@ class AssignTask extends Component {
 
   async asignarDB() {
     try {
-      const response = await fetch('http://localhost:8000/assigneds/', {
+      const response = await fetch('http://localhost:8000/api/v1/assignedTasks/', {
         method: 'POST',
         mode: 'cors',
         headers: {
@@ -39,8 +39,13 @@ class AssignTask extends Component {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            studentId: this.state.alumno,
-            taskId: this.state.tarea,
+            idStudent: this.state.idStudent,
+            idTask: this.state.idTask,
+            idEducator: this.state.idEducator,
+            priority: this.state.prio,
+            assignedDate: this.state.fecha,
+            completedDate: this.state.fecha,
+            completed: 0,
         })
       });
     } catch (error) {
@@ -80,9 +85,9 @@ class AssignTask extends Component {
             <View style={styles.formItem}>
               <TextInput 
                 style={styles.formContentLine}
-                onChangeText = {(text) => this.setState({tarea: text})}
+                onChangeText = {(text) => this.setState({prio: text})}
                 defaultValue = {this.state.titulo}
-                placeholder = "Alta, Media, Baja"
+                placeholder = "1, 2, ... , 10"
                 accessibilityLabel="ID Tarea"
                 accessibilityHint="Introduce el id de la tarea" 
               />
@@ -97,9 +102,9 @@ class AssignTask extends Component {
             <View style={styles.formItem}>
               <TextInput 
                 style={styles.formContentLine}
-                onChangeText = {(text) => this.setState({alumno: text})}
+                onChangeText = {(text) => this.setState({fecha: text})}
                 defaultValue = {this.state.titulo}
-                placeholder = "01/01/2021"
+                placeholder = "2021-12-8"
                 accessibilityLabel="ID Alumno Asignado"
                 accessibilityHint="Introduce el id del alumno" 
               />

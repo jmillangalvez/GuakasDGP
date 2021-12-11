@@ -11,76 +11,117 @@ async function changeScreenOrientation() {
 class DailyTasks extends Component {
     constructor(props) {
         super(props);
-        this.state = { tasks: [], tasksId: [], currentTask: 0, currentTitle: "", idStudent: props.route.params.idStudent+1 };
-        this.getAssigneds();
-        this.getTasks();
+        this.state = { tasks: [1,2], assigneds: [], currentTask: 0, currentTitle: "", idStudent: props.route.params.idStudent };
     };
 
     async getAssigneds() {
         try {
-            const response = await fetch('http://localhost:8000/assigneds/', {
+            const response = await fetch('http://localhost:8000/api/v1/assignedTasks/', {
                 method: 'GET',
                 mode: 'cors',
                 headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-                },
-            });
-            const json = await response.json();
-            const auxIdStudent = this.state.idStudent;
-            this.setState({ tasksId: json.items.filter(function(assigned){
-                if (assigned.studentId == auxIdStudent) return (assigned.taskId);
-            }) });
+              Accept: 'application/json',
+              'Content-Type': 'application/json'
+            },
+          });
+          const json = await response.json();
+          this.setState({assigneds: json.items});
+          
         } catch (error) {
-            console.log("Error en getAssigneds "+error);
+          console.log(error);
         }
     }
 
     async getTasks() {
         try {
-            const response = await fetch('http://localhost:8000/tasks/', {
-                method: 'GET',
-                mode: 'cors',
-                headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-                },
+          const response = await fetch('http://localhost:8000/api/v1/tasks/', {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json'
+            },
+          });
+          const json = await response.json();
+          this.setState({tasks: json.items});
+          const taskUncompleted = []
+            this.state.assigneds.forEach(task => {
+                if (task.completed == 0) taskUncompleted.push(task);
             });
-            const json = await response.json();
-            const tasksUnfinished = json.items.filter(function(task){
-                if (task.finished == 0) return task;
+            const auxIdStudent = this.state.idStudent
+            const taskStudent = this.state.assigneds.filter(function(task){
+                if (task.idStudent == auxIdStudent) return task;
             });
+            this.setState({assigneds: taskStudent});
+            console.log(this.state.idStudent)
             const finalTasks = [];
-            tasksUnfinished.forEach(elementTaskUnfinished => {
-                this.state.tasksId.forEach(elementTaskId => {
-                    if (elementTaskId.taskId == elementTaskUnfinished.taskId) finalTasks.push(elementTaskUnfinished);
+            taskUncompleted.forEach(elementTaskUncompleted => {
+                this.state.assigneds.forEach(elementAssigneds => {
+                    if (elementAssigneds.taskId == elementTaskUncompleted.taskId) finalTasks.push(elementTaskUncompleted);
                 })
-            });
-            this.setState({ tasks: finalTasks });
+            });         
+            //this.setState({ tasks: finalTasks });
             this.setState({ currentTitle: this.state.tasks[0].title });
-            console.log(this.state);
         } catch (error) {
-            console.log("Error en getTasks "+error);
+          console.log(error);
         }
     }
-/* 
+
     componentDidMount(){
         this.getAssigneds();
         this.getTasks();
     }
- */
-    listTask = () => {
+
+    getNotCompleted(){
+        const taskUncompleted = []
+        this.state.assigneds.forEach(task => {
+            if (task.completed == 0) taskUncompleted.push(task);
+        });
+        const taskStudent = this.state.assigneds.filter(function(task){
+            if (task.idStudent == this.state.idStudent) return task;
+        });
+        this.setState({assigneds: taskStudent});
+        const finalTasks = [];
+        taskUncompleted.forEach(elementTaskUncompleted => {
+            this.state.assigneds.forEach(elementAssigneds => {
+                if (elementAssigneds.taskId == elementTaskUncompleted.taskId) finalTasks.push(elementTaskUncompleted);
+            })
+        });         
+        //this.setState({ tasks: finalTasks });
+        //this.setState({ currentTitle: this.state.tasks[0].title });
+    }
+
+    listTask1 = () => {
         return(
             <TouchableOpacity 
-                style={styles.taskButton} 
-                onPress={ () => this.props.navigation.navigate('TaskBegin', {
+                style={styles.choosingButton} 
+                onPress={ () => this.props.navigation.navigate('InfoTask', {
                     task: this.state.tasks[this.state.currentTask]
                 }) }
                 accessibilityLabel="Tarea seleccionada"
                 accessibilityRole="button"
                 accessibilityHint="Pulsa para mostrar la tarea"
                 >
-                <Text style={styles.dailyTaks}>{this.state.currentTitle}</Text>
+                <Text style={styles.dailyTaks}>Poner el microondas</Text>
+            </TouchableOpacity>
+        );
+    };
+
+    listTask2 = () => {
+        return(
+            <TouchableOpacity 
+                style={styles.taskButton} 
+                onPress={ () => this.props.navigation.navigate('PictogramTask', {
+                    task: this.state.tasks[this.state.currentTask]
+                }) }
+                accessibilityLabel="Tarea seleccionada"
+                accessibilityRole="button"
+                accessibilityHint="Pulsa para mostrar la tarea"
+                >
+                <Image
+                    source={require('./img/comer.png')}
+                    style={{ height: '100px', width: '100px' }}
+                />
             </TouchableOpacity>
         );
     };
@@ -101,7 +142,6 @@ class DailyTasks extends Component {
 
     render() {
         changeScreenOrientation();
-
         if (this.state.tasks.length > 1) {
             return (
                 <View style={styles.mainView}>
@@ -124,8 +164,7 @@ class DailyTasks extends Component {
                         </TouchableOpacity>
 
                         
-                        { this.listTask() }
-
+                        {this.state.idStudent == 0? this.listTask1() : this.listTask2()}
         
                         <TouchableOpacity 
                             style={styles.arrowButtonDailyTasks} 
@@ -142,6 +181,7 @@ class DailyTasks extends Component {
                         
                     </View>
                     <SafeAreaView style={styles.bottomBanner}>
+                    <View style={styles.fixToText}>
                         <TouchableOpacity
                             accessibilityLabel="Volver al inicio"
                             accessibilityRole="button"
@@ -152,6 +192,17 @@ class DailyTasks extends Component {
                                 style={{ height: '100px', width: '100px' }}
                             />
                         </TouchableOpacity>
+                        <TouchableOpacity
+                            accessibilityLabel="Volver al inicio"
+                            accessibilityRole="button"
+                            accessibilityHint="Vuelve al menú de inicio"
+                            onPress={() => this.props.navigation.navigate('WeeklyStats')}>
+                            <Image
+                                source={require('./img/grafica.png')}
+                                style={{ height: '100px', width: '100px' }}
+                            />
+                        </TouchableOpacity>
+                    </View>
                     </SafeAreaView>
                     <StatusBar style="auto" />
                 </View>
@@ -170,6 +221,7 @@ class DailyTasks extends Component {
                         
                     </View>
                     <SafeAreaView style={styles.bottomBanner}>
+                    <View style={styles.fixToText}>
                         <TouchableOpacity
                             accessibilityLabel="Volver al inicio"
                             accessibilityRole="button"
@@ -180,6 +232,17 @@ class DailyTasks extends Component {
                                 style={{ height: '100px', width: '100px' }}
                             />
                         </TouchableOpacity>
+                        <TouchableOpacity
+                            accessibilityLabel="Volver al inicio"
+                            accessibilityRole="button"
+                            accessibilityHint="Vuelve al menú de inicio"
+                            onPress={() => this.props.navigation.navigate('WeeklyStats')}>
+                            <Image
+                                source={require('./img/grafica.png')}
+                                style={{ height: '100px', width: '100px' }}
+                            />
+                        </TouchableOpacity>
+                    </View>
                     </SafeAreaView>
                     <StatusBar style="auto" />
                 </View>
@@ -197,6 +260,7 @@ class DailyTasks extends Component {
                         <Text style={styles.dailyTaks}>!Buen trabajo!</Text>
                     </View>
                     <SafeAreaView style={styles.bottomBanner}>
+                    <View style={styles.fixToText}>
                         <TouchableOpacity
                             accessibilityLabel="Volver al inicio"
                             accessibilityRole="button"
@@ -207,6 +271,17 @@ class DailyTasks extends Component {
                                 style={{ height: '100px', width: '100px' }}
                             />
                         </TouchableOpacity>
+                        <TouchableOpacity
+                            accessibilityLabel="Volver al inicio"
+                            accessibilityRole="button"
+                            accessibilityHint="Vuelve al menú de inicio"
+                            onPress={() => this.props.navigation.navigate('WeeklyStats')}>
+                            <Image
+                                source={require('./img/grafica.png')}
+                                style={{ height: '100px', width: '100px' }}
+                            />
+                        </TouchableOpacity>
+                    </View>
                     </SafeAreaView>
                     <StatusBar style="auto" />
                 </View>

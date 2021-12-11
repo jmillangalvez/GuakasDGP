@@ -19,7 +19,7 @@ class EducatorCompletedTasks extends Component {
 
     async getAssigneds() {
         try {
-            const response = await fetch('http://localhost:8000/assigneds/', {
+            const response = await fetch('http://localhost:8000/api/v1/assignedTasks/', {
                 method: 'GET',
                 mode: 'cors',
                 headers: {
@@ -39,7 +39,7 @@ class EducatorCompletedTasks extends Component {
 
     async getTasks() {
         try {
-            const response = await fetch('http://localhost:8000/tasks/', {
+            const response = await fetch('http://localhost:8000/api/v1/tasks/', {
                 method: 'GET',
                 mode: 'cors',
                 headers: {
@@ -123,7 +123,7 @@ class EducatorCompletedTasks extends Component {
             return (
                 <View style={styles.mainView}>
                     <SafeAreaView style={styles.banner}>
-                        <Text style={styles.headerText} accessibilityRole="header" value="TAREAS ASIGNADAS">TAREAS ASIGNADAS</Text>
+                        <Text style={styles.headerText} accessibilityRole="header" value="TAREAS COMPLETADAS">TAREAS COMPLETADAS</Text>
                     </SafeAreaView>
                     <View style={styles.goBackView}>
                     {/* Volver a la pantalla anterior */}

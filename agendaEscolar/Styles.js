@@ -33,6 +33,16 @@ const styles = StyleSheet.create({
       right: 0,
       bottom: '15%'
     },
+    sideBannerLast: {
+      backgroundColor: '#00FF00',
+      width: '12.5%',
+      height: '70%',
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'absolute',
+      right: 0,
+      bottom: '15%'
+    },
     headerText: {
       fontSize: 60,
       color: "white",
@@ -123,15 +133,6 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       margin: 10
     },
-    taskButton:  {
-      height: '90%',
-      width: '60%',
-      borderWidth: 3,
-      fontSize: 25,
-      fontWeight: 'bold',
-      alignItems: 'center',
-      justifyContent: 'center'
-    },
     buttonText: {
       marginBottom: 15,
       fontSize: 25,
@@ -148,7 +149,7 @@ const styles = StyleSheet.create({
       width: 250,
       height: 100,
       flex: 0.75,
-      margin: 5,
+      margin: 10,
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -284,8 +285,8 @@ const styles = StyleSheet.create({
     },
     dailyTaskView: {
       marginTop: '5%',
-      width: '70%',
-      height: 350,
+      width: '50%',
+      height: 500,
       backgroundColor: "#faff6d",
       alignItems: 'center',
       justifyContent: 'center',
@@ -300,7 +301,9 @@ const styles = StyleSheet.create({
       fontWeight: 'bold'
     },
     arrowButtonDailyTasks: {
-      width: 100,
+      borderWidth: 3,
+      flex: 0.5,
+      width: 20,
       height: 100,
       margin: 100,
     }

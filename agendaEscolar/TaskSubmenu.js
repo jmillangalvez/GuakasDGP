@@ -64,7 +64,7 @@ class TaskSubmenu extends Component{
                             accessibilityLabel="Modificar estudiante"
                             accessibilityRole="button"
                             accessibilityHint="Modificar datos de un estudiante"
-                            onPress={() => this.props.navigation.navigate('ModifyNormalTaskList')}>
+                            onPress={() => this.props.navigation.navigate('ModifyNormalTask')}>
                             <Text style={styles.loginAdminText}>Modificar tarea</Text>
                             <Text style={styles.loginAdminText}>         fija</Text>
                         </TouchableOpacity>
