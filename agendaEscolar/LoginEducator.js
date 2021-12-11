@@ -11,7 +11,7 @@ async function changeScreenOrientation() {
 class LoginEducator extends Component {
   constructor(props) {
     super(props);
-    this.state = { authenticated: false, email:"", password:"", listEducators: []};
+    this.state = { authenticated: false, email:"", password:"", idEducator: -1, listEducators: []};
     //this.listAdmins = require('./data/admin.json');
   }
 
@@ -44,7 +44,8 @@ class LoginEducator extends Component {
       if(this.state.listEducators[i].email === this.state.email && this.state.listEducators[i].password === this.state.password){
         this.setState({
           authenticated: true,
-          password: ""
+          password: "",
+          idEducator: this.state.listEducators[i].idEducator,
         });
 
         notFound = false;
@@ -61,7 +62,9 @@ class LoginEducator extends Component {
           "Nombre de usuario o contraseña incorrectos. Por favor, vuelva a introducirlos de nuevo.",
       )
     }else{
-      this.props.navigation.navigate('EducatorMain')
+      this.props.navigation.navigate('EducatorMain', {
+        idEducator: this.state.idEducator
+      })
       console.log("Entra")
     }
 

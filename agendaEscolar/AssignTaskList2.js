@@ -7,7 +7,7 @@ class AssignTaskList2 extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {tareas: [], idStudent: props.route.params.idStudent};
+    this.state = {tareas: [], idStudent: props.route.params.idStudent, idEducator: props.route.params.idEducator};
   }
 
   async getTasks() {
@@ -43,7 +43,7 @@ class AssignTaskList2 extends Component {
             accessibilityLabel = "Volver"
             accessibilityRole = "button"
             accessibilityHint = "Vuelve al submenú anterior."
-            onPress={() => this.props.navigation.navigate('AssignTaskList2')}>
+            onPress={() => this.props.navigation.navigate('AssignTaskList1')}>
             <Text style={styles.backText}>Volver</Text>
           </TouchableOpacity>
         </View>
@@ -57,13 +57,13 @@ class AssignTaskList2 extends Component {
             return(
               <View style={styles.listContainer}>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('AssignTask', {idStudent: this.state.idStudent,
-                      idTask: item.idTask})}>
+                      idTask: item.idTask, idEducator: this.state.idEducator})}>
                   <Image style={styles.listImage} source={require('./data/imagenesTareas/' + item.pictogramTitle)}/>
                 </TouchableOpacity>
 
                 <View style={styles.listContent}>
                   <TouchableOpacity onPress={() => this.props.navigation.navigate('AssignTask', {idStudent: this.state.idStudent,
-                        idTask: item.idTask})}>
+                        idTask: item.idTask, idEducator: this.state.idEducator})}>
                     <Text  style={styles.listText}>{item.title}</Text>
                   </TouchableOpacity>
                 </View>

@@ -34,6 +34,8 @@ class ModifyStudent extends Component {
         if(students[i].idStudent == this.state.idStudent){
           notFound = false;
           this.setState({student: students[i]});
+          this.setState({name: students[i].name});
+          this.setState({tipo: students[i].accessibilityType});
         }
       }
     } catch (error) {
@@ -150,7 +152,7 @@ class ModifyStudent extends Component {
               accessibilityLabel="Tipo de Multimedia"
               accessibilityRole="spinbutton"
               accessibilityHint="Selecciona tipo de multimedia"
-              selectedValue = {this.state.student.accessibilityType}
+              //selectedValue = {this.state.student.accessibilityType}
               onValueChange = {(itemValue) => this.setState({tipo: itemValue})}
             >
                 <Picker.Item

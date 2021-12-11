@@ -33,6 +33,10 @@ class ModifyNormalTask extends Component {
         if(tasks[i].idTask == this.state.idTask){
           notFound = false;
           this.setState({task: tasks[i]});
+          this.setState({titulo: tasks[i].title});
+          this.setState({tituloPic: tasks[i].pictogramTitle});
+          this.setState({descripcion: tasks[i].description});
+          this.setState({descripcionPic: tasks[i].pictogramDescription});
         }
       }
     } catch (error) {

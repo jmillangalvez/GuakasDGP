@@ -33,7 +33,7 @@ class ModifyNormalTaskList extends Component {
 
   render() {
     return (
-      <View>
+      <View style={{flex:1}}>
         <SafeAreaView style={styles.banner}>
           <Text style={styles.headerText} value="ModifyNormalTaskList" accessibilityRole="header">Selecciona una tarea</Text>
         </SafeAreaView>

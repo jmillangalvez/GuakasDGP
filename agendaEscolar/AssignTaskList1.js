@@ -8,7 +8,7 @@ class AssignTaskList1 extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {estudiantes: []};
+    this.state = {estudiantes: [], idEducator: props.route.params.idEducator};
   }
 
   async getStudents() {
@@ -58,7 +58,7 @@ class AssignTaskList1 extends Component {
           renderItem = {({item}) => {
             return(
               <View style={styles.listContainer}>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('AssignTaskList2', {idStudent: item.idStudent})}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('AssignTaskList2', {idStudent: item.idStudent, idEducator: this.state.idEducator})}>
                   <Image style={styles.listImage} source={require('./data/imagenesAlumnos/' + item.picture)}/>
                 </TouchableOpacity>
 

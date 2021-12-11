@@ -320,7 +320,7 @@ class TaskView(View):
         t_pictogramDescription = data.get('pictogramDescription')
         
         Task.objects.filter(idTask=idTask).update(
-            name=t_title,
+            title=t_title,
             pictogramTitle=t_pictogramTitle,
             description=t_description,
             pictogramDescription=t_pictogramDescription,
