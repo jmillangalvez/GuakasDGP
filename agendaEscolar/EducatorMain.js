@@ -20,7 +20,7 @@ class EducatorMain extends Component {
     super(props);
     const data = require('./data/tasks.json');
     const allTasks = data.tasks;
-    this.state = { tasks: {}, currentTask: 0, currentName: "" };
+    this.state = { tasks: {}, currentTask: 0, currentName: "", idEducator: props.route.params.idEducator };
     this.state.tasks = allTasks.filter(function(task){
         if (!task.completed) return task;
     });
@@ -45,14 +45,16 @@ class EducatorMain extends Component {
 
         <View style={styles.fixToText}>
           <View style={styles.enterButtonView}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('AssignTaskList1') }>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('AssignTaskList1', {
+        idEducator: this.state.idEducator
+      }) }>
               <Text style={styles.loginAdminText}>Asignar Tarea</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.middleView}>
           </View>
           <View style={styles.enterButtonView}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('EducatorCompletedTasks') }>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('EducatorCompletedTasksList') }>
               <Text style={styles.loginAdminText}>     Tareas</Text>
               <Text style={styles.loginAdminText}>Completadas</Text>
             </TouchableOpacity>
@@ -61,7 +63,7 @@ class EducatorMain extends Component {
         
         <View style={styles.fixToText}>
           <View style={styles.enterButtonView}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('EducatorAssignedTasks') }>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('EducatorAssignedTasksList') }>
               <Text style={styles.loginAdminText}>Tareas Asignadas</Text>
             </TouchableOpacity>
           </View>

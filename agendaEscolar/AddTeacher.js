@@ -13,7 +13,7 @@ class AddTeacher extends Component {
 
   constructor(props){
     super(props);
-    this.state= {name:"", email:"",pass:"", clase:"1a"}
+    this.state= {name:"", email:"",pass:"", clase:"1a", picture: '2.jpg'}
     this.students = require('./data/students.json');
   }
 
@@ -27,7 +27,7 @@ class AddTeacher extends Component {
 
   async createStudentDB() {
     try {
-      const response = await fetch('http://localhost:8000/educators/', {
+      const response = await fetch('http://localhost:8000/api/v1/educators/', {
         method: 'POST',
         mode: 'cors',
         headers: {
@@ -36,8 +36,9 @@ class AddTeacher extends Component {
         },
         body: JSON.stringify({
             name: this.state.name,
-            userName: this.state.email,
-            password: this.state.pass
+            email: this.state.email,
+            password: this.state.pass,
+            picture: this.state.picture
         })
       });
     } catch (error) {

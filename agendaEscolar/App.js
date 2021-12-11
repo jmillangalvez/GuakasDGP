@@ -14,11 +14,15 @@ import DailyTasks from './DailyTasks';
 import EducatorMain from './EducatorMain';
 import EducatorCompletedTasks from './EducatorCompletedTasks';
 import EducatorAssignedTasks from './EducatorAssignedTasks';
+import EducatorCompletedTasksList from './EducatorCompletedTasksList';
+import EducatorAssignedTasksList from './EducatorAssignedTasksList';
 import InfoTask from './InfoTask';
 import LoginAdmin from './LoginAdmin';
 import LoginEducator from './LoginEducator';
 import ModifyStudent from './ModifyStudent';
 import ModifyStudentList from './ModifyStudentList';
+import ModifyCommandTask from './ModifyCommandTask';
+import ModifyCommandTaskList from './ModifyCommandTaskList';
 import ModifyTeacher from './ModifyTeacher';
 import ModifyTeacherList from './ModifyTeacherList';
 import PictogramTask from './PictogramTask';
@@ -27,6 +31,8 @@ import TaskSubmenu from './TaskSubmenu';
 import TeacherMain from './TeacherMain';
 import CompletedMenu from './CompletedMenu';
 import CompletedMenuList from './CompletedMenuList';
+import ModifyNormalTaskList from "./ModifyNormalTaskList";
+import WeeklyStats from "./WeeklyStats";
 
 const Stack = createNativeStackNavigator();
 
@@ -35,12 +41,48 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen
+          name="Login"
+          component={Login}
+        />
+        <Stack.Screen
+          name="CreateCommandTask"
+          component={CreateCommandTask}
+        />
+        <Stack.Screen
+          name="PictogramTask"
+          component={PictogramTask}
+        />
+        <Stack.Screen
+          name="DailyTasks"
+          component={DailyTasks}
+        />
+        <Stack.Screen
           name="EducatorMain"
           component={EducatorMain}
         />
         <Stack.Screen
           name="TaskSubmenu"
           component={TaskSubmenu}
+        />
+        <Stack.Screen
+          name="WeeklyStats"
+          component={WeeklyStats}
+        />
+        <Stack.Screen
+          name="ModifyNormalTask"
+          component={ModifyNormalTask}
+        />
+        <Stack.Screen
+          name="ModifyNormalTaskList"
+          component={ModifyNormalTaskList}
+        />
+        <Stack.Screen
+          name="ModifyCommandTask"
+          component={ModifyCommandTask}
+        />
+        <Stack.Screen
+          name="ModifyCommandTaskList"
+          component={ModifyCommandTaskList}
         />
         <Stack.Screen
           name="AddTeacher"
@@ -63,8 +105,12 @@ const App = () => {
           component={EducatorCompletedTasks}
         />
         <Stack.Screen
-          name="Login"
-          component={Login}
+          name="EducatorAssignedTasksList"
+          component={EducatorAssignedTasksList}
+        />
+        <Stack.Screen
+          name="EducatorCompletedTasksList"
+          component={EducatorCompletedTasksList}
         />
         <Stack.Screen
           name="AddStockTask"

@@ -99,19 +99,43 @@ class PictogramTask extends Component {
                             style={{ height: '100px', width: '100px' }}
                         />
                     </TouchableOpacity>
-                </SafeAreaView> : null}
-
-                <SafeAreaView style={styles.bottomBanner}>
-                    <TouchableOpacity
-                        accessibilityLabel="Volver al inicio"
+                </SafeAreaView> :
+                <SafeAreaView style={styles.sideBannerLast}> 
+                <TouchableOpacity
+                        accessibilityLabel="Siguiente pictograma"
                         accessibilityRole="button"
-                        accessibilityHint="Vuelve al menú de inicio"
+                        accessibilityHint="Pasa al siguiente pictograma que describe la tarea"
                         onPress={() => this.props.navigation.navigate('DailyTasks')}>
                         <Image
-                            source={require('./img/casa.png')}
+                            source={require('./img/si.png')}
                             style={{ height: '100px', width: '100px' }}
                         />
                     </TouchableOpacity>
+                </SafeAreaView> }
+
+                <SafeAreaView style={styles.bottomBanner}>
+                <View style={styles.fixToText}>
+                        <TouchableOpacity
+                            accessibilityLabel="Volver al inicio"
+                            accessibilityRole="button"
+                            accessibilityHint="Vuelve al menú de inicio"
+                            onPress={() => this.props.navigation.navigate('DailyTasks')}>
+                            <Image
+                                source={require('./img/casa.png')}
+                                style={{ height: '100px', width: '100px' }}
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            accessibilityLabel="Volver al inicio"
+                            accessibilityRole="button"
+                            accessibilityHint="Vuelve al menú de inicio"
+                            onPress={() => this.props.navigation.navigate('WeeklyStats')}>
+                            <Image
+                                source={require('./img/grafica.png')}
+                                style={{ height: '100px', width: '100px' }}
+                            />
+                        </TouchableOpacity>
+                    </View>
                 </SafeAreaView>
             </View>
         );
