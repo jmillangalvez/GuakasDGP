@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     },
     headerText: {
       fontSize: 60,
+      color: "white",
       fontWeight: 'bold'
     },
     enterButtonLoginView: {
@@ -175,6 +176,7 @@ const styles = StyleSheet.create({
     },
     backText: {
       width: '100%',
+      color: "white",
       height: '100%',
       fontSize: 20
     },

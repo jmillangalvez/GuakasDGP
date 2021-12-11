@@ -36,6 +36,7 @@ import ModifyNormalTaskList from "./ModifyNormalTaskList";
 import TaskEnd from "./TaskEnd";
 import ConfirmTask from "./ConfirmTask";
 import TaskBegin from "./TaskBegin";
+import WeeklyStats from "./WeeklyStats";
 
 const Stack = createNativeStackNavigator();
 
@@ -43,6 +44,10 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen
+          name="WeeklyStats"
+          component={WeeklyStats}
+        />
         <Stack.Screen
           name="Login"
           component={Login}
