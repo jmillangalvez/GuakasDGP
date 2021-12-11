@@ -70,7 +70,7 @@ class DailyTasks extends Component {
     listTask = () => {
         return(
             <TouchableOpacity 
-                style={styles.taskButton} 
+                style={styles.choosingButton} 
                 onPress={ () => this.props.navigation.navigate('InfoTask', {
                     task: this.state.tasks[this.state.currentTask]
                 }) }
@@ -138,16 +138,7 @@ class DailyTasks extends Component {
                     
                 </View>
                 <SafeAreaView style={styles.bottomBanner}>
-                    <TouchableOpacity
-                        accessibilityLabel="Volver al inicio"
-                        accessibilityRole="button"
-                        accessibilityHint="Vuelve al menú de inicio"
-                        onPress={() => this.props.navigation.navigate('DailyTasks')}>
-                        <Image
-                            source={require('./img/casa.png')}
-                            style={{ height: '100px', width: '100px' }}
-                        />
-                    </TouchableOpacity>
+                    <Text style={styles.headerText} value="TAREAS DIARIAS">PARTE DE ABAJO</Text>
                 </SafeAreaView>
                 <StatusBar style="auto" />
             </View>

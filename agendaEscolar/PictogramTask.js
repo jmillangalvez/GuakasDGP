@@ -106,7 +106,7 @@ class PictogramTask extends Component {
                         accessibilityLabel="Volver al inicio"
                         accessibilityRole="button"
                         accessibilityHint="Vuelve al menú de inicio"
-                        onPress={() => this.props.navigation.navigate('Login')}>
+                        onPress={() => this.props.navigation.navigate('DailyTasks')}>
                         <Image
                             source={require('./img/casa.png')}
                             style={{ height: '100px', width: '100px' }}

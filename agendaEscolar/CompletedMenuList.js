@@ -38,7 +38,7 @@ class CompletedMenuList extends Component {
 
         <Button
           title="Volver"
-          color="#248aff"
+          color="#3a52e6"
           onPress={() =>
             this.props.navigation.navigate('AdminMain')}
           

@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from "react";
-import { Text, SafeAreaView, TouchableOpacity, View, Image } from 'react-native';
+import { Text, SafeAreaView, TouchableOpacity, View } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import styles from "./Styles";
 
@@ -31,17 +31,14 @@ class InfoTask extends Component {
                     
                 </View>
                 <SafeAreaView style={styles.bottomBanner}>
-                    <TouchableOpacity
-                        accessibilityLabel="Volver al inicio"
+                    <TouchableOpacity 
+                        onPress={ () => this.props.navigation.navigate('DailyTasks')}
+                        accessibilityLabel="Volver al Inicio"
                         accessibilityRole="button"
-                        accessibilityHint="Vuelve al menú de inicio"
-                        onPress={() => this.props.navigation.navigate('DailyTasks')}>
-                        <Image
-                            source={require('./img/casa.png')}
-                            style={{ height: '100px', width: '100px' }}
-                        />
-                    </TouchableOpacity>
-                    
+                        accessibilityHint="Pulsa para volver a la pantalla de Inicio"
+                        >
+                        <Text style={styles.headerText} value="HOME">HOME</Text>
+                    </TouchableOpacity>  
                 </SafeAreaView>
                 <StatusBar style="auto" />
             </View>

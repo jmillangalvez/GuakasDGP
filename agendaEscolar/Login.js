@@ -157,9 +157,6 @@ class Login extends Component {
           <TouchableOpacity onPress={() => this.props.navigation.navigate('LoginAdmin') }>
             <Text style={styles.normalText}>Login Admin/Educador</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('PictogramTask') }>
-            <Text style={styles.normalText}>Demo</Text>
-          </TouchableOpacity>
         </View>
         <StatusBar style="auto" />
       </View>
