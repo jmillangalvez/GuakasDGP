@@ -1,30 +1,39 @@
 import React, { Component } from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, Image, SectionList, Button, SafeAreaView} from 'react-native';
+import {StyleSheet, Text, View,FlatList, TouchableOpacity, Image, SectionList, Button, SafeAreaView} from 'react-native';
 import styles from './Styles';
 
 class ModifyNormalTaskList extends Component {
 
   constructor(props) {
-  super(props);
-    this.normalTaskList = {
-      data:[
-        {
-          data:[
-            {title:'Titulo1', description:'Descripcion de la Tarea1', titlePictogram:require("./data/imagenesMenu/verdura.png")},
-            {title:'Titulo2', description:'Descripcion de la Tarea1', titlePictogram:require("./data/imagenesMenu/verdura.png")},
-            {title:'Titulo3', description:'Descripcion de la Tarea1', titlePictogram:require("./data/imagenesMenu/verdura.png")},
-            {title:'Titulo4', description:'Descripcion de la Tarea1', titlePictogram:require("./data/imagenesMenu/verdura.png")},
-            {title:'Titulo5', description:'Descripcion de la Tarea1', titlePictogram:require("./data/imagenesMenu/verdura.png")},
-          ]
+    super(props);
+    this.state = {tareas: []}
+  }
+
+  async getTasks() {
+    try {
+      const response = await fetch('http://localhost:8000/api/v1/tasks/', {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
         },
-      ]
+      });
+      const json = await response.json();
+      this.setState({tareas: json.items});
+    } catch (error) {
+      console.log(error);
     }
+  }
+
+  componentDidMount(){
+    this.getTasks();
   }
 
 
   render() {
     return (
-      <View>
+      <View style={{flex:1}}>
         <SafeAreaView style={styles.banner}>
           <Text style={styles.headerText} value="ModifyNormalTaskList" accessibilityRole="header">Selecciona una tarea</Text>
         </SafeAreaView>
@@ -39,26 +48,30 @@ class ModifyNormalTaskList extends Component {
           </TouchableOpacity>
         </View>
 
-        <SectionList
-          sections={this.normalTaskList.data}
+        <FlatList
+          showsHorizontalScrollIndicator={false}
+          style={{flex: 1}}
+          contentContainerStyle={{flexGrow: 1}}
+          data = {this.state.tareas}
+          renderItem = {({item}) => {
+            return(
+              <View style={styles.listContainer}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('ModifyNormalTask', {idTask: item.idTask})}>
+                  <Image style={styles.listImage} source={require('./data/imagenesTareas/' + item.pictogramTitle)}/>
+                </TouchableOpacity>
 
-          renderItem={({item}) => {
-          
-          return (
-            <View style={styles.listContainer}>
-              <TouchableOpacity 
-                onPress={() => this.props.navigation.navigate('ModifyNormalTask')}>
-                <Image style={styles.listImage} source={item.titlePictogram}/>
-              </TouchableOpacity>
-
-              <View style={styles.listContent}>
-                <Text  style={styles.listText}>{item.title}: {item.description}</Text>
+                <View style={styles.listContent}>
+                  <TouchableOpacity onPress={() => this.props.navigation.navigate('ModifyNormalTask', {idTask: item.idTask})}>
+                    <Text  style={styles.listText}>{item.title}</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-
-            </View>
-          )
-        }}/>
+            )
+          }}
+        />
       </View>
+
+      
     );
   }
 }

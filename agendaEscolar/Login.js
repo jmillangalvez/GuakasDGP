@@ -12,12 +12,11 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = { choosingStudent: false, studentsRow: 0, idStudentChosen: -1, data: [], nStudents: 0};
-    this.students = require('./data/students.json');
   }
   
   async getStudents() {
     try {
-      const response = await fetch('http://localhost:8000/api/students/', {
+      const response = await fetch('http://localhost:8000/api/v1/students/', {
         method: 'GET',
         mode: 'cors',
         headers: {
@@ -59,10 +58,17 @@ class Login extends Component {
       nStudentsInRow = (this.state.data.length % 4);
     }
     console.log(nStudentsInRow)
+    console.log(this.state.data[0].picture)
     for (let i = 0 + (4*this.state.studentsRow), cont=0; cont < nStudentsInRow ; i++, cont++) {
+      let nom = this.state.data[i].picture
+      let image = require('./data/imagenesAlumnos/'+nom)
       students.push(
       <TouchableOpacity style={styles.choosingButton} onPress={() => this.selectStudent(i)}>
-        <Text style={styles.buttonText}>{this.state.data[i].name}</Text>
+        <Image
+            style={styles.image}
+            source={image}
+            accessibilityLabel="Entrar en la aplicacion"
+            />
       </TouchableOpacity>);
     }
 
@@ -122,10 +128,16 @@ class Login extends Component {
   }
 
   studentChosenView(num){
+    let nom = this.state.data[num].picture
+    let image = require('./data/imagenesAlumnos/'+nom)
     return(
       <View style={styles.chooseView}>
         <TouchableOpacity style={styles.chooseTouch}>
-          <Text style={styles.buttonText}>ALUMNO {num + 1}{"\n"}ELEGIDO</Text>
+        <Image
+            style={styles.image}
+            source={image}
+            accessibilityLabel="Entrar en la aplicacion"
+            />
         </TouchableOpacity>
       </View>
     )

@@ -13,7 +13,7 @@ class AddStudent extends Component {
 
   constructor(props){
     super(props);
-    this.state= {name:"", accesibilidad: 1}
+    this.state= {name:"", accesibilidad: 1, picture: '8.jpg'}
     this.students = require('./data/students.json');
   }
 
@@ -28,7 +28,7 @@ class AddStudent extends Component {
 
   async createStudentDB() {
     try {
-      const response = await fetch('http://localhost:8000/api/students/', {
+      const response = await fetch('http://localhost:8000/api/v1/students/', {
         method: 'POST',
         mode: 'cors',
         headers: {
@@ -37,7 +37,8 @@ class AddStudent extends Component {
         },
         body: JSON.stringify({
             name: this.state.name,
-            accesibilityType: this.state.accesibilidad
+            accessibilityType: this.state.accesibilidad,
+            picture: this.state.picture
         })
       });
     } catch (error) {
@@ -97,7 +98,7 @@ class AddStudent extends Component {
               accessibilityLabel="Clase asignada"
               accessibilityRole="spinbutton"
               accessibilityHint="Selecciona a que clase esta asignado" 
-              onValueChange = {(itemValue) => this.setState({accesibilidad: itemValue})}
+              onValueChange = {(itemValue) => this.setState({accesibilidad: parseInt(itemValue)})}
             >
                 <Picker.Item
                 accessibilityLabel="Primero A"
@@ -109,16 +110,6 @@ class AddStudent extends Component {
                 accessibilityRole="Button"
                 accessibilityHint="Selecciona Primero B como clase" 
                 label="Pictogramas" value="2" />
-                <Picker.Item
-                accessibilityLabel="Primero B"
-                accessibilityRole="Button"
-                accessibilityHint="Selecciona Primero B como clase" 
-                label="Texto y Pictogramas" value="3" />
-                <Picker.Item
-                accessibilityLabel="Primero B"
-                accessibilityRole="Button"
-                accessibilityHint="Selecciona Primero B como clase" 
-                label="Video/Audio" value="4" />
               </Picker>
             </View>
           </View>        

@@ -33,6 +33,16 @@ const styles = StyleSheet.create({
       right: 0,
       bottom: '15%'
     },
+    sideBannerLast: {
+      backgroundColor: '#00FF00',
+      width: '12.5%',
+      height: '70%',
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'absolute',
+      right: 0,
+      bottom: '15%'
+    },
     headerText: {
       fontSize: 60,
       fontWeight: 'bold'

@@ -17,6 +17,8 @@ import DailyTasks from './DailyTasks';
 import EducatorMain from './EducatorMain';
 import EducatorCompletedTasks from './EducatorCompletedTasks';
 import EducatorAssignedTasks from './EducatorAssignedTasks';
+import EducatorCompletedTasksList from './EducatorCompletedTasksList';
+import EducatorAssignedTasksList from './EducatorAssignedTasksList';
 import InfoTask from './InfoTask';
 import LoginAdmin from './LoginAdmin';
 import LoginEducator from './LoginEducator';
@@ -33,6 +35,7 @@ import StudentList from './StudentList';
 import TaskSubmenu from './TaskSubmenu';
 import TeacherMain from './TeacherMain';
 import ModifyNormalTaskList from "./ModifyNormalTaskList";
+import WeeklyStats from "./WeeklyStats";
 
 const Stack = createNativeStackNavigator();
 
@@ -41,12 +44,12 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen
-          name="CreateCommandTask"
-          component={CreateCommandTask}
-        />
-        <Stack.Screen
           name="Login"
           component={Login}
+        />
+        <Stack.Screen
+          name="CreateCommandTask"
+          component={CreateCommandTask}
         />
         <Stack.Screen
           name="PictogramTask"
@@ -63,6 +66,10 @@ const App = () => {
         <Stack.Screen
           name="TaskSubmenu"
           component={TaskSubmenu}
+        />
+        <Stack.Screen
+          name="WeeklyStats"
+          component={WeeklyStats}
         />
         <Stack.Screen
           name="ModifyNormalTask"
@@ -103,6 +110,14 @@ const App = () => {
         <Stack.Screen
           name="EducatorCompletedTasks"
           component={EducatorCompletedTasks}
+        />
+        <Stack.Screen
+          name="EducatorAssignedTasksList"
+          component={EducatorAssignedTasksList}
+        />
+        <Stack.Screen
+          name="EducatorCompletedTasksList"
+          component={EducatorCompletedTasksList}
         />
         <Stack.Screen
           name="AddStockTask"

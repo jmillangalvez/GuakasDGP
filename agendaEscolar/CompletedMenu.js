@@ -65,7 +65,7 @@ class CompletedMenu extends Component {
 
   render() {
     return (   
-      <View>
+      <View style={{flex:1}}>
         <SafeAreaView style={styles.banner}>
           <Text style={styles.headerText} value="ModifyCommandTaskList" accessibilityRole="header">Menú</Text>
         </SafeAreaView>
@@ -75,7 +75,7 @@ class CompletedMenu extends Component {
             accessibilityLabel = "Volver"
             accessibilityRole = "button"
             accessibilityHint = "Vuelve al submenú anterior."
-            onPress={() => this.props.navigation.navigate('AdminMain')}>
+            onPress={() => this.props.navigation.navigate('CompletedMenuList')}>
             <Text style={styles.backText}>Volver</Text>
           </TouchableOpacity>
         </View>
