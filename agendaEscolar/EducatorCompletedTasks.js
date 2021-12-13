@@ -11,63 +11,62 @@ async function changeScreenOrientation() {
 class EducatorCompletedTasks extends Component {
     constructor(props) {
         super(props);
-        //Cuando la navegacion a esta página sea correcta descomentar línea 15
-        //this.state = { tasks: [], idStudent: props.route.params.idStudent };
-        this.state = { tasks: [], idStudent: 1 };
-        this.componentDidMount;
+        this.state = { tasks: [], tasksId: [], idStudent: props.route.params.idStudent };
+        this.getTasks();
     };
 
-    async getAssigneds() {
+    async getTasks() {
         try {
             const response = await fetch('http://localhost:8000/api/v1/assignedTasks/', {
                 method: 'GET',
                 mode: 'cors',
                 headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
                 },
             });
             const json = await response.json();
+
+            //Guarda los ids de las tareas asignadas al alumno que están completadas
             const auxIdStudent = this.state.idStudent;
             this.setState({ tasksId: json.items.filter(function(assigned){
-                if (assigned.studentId == auxIdStudent) return (assigned.taskId);
+                if (assigned.idStudent == auxIdStudent && assigned.completed == 1) return (assigned.idTask);
             }) });
+        
         } catch (error) {
-            console.log("Error en getAssigneds "+error);
+          console.log(error);
         }
-    }
 
-    async getTasks() {
         try {
             const response = await fetch('http://localhost:8000/api/v1/tasks/', {
                 method: 'GET',
                 mode: 'cors',
                 headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
                 },
             });
             const json = await response.json();
-            const taskCompleted = json.items.filter(function(task){
-                if (task.finished == 1) return task;
-            });
-            const finalTasks = [];
-            taskCompleted.forEach(elementTaskCompleted => {
-                this.state.tasksId.forEach(elementTaskId => {
-                    if (elementTaskId.taskId == elementTaskCompleted.taskId) finalTasks.push(elementTaskCompleted);
+            const allTasks = json.items;
+
+            var finalTasks = [];
+
+            /*Filtra de entre todas las tareas, las que se encuentran en el vector filtrado anterior,
+            generando un array con las tareas no completadas del alumno*/
+            allTasks.forEach(elementTask => {
+                this.state.tasksId.forEach(elementId => {
+                    if (elementTask.idTask == elementId.idTask) finalTasks.push(elementTask);
                 })
-            });         
+            });
+
             this.setState({ tasks: finalTasks });
+
         } catch (error) {
-            console.log("Error en getTasks "+error);
+            console.log(error);
         }
     }
 
-    componentDidMount(){
-        this.getAssigneds();
-        this.getTasks();
-    }
-
+    //Función que lista todas las tareas completadas por el alumno
     listTask = () => {
         var component = [];
         this.state.tasks.forEach(task => {
@@ -76,6 +75,7 @@ class EducatorCompletedTasks extends Component {
         return component;
     };
 
+    //Función que muestra cada tarea que ha completado el alumno
     showTask = (task) => {
         return(
             <TouchableOpacity 

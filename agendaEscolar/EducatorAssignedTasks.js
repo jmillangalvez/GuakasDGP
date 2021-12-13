@@ -11,63 +11,62 @@ async function changeScreenOrientation() {
 class EducatorAssignedTasks extends Component {
     constructor(props) {
         super(props);
-        //Cuando la navegacion a esta página sea correcta descomentar línea 15
-        //this.state = { tasks: [], idStudent: props.route.params.idStudent };
-        this.state = { tasks: [], idStudent: 1 };
-        this.componentDidMount;
+        this.state = { tasks: [], tasksId: [], idStudent: props.route.params.idStudent };
+        this.getTasks();
     };
-
-    async getAssigneds() {
-        try {
-            const response = await fetch('http://localhost:8000/assigneds/', {
-                method: 'GET',
-                mode: 'cors',
-                headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-                },
-            });
-            const json = await response.json();
-            const auxIdStudent = this.state.idStudent;
-            this.setState({ tasksId: json.items.filter(function(assigned){
-                if (assigned.studentId == auxIdStudent) return (assigned.taskId);
-            }) });
-        } catch (error) {
-            console.log("Error en getAssigneds "+error);
-        }
-    }
 
     async getTasks() {
         try {
-            const response = await fetch('http://localhost:8000/tasks/', {
+            const response = await fetch('http://localhost:8000/api/v1/assignedTasks/', {
                 method: 'GET',
                 mode: 'cors',
                 headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
                 },
             });
             const json = await response.json();
-            const taskAssigneds = json.items.filter(function(task){
-                if (task.finished == 0) return task;
-            });
-            const finalTasks = [];
-            taskAssigneds.forEach(elementTaskAssigned => {
-                this.state.tasksId.forEach(elementTaskId => {
-                    if (elementTaskId.taskId == elementTaskAssigned.taskId) finalTasks.push(elementTaskAssigned);
-                })
-            });         
-            this.setState({ tasks: finalTasks });
+
+            //Guarda los ids de las tareas asignadas al alumno que no están completadas
+            const auxIdStudent = this.state.idStudent;
+            this.setState({ tasksId: json.items.filter(function(assigned){
+                if (assigned.idStudent == auxIdStudent && assigned.completed == 0) return (assigned.idTask);
+            }) });
+        
         } catch (error) {
-            console.log("Error en getTasks "+error);
+          console.log(error);
+        }
+
+        try {
+            const response = await fetch('http://localhost:8000/api/v1/tasks/', {
+                method: 'GET',
+                mode: 'cors',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+            });
+            const json = await response.json();
+            const allTasks = json.items;
+
+            var finalTasks = [];
+
+            /*Filtra de entre todas las tareas, las que se encuentran en el vector filtrado anterior,
+            generando un array con las tareas no completadas del alumno*/
+            allTasks.forEach(elementTask => {
+                this.state.tasksId.forEach(elementId => {
+                    if (elementTask.idTask == elementId.idTask) finalTasks.push(elementTask);
+                })
+            });
+
+            this.setState({ tasks: finalTasks });
+
+        } catch (error) {
+            console.log(error);
         }
     }
 
-    componentDidMount(){
-        this.getAssigneds();
-        this.getTasks();
-    }
-
+    //Función que lista todas las tareas sin completar por el alumno
     listTask = () => {
         var component = [];
         this.state.tasks.forEach(task => {
@@ -76,6 +75,7 @@ class EducatorAssignedTasks extends Component {
         return component;
     };
 
+    //Función que muestra cada tarea asignada que no ha completado el alumno
     showTask = (task) => {
         return(
             <TouchableOpacity 

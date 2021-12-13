@@ -156,7 +156,7 @@ class Login extends Component {
         {idStudentChosen != -1? this.studentChosenView(idStudentChosen) : null}
         <View style={styles.enterButtonLoginView}> 
           <TouchableOpacity style={styles.enterButtonTouch} onPress={() => this.props.navigation.navigate('DailyTasks', {
-            idStudent: idStudentChosen
+            student: this.state.data[idStudentChosen]
           }) }>
             <Image
             style={styles.image}
