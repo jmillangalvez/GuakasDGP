@@ -3,6 +3,7 @@ import React, { Fragment, useState, useRef, useEffect, Component } from "react";
 import { Text, SafeAreaView, TouchableOpacity, View, Image, ViewPropTypes, Button, TextInput, Picker, Alert } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import styles from "./Styles";
+import * as DocumentPicker from 'expo-document-picker';
 
 
 async function changeScreenOrientation() {
@@ -13,7 +14,7 @@ class AddTeacher extends Component {
 
   constructor(props){
     super(props);
-    this.state= {name:"", email:"",pass:"", clase:"1a", picture: '2.jpg'}
+    this.state= {name:"", email:"",pass:"", clase:"1a", picture: '2.jpg', selectedFile: false, fileName: ""}
     this.students = require('./data/students.json');
   }
 
@@ -38,11 +39,35 @@ class AddTeacher extends Component {
             name: this.state.name,
             email: this.state.email,
             password: this.state.pass,
-            picture: this.state.picture
+            picture: this.state.fileName
         })
       });
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  imageComponent(){
+    let nom = this.state.fileName
+    let image = require('./data/imagenesEducadores/'+nom)
+    return (
+      <View style={styles.selectImage}>
+        <Image
+          style={styles.image}
+          source={image}
+          accessibilityLabel="Pasar hacia la izquierda"
+        />
+        <Text></Text>
+      </View>
+    );
+  }
+
+  async SingleFilePicker() {
+    try {
+      const res = await DocumentPicker.getDocumentAsync();
+      this.setState({ selectedFile: true, fileName: res.name });
+    } catch (err) {
+      console.log(err);
     }
   }
 
@@ -122,6 +147,23 @@ class AddTeacher extends Component {
             </View>
           </View>
         </View>
+
+        <View style={styles.fixToText}>
+          <View style={styles.formItem}>
+            <Text style={styles.formContent}>Seleccionar Foto:</Text>
+          </View>
+
+          <View style={styles.formItem}>
+          <TouchableOpacity
+            activeOpacity={0.5}
+            style={styles.buttonStyle}
+            onPress={this.SingleFilePicker.bind(this)}>
+            <Text style={styles.textStyle}>Choose Image</Text>
+          </TouchableOpacity>
+          </View>
+        </View>
+
+        {this.state.selectedFile? this.imageComponent() : null}
 
         <View style={styles.confirmButton}>
           <Button

@@ -3,6 +3,7 @@ import React, { Fragment, useState, useRef, useEffect, Component } from "react";
 import { Text, SafeAreaView, TouchableOpacity, View, Image, ViewPropTypes, Button, TextInput, Picker, Alert } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import styles from "./Styles";
+import * as DocumentPicker from 'expo-document-picker';
 
 
 async function changeScreenOrientation() {
@@ -13,7 +14,7 @@ class ModifyStudent extends Component {
 
   constructor(props){
     super(props);
-    this.state= {name:"", tipo: 1, idStudent: props.route.params.idStudent, student: ''}
+    this.state= {name:"", tipo: 1, picture: "1.jpg", idStudent: props.route.params.idStudent, student: ''}
     this.students = require('./data/students.json');
   }
 
@@ -36,6 +37,7 @@ class ModifyStudent extends Component {
           this.setState({student: students[i]});
           this.setState({name: students[i].name});
           this.setState({tipo: students[i].accessibilityType});
+          this.setState({picture: students[i].picture});
         }
       }
     } catch (error) {
@@ -83,7 +85,7 @@ class ModifyStudent extends Component {
         body: JSON.stringify({
             name: this.state.name,
             accessibilityType: this.state.tipo,
-            picture: this.state.student.picture,
+            picture: this.state.picture,
         })
       });
     } catch (error) {
@@ -98,6 +100,31 @@ class ModifyStudent extends Component {
       "Operación satisfactoria",
       "El estudiante ha sido añadido",
     )
+  }
+
+  imageComponent(){
+    console.log(this.state.picture);
+    let nom = this.state.picture;
+    let image = require('./data/imagenesAlumnos/'+nom)
+    return (
+      <View style={styles.selectImage}>
+        <Image
+          style={styles.image}
+          source={image}
+          accessibilityLabel="Pasar hacia la izquierda"
+        />
+        <Text></Text>
+      </View>
+    );
+  }
+
+  async SingleFilePicker() {
+    try {
+      const res = await DocumentPicker.getDocumentAsync();
+      this.setState({ picture: res.name });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   render(){
@@ -152,7 +179,6 @@ class ModifyStudent extends Component {
               accessibilityLabel="Tipo de Multimedia"
               accessibilityRole="spinbutton"
               accessibilityHint="Selecciona tipo de multimedia"
-              //selectedValue = {this.state.student.accessibilityType}
               onValueChange = {(itemValue) => this.setState({tipo: itemValue})}
             >
                 <Picker.Item
@@ -169,8 +195,24 @@ class ModifyStudent extends Component {
               </Picker>
             </View>
           </View>
-        
         </View>
+
+        <View style={styles.fixToText}>
+          <View style={styles.formItem}>
+            <Text style={styles.formContent}>Seleccionar Foto:</Text>
+          </View>
+
+          <View style={styles.formItem}>
+          <TouchableOpacity
+            activeOpacity={0.5}
+            style={styles.buttonStyle}
+            onPress={this.SingleFilePicker.bind(this)}>
+            <Text style={styles.textStyle}>Choose Image</Text>
+          </TouchableOpacity>
+          </View>
+        </View>
+
+        {this.imageComponent()}
 
         <View style={styles.confirmButton}>
           <Button

@@ -1,8 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { Fragment, useState, useRef, useEffect, Component } from "react";
-import { Text, SafeAreaView, TouchableOpacity, View, Image, ViewPropTypes, Button, TextInput, Picker, Alert } from 'react-native';
+import { Text, SafeAreaView, TouchableOpacity, View, Image, Button, TextInput, Picker, Alert } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import styles from "./Styles";
+import * as DocumentPicker from 'expo-document-picker';
 
 
 async function changeScreenOrientation() {
@@ -13,7 +13,22 @@ class ModifyNormalTask extends Component {
 
   constructor(props){
     super(props);
-    this.state= {titulo: "", descripcion: "", tituloPic: "", descripcionPic: "" , idTask: props.route.params.idTask, task: ''}
+    this.state= {titulo: "", descripcion: "", tituloPic: "microondas.png", descripcionPic: "microondas.png" , idTask: props.route.params.idTask, task: '', listDes: [],
+    descripcionPic1: "nueva.png", descripcionPic2: "nueva.png",descripcionPic3: "nueva.png", descripcionPic4: "nueva.png",descripcionPic5: "nueva.png", descripcionPic: ""}
+  }
+
+  getList(){
+    console.log(this.state.descripcionPic);
+    this.setState({listDes: this.state.descripcionPic.split(",")});
+    console.log(this.state.listDes);
+  }
+
+  getNames(){
+    this.setState({descripcionPic1: this.state.listDes[0]});
+    this.setState({descripcionPic2: this.state.listDes[1]});
+    this.setState({descripcionPic3: this.state.listDes[2]});
+    this.setState({descripcionPic4: this.state.listDes[3]});
+    this.setState({descripcionPic5: this.state.listDes[4]});
   }
 
   async getTasks() {
@@ -37,6 +52,12 @@ class ModifyNormalTask extends Component {
           this.setState({tituloPic: tasks[i].pictogramTitle});
           this.setState({descripcion: tasks[i].description});
           this.setState({descripcionPic: tasks[i].pictogramDescription});
+          this.setState({listDes: tasks[i].pictogramDescription.split(",")});
+          this.setState({descripcionPic1: tasks[i].pictogramDescription.split(",")[0]});
+          this.setState({descripcionPic2: tasks[i].pictogramDescription.split(",")[1]});
+          this.setState({descripcionPic3: tasks[i].pictogramDescription.split(",")[2]});
+          this.setState({descripcionPic4: tasks[i].pictogramDescription.split(",")[3]});
+          this.setState({descripcionPic5: tasks[i].pictogramDescription.split(",")[4]});
         }
       }
     } catch (error) {
@@ -102,8 +123,149 @@ class ModifyNormalTask extends Component {
     )
   }
 
+  imageComponentTitle(){
+    let nom = this.state.tituloPic;
+    let image = require('./data/imagenesTareas/'+nom)
+    return (
+      <View style={styles.selectImage}>
+        <Image
+          style={styles.image}
+          source={image}
+          accessibilityLabel="Pasar hacia la izquierda"
+        />
+        <Text></Text>
+      </View>
+    );
+  }
+
+  async SingleFilePickerTitle() {
+    try {
+      const res = await DocumentPicker.getDocumentAsync();
+      this.setState({ tituloPic: res.name });
+      this.setState({ titleChosen: true });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  imageComponentDes1(){
+    let nom = this.state.descripcionPic1;
+    let image = require('./data/imagenesTareas/'+nom)
+    return (
+      <View style={styles.selectImage2}>
+        <Image
+          style={styles.image}
+          source={image}
+          accessibilityLabel="Pasar hacia la izquierda"
+        />
+        <Text></Text>
+      </View>
+    );
+  }
+
+  imageComponentDes2(){
+    let nom = this.state.descripcionPic2;
+    let image = require('./data/imagenesTareas/'+nom)
+    return (
+      <View style={styles.selectImage2}>
+        <Image
+          style={styles.image}
+          source={image}
+          accessibilityLabel="Pasar hacia la izquierda"
+        />
+        <Text></Text>
+      </View>
+    );
+  }
+
+  imageComponentDes3(){
+    let nom = this.state.descripcionPic3;
+    let image = require('./data/imagenesTareas/'+nom)
+    return (
+      <View style={styles.selectImage2}>
+        <Image
+          style={styles.image}
+          source={image}
+          accessibilityLabel="Pasar hacia la izquierda"
+        />
+        <Text></Text>
+      </View>
+    );
+  }
+
+  imageComponentDes4(){
+    let nom = this.state.descripcionPic4;
+    let image = require('./data/imagenesTareas/'+nom)
+    return (
+      <View style={styles.selectImage2}>
+        <Image
+          style={styles.image}
+          source={image}
+          accessibilityLabel="Pasar hacia la izquierda"
+        />
+        <Text></Text>
+      </View>
+    );
+  }
+
+  imageComponentDes5(){
+    let nom = this.state.descripcionPic5;
+    let image = require('./data/imagenesTareas/'+nom)
+    return (
+      <View style={styles.selectImage2}>
+        <Image
+          style={styles.image}
+          source={image}
+          accessibilityLabel="Pasar hacia la izquierda"
+        />
+      </View>
+    );
+  }
+
+  async SingleFilePickerDes1() {
+    try {
+      const res = await DocumentPicker.getDocumentAsync();
+      this.setState({ descripcionPic1: res.name });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async SingleFilePickerDes2() {
+    try {
+      const res = await DocumentPicker.getDocumentAsync();
+      this.setState({ descripcionPic2: res.name });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async SingleFilePickerDes3() {
+    try {
+      const res = await DocumentPicker.getDocumentAsync();
+      this.setState({ descripcionPic3: res.name });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async SingleFilePickerDes4() {
+    try {
+      const res = await DocumentPicker.getDocumentAsync();
+      this.setState({ descripcionPic4: res.name });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async SingleFilePickerDes5() {
+    try {
+      const res = await DocumentPicker.getDocumentAsync();
+      this.setState({ descripcionPic5: res.name });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+
   render(){
-    
     changeScreenOrientation();
     return(
       
@@ -149,16 +311,16 @@ class ModifyNormalTask extends Component {
             </View>
 
             <View style={styles.formItem}>
-              <TextInput 
-                style={styles.formContentLine}
-                onChangeText = {(text) => this.setState({tituloPic: text})}
-                defaultValue = {this.state.task.pictogramTitle}
-                placeholder = "Titulo Pictograma"
-                accessibilityLabel="Titulo Tarea"
-                accessibilityHint="Introduce el titulo de la tarea" 
-              />
+              <TouchableOpacity
+                activeOpacity={0.5}
+                style={styles.buttonStyle}
+                onPress={this.SingleFilePickerTitle.bind(this)}>
+                <Text style={styles.textStyle}>Choose Image</Text>
+              </TouchableOpacity>
             </View>
           </View>
+
+          {this.imageComponentTitle()} 
 
           <View style={styles.fixToText}>
             <View style={styles.formItem}>
@@ -177,22 +339,49 @@ class ModifyNormalTask extends Component {
               />
             </View>
           </View>
+        </View>
 
+        <View style={styles.formItem}>
           <View style={styles.fixToText}>
             <View style={styles.formItem}>
-              <Text style={styles.formContent}>Descripción en pictograna:</Text>
+              <TouchableOpacity
+                activeOpacity={0.5}
+                style={styles.buttonStyle}
+                onPress={this.SingleFilePickerDes1.bind(this)}>
+                {this.imageComponentDes1()}
+              </TouchableOpacity>
             </View>
-
             <View style={styles.formItem}>
-              <TextInput 
-                style={styles.formContentBox}
-                onChangeText = {(text) => this.setState({descripcionPic: text})}
-                defaultValue = {this.state.task.pictogramDescription}
-                multiline={true}
-                placeholder = ".............................."
-                accessibilityLabel="Descripcion tarea"
-                accessibilityHint="Introduce la descripción de la tarea" 
-              />
+              <TouchableOpacity
+                activeOpacity={0.5}
+                style={styles.buttonStyle}
+                onPress={this.SingleFilePickerDes2.bind(this)}>
+                {this.imageComponentDes2()}
+              </TouchableOpacity>
+            </View>
+            <View style={styles.formItem}>
+              <TouchableOpacity
+                activeOpacity={0.5}
+                style={styles.buttonStyle}
+                onPress={this.SingleFilePickerDes3.bind(this)}>
+                {this.imageComponentDes3()}
+              </TouchableOpacity>
+            </View>
+            <View style={styles.formItem}>
+              <TouchableOpacity
+                activeOpacity={0.5}
+                style={styles.buttonStyle}
+                onPress={this.SingleFilePickerDes4.bind(this)}>
+                {this.imageComponentDes4()}
+              </TouchableOpacity>
+            </View>
+            <View style={styles.formItem}>
+              <TouchableOpacity
+                activeOpacity={0.5}
+                style={styles.buttonStyle}
+                onPress={this.SingleFilePickerDes5.bind(this)}>
+                {this.imageComponentDes5()}
+              </TouchableOpacity>
             </View>
           </View>
         </View>
