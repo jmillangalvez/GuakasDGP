@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, Image, SectionList, Button, SafeAreaView} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Image, FlatList, Button, SafeAreaView} from 'react-native';
 import styles from './Styles';
 
 
@@ -8,30 +8,34 @@ class AssignTaskList1 extends Component {
   constructor(props) {
     super(props);
 
-    this.datosEstudiantes = {
+    this.state = {estudiantes: [], idEducator: props.route.params.idEducator};
+  }
 
-      data:[
-
-        {
-          data:[
-            {name:'Luis García', image:require("./data/imagenesAlumnos/1.jpg")},
-            {name:'María González', image:require("./data/imagenesAlumnos/2.jpg")},
-            {name:'Juana Fernández', image:require("./data/imagenesAlumnos/3.jpg")},
-            {name:'Martina Rodríguez', image:require("./data/imagenesAlumnos/4.jpg")},
-            {name:'Alejandra López', image:require("./data/imagenesAlumnos/5.jpg")},
-            {name:'Rodrigo Martínez', image:require("./data/imagenesAlumnos/6.jpg")},
-          ]
+  async getStudents() {
+    try {
+      const response = await fetch('http://localhost:8000/api/v1/students/', {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
         },
-        
-      ]
+      });
+      const json = await response.json();
+      this.setState({estudiantes: json.items});
+    } catch (error) {
+      console.log(error);
     }
+  }
 
+  componentDidMount(){
+    this.getStudents();
   }
 
 
   render() {
     return (
-      <View>
+      <View style={{flex: 1}}>
         <SafeAreaView style={styles.banner}>
           <Text style={styles.headerText} value="AssingTaskList1" accessibilityRole="header">Selecciona un alumno</Text>
         </SafeAreaView>
@@ -46,23 +50,28 @@ class AssignTaskList1 extends Component {
           </TouchableOpacity>
         </View>
 
-        <SectionList sections={this.datosEstudiantes.data}
-          renderItem={({item}) => {
-            
-            return (
+        <FlatList
+          showsHorizontalScrollIndicator={false}
+          style={{flex: 1}}
+          contentContainerStyle={{flexGrow: 1}}
+          data = {this.state.estudiantes}
+          renderItem = {({item}) => {
+            return(
               <View style={styles.listContainer}>
-
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('AssignTaskList2')}>
-                  <Image style={styles.listImage} source={item.image}/>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('AssignTaskList2', {idStudent: item.idStudent, idEducator: this.state.idEducator})}>
+                  <Image style={styles.listImage} source={require('./data/imagenesAlumnos/' + item.picture)}/>
                 </TouchableOpacity>
 
                 <View style={styles.listContent}>
-                  <Text  style={styles.listText}>{item.name}</Text>
+                  <TouchableOpacity onPress={() => this.props.navigation.navigate('AssignTaskList2', {idStudent: item.idStudent})}>
+                    <Text  style={styles.listText}>{item.name}</Text>
+                  </TouchableOpacity>
                 </View>
               </View>
             )
           }}
         />
+
       </View>
     );
   }

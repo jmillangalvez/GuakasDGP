@@ -3,6 +3,7 @@ import React, { Fragment, useState, useRef, useEffect, Component } from "react";
 import { Text, SafeAreaView, TouchableOpacity, View, Image, ViewPropTypes, Button, TextInput, Picker, Alert } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import styles from "./Styles";
+import * as DocumentPicker from 'expo-document-picker';
 
 
 async function changeScreenOrientation() {
@@ -13,18 +14,117 @@ class ModifyStudent extends Component {
 
   constructor(props){
     super(props);
-    this.state= {name:"", tipo:"texto"}
+    this.state= {name:"", tipo: 1, picture: "1.jpg", idStudent: props.route.params.idStudent, student: ''}
     this.students = require('./data/students.json');
   }
 
-  aniadirAlumno = () => {
-    console.log(this.state.name)
-    console.log(this.state.tipo)
+  async getStudents() {
+    try {
+      const response = await fetch('http://localhost:8000/api/v1/students/', {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+      });
+      const json = await response.json();
+      let students = json.items;
+      let notFound = true;
+      for (let i = 0; i < students.length && notFound; i++) {
+        if(students[i].idStudent == this.state.idStudent){
+          notFound = false;
+          this.setState({student: students[i]});
+          this.setState({name: students[i].name});
+          this.setState({tipo: students[i].accessibilityType});
+          this.setState({picture: students[i].picture});
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  componentDidMount(){
+    this.getStudents();
+  }
+
+  async deleteStudent() {
+    let url = 'http://localhost:8000/api/v1/students/' + this.state.idStudent + '/'
+    try {
+      const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          'Content-type': 'application/json'
+         }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  eliminarAlumno = () => {
+    this.deleteStudent();
 
     Alert.alert(
-      "----------",
-      "El Alumno ha sido añadido Correctamente",
+      "Operación satisfactoria",
+      "El estudiante ha sido añadido",
     )
+  }
+
+
+  async modifyStudent() {
+    let url = 'http://localhost:8000/api/v1/students/' + this.state.idStudent + '/'
+    try {
+      const response = await fetch(url, {
+        method: 'PUT',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            name: this.state.name,
+            accessibilityType: this.state.tipo,
+            picture: this.state.picture,
+        })
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  modificarAlumno = () => {
+    this.modifyStudent();
+
+    Alert.alert(
+      "Operación satisfactoria",
+      "El estudiante ha sido añadido",
+    )
+  }
+
+  imageComponent(){
+    console.log(this.state.picture);
+    let nom = this.state.picture;
+    let image = require('./data/imagenesAlumnos/'+nom)
+    return (
+      <View style={styles.selectImage}>
+        <Image
+          style={styles.image}
+          source={image}
+          accessibilityLabel="Pasar hacia la izquierda"
+        />
+        <Text></Text>
+      </View>
+    );
+  }
+
+  async SingleFilePicker() {
+    try {
+      const res = await DocumentPicker.getDocumentAsync();
+      this.setState({ picture: res.name });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   render(){
@@ -60,7 +160,7 @@ class ModifyStudent extends Component {
               <TextInput 
                 style={styles.formContentLine}
                 onChangeText = {(text) => this.setState({name: text})}
-                defaultValue = {"Juan Pérez"}
+                defaultValue = {this.state.student.name}
                 placeholder = "Nombre Alumno"
                 accessibilityLabel="Nombre Alumno"
                 accessibilityRole="Text"
@@ -78,46 +178,41 @@ class ModifyStudent extends Component {
             <Picker
               accessibilityLabel="Tipo de Multimedia"
               accessibilityRole="spinbutton"
-              accessibilityHint="Selecciona tipo de multimedia" 
+              accessibilityHint="Selecciona tipo de multimedia"
               onValueChange = {(itemValue) => this.setState({tipo: itemValue})}
             >
                 <Picker.Item
                 accessibilityLabel="Texto"
                 accessibilityRole="Button"
                 accessibilityHint="Selecciona Texto como tipo de multimedia" 
-                label="Texto" value="texto" />
+                label="Texto" value="1" />
 
                 <Picker.Item
                 accessibilityLabel="Pictogramas"
                 accessibilityRole="Button"
                 accessibilityHint="Selecciona Pictogramas como tipo de multimedia" 
-                label="Pictogramas" value="picto" />
-
-                <Picker.Item
-                accessibilityLabel="Imagenes"
-                accessibilityRole="Button"
-                accessibilityHint="Selecciona Imagenes como tipo de multimedia"
-                label="Imagenes" value="imgs" />
-
-                <Picker.Item 
-                accessibilityLabel="Videos"
-                accessibilityRole="Button"
-                accessibilityHint="Selecciona Videos como tipo de multimedia"
-                label="Videos" value="video" />
+                label="Pictogramas" value="2" />
               </Picker>
             </View>
           </View>
-
-          {/* <View style={styles.formLine}>
-            <View style={styles.formLeft}>
-              <Text style={styles.formContent}>Fotografia:</Text>
-            </View>
-            <View style={styles.formRightBG}>
-              <Text>+</Text>
-            </View>
-          </View> */}
-        
         </View>
+
+        <View style={styles.fixToText}>
+          <View style={styles.formItem}>
+            <Text style={styles.formContent}>Seleccionar Foto:</Text>
+          </View>
+
+          <View style={styles.formItem}>
+          <TouchableOpacity
+            activeOpacity={0.5}
+            style={styles.buttonStyle}
+            onPress={this.SingleFilePicker.bind(this)}>
+            <Text style={styles.textStyle}>Choose Image</Text>
+          </TouchableOpacity>
+          </View>
+        </View>
+
+        {this.imageComponent()}
 
         <View style={styles.confirmButton}>
           <Button
@@ -126,7 +221,7 @@ class ModifyStudent extends Component {
             accessibilityRole="Button"
             accessibilityHint="Modifica el estudiante"
             color="#bcbcbc"
-            onPress={() =>this.props.navigation.navigate('ModifyStudentList')}
+            onPress={this.modificarAlumno}
           />
         </View>
         
@@ -137,7 +232,7 @@ class ModifyStudent extends Component {
             accessibilityRole="Button"
             accessibilityHint="Eliminar el estudiante"
             color="#A52A2A"
-            onPress={() =>this.props.navigation.navigate('ModifyStudentList')}
+            onPress={this.eliminarAlumno}
           />
         </View>
 
