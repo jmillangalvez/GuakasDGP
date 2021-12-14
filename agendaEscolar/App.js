@@ -7,6 +7,7 @@ import AddStudent from './AddStudent';
 import AddTeacher from './AddTeacher';
 import AdminMain from './AdminMain';
 import AssignTask from './AssignTask';
+import AssignStockTask from './AssignStockTask';
 import AssignTaskList1 from './AssignTaskList1';
 import AssignTaskList2 from './AssignTaskList2';
 import CreateNormalTask from './CreateNormalTask';
@@ -32,6 +33,8 @@ import ModifyTeacherList from './ModifyTeacherList';
 import PictogramTask from './PictogramTask';
 import StudentSubmenu from './StudentSubmenu';
 import StudentList from './StudentList';
+import SearchStudents from './SearchStudents';
+import SearchStudentsList from './SearchStudentsList';
 import TaskSubmenu from './TaskSubmenu';
 import TeacherMain from './TeacherMain';
 import ModifyNormalTaskList from "./ModifyNormalTaskList";
@@ -48,16 +51,20 @@ const App = () => {
           component={Login}
         />
         <Stack.Screen
-          name="CreateCommandTask"
-          component={CreateCommandTask}
-        />
-        <Stack.Screen
           name="PictogramTask"
           component={PictogramTask}
         />
         <Stack.Screen
+          name="CreateCommandTask"
+          component={CreateCommandTask}
+        />
+        <Stack.Screen
           name="DailyTasks"
           component={DailyTasks}
+        />
+        <Stack.Screen
+          name="AssignStockTask"
+          component={AssignStockTask}
         />
         <Stack.Screen
           name="EducatorMain"
@@ -170,6 +177,14 @@ const App = () => {
         <Stack.Screen
           name="StudentSubmenu"
           component={StudentSubmenu}
+        />
+        <Stack.Screen
+          name="SearchStudents"
+          component={SearchStudents}
+        />
+        <Stack.Screen
+          name="SearchStudentsList"
+          component={SearchStudentsList}
         />
         <Stack.Screen
           name="TeacherMain"

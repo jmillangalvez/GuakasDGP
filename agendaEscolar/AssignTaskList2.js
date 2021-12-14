@@ -31,6 +31,46 @@ class AssignTaskList2 extends Component {
     this.getTasks();
   }
 
+  goNormalTask(item){
+    return(
+      <TouchableOpacity onPress={() => this.props.navigation.navigate('AssignTask', {idStudent: this.state.idStudent,
+            idTask: item.idTask, idEducator: this.state.idEducator})}>
+        <Image style={styles.listImage} source={require('./data/imagenesTareas/' + item.pictogramTitle)}/>
+      </TouchableOpacity>
+    )
+  }
+
+  goStockTask(item){
+    return(
+      <TouchableOpacity onPress={() => this.props.navigation.navigate('AssignStockTask', {idStudent: this.state.idStudent,
+            idTask: item.idTask, idEducator: this.state.idEducator})}>
+        <Image style={styles.listImage} source={require('./data/imagenesTareas/' + item.pictogramTitle)}/>
+      </TouchableOpacity>
+    )
+  }
+
+  goNormalTaskText(item){
+    return(
+      <View style={styles.listContent}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('AssignTask', {idStudent: this.state.idStudent,
+              idTask: item.idTask, idEducator: this.state.idEducator})}>
+          <Text  style={styles.listText}>{item.title}</Text>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+
+  goStockTaskText(item){
+    return(
+      <View style={styles.listContent}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('AssignStockTask', {idStudent: this.state.idStudent,
+              idTask: item.idTask, idEducator: this.state.idEducator})}>
+          <Text  style={styles.listText}>{item.title}</Text>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+
   render() {
     return (
       <View style={{flex: 1}}>
@@ -56,17 +96,9 @@ class AssignTaskList2 extends Component {
           renderItem = {({item}) => {
             return(
               <View style={styles.listContainer}>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('AssignTask', {idStudent: this.state.idStudent,
-                      idTask: item.idTask, idEducator: this.state.idEducator})}>
-                  <Image style={styles.listImage} source={require('./data/imagenesTareas/' + item.pictogramTitle)}/>
-                </TouchableOpacity>
-
-                <View style={styles.listContent}>
-                  <TouchableOpacity onPress={() => this.props.navigation.navigate('AssignTask', {idStudent: this.state.idStudent,
-                        idTask: item.idTask, idEducator: this.state.idEducator})}>
-                    <Text  style={styles.listText}>{item.title}</Text>
-                  </TouchableOpacity>
-                </View>
+                {item.idTask == 3? this.goStockTask(item) : this.goNormalTask(item)}
+                
+                {item.idTask == 3? this.goStockTaskText(item) : this.goNormalTaskText(item)}
               </View>
             )
           }}

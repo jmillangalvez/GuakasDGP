@@ -373,7 +373,7 @@ class AssignedTaskView(View):
         }
         return JsonResponse(data, status=201)
     
-    def get(self, request):
+    def get(self, request, idAssignedTask=-1):
         items_count = AssignedTask.objects.count()
         items = AssignedTask.objects.all()
 
@@ -389,11 +389,24 @@ class AssignedTaskView(View):
                 'completedDate': item.completedDate,
                 'completed': item.completed,
             })
-
-        data = {
-            'items': items_data,
-            'count': items_count,
-        }
+        
+        if idAssignedTask==-1:
+            data = {
+                'items': items_data,
+                'count': items_count,
+            }
+        else:
+            index = 0
+            for student in items_data:
+                print(student)
+                if(student["idAssignedTask"] == idAssignedTask):
+                    break
+                else:
+                    index+=1
+            
+            data = {
+                'item': items_data[index]
+            }
 
         return JsonResponse(data)
     
@@ -647,13 +660,13 @@ class ClassMenuView(View):
             items_data.append({
                 'idClassMenu': item.idClassMenu,
                 'idEducator': item.idEducator,
-                'date': item.idDate,
-                'numNormalMenu': item.idNormalMenu,
-                'numNoMeatMenu': item.idNoMeatMenu,
-                'numCrushedMenu': item.idCrushedMenu,
-                'numDessertCrushedFruit': item.idDessertCrushedFruit,
-                'numDessertYogurtCustard': item.idDessertYogurtCustard,
-                'numDessertFruit': item.idDessertFruit,
+                'date': item.date,
+                'numNormalMenu': item.numNormalMenu,
+                'numNoMeatMenu': item.numNoMeatMenu,
+                'numCrushedMenu': item.numCrushedMenu,
+                'numDessertCrushedFruit': item.numDessertCrushedFruit,
+                'numDessertYogurtCustard': item.numDessertYogurtCustard,
+                'numDessertFruit': item.numDessertFruit,
             })
 
         data = {

@@ -188,6 +188,10 @@ const styles = StyleSheet.create({
       width: '500px',
       height: '500px',
     },
+    pictogram2: {
+      width: '300px',
+      height: '300px',
+    },
     loginAdminText: {
       width: '100%',
       height: '100%',
@@ -311,6 +315,16 @@ const styles = StyleSheet.create({
     selectImage2: {
       width: 75,
       height: 75,
+    },
+    pictoSafeArea: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginTop: '12%'
+    },
+
+    pictoSafeArea2: {
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     
   });

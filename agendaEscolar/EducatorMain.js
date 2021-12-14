@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Button, Text, SafeAreaView, TouchableOpacity, View, ScrollView} from 'react-native';
+import { StyleSheet, Button, Text, SafeAreaView, TouchableOpacity, View} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as ScreenOrientation from 'expo-screen-orientation';
@@ -18,13 +18,7 @@ async function changeScreenOrientation() {
 class EducatorMain extends Component {
   constructor(props) {
     super(props);
-    const data = require('./data/tasks.json');
-    const allTasks = data.tasks;
     this.state = { tasks: {}, currentTask: 0, currentName: "", idEducator: props.route.params.idEducator };
-    this.state.tasks = allTasks.filter(function(task){
-        if (!task.completed) return task;
-    });
-    this.state.currentName = this.state.tasks[0].name;
   };
   
   render (){
@@ -46,8 +40,8 @@ class EducatorMain extends Component {
         <View style={styles.fixToText}>
           <View style={styles.enterButtonView}>
             <TouchableOpacity onPress={() => this.props.navigation.navigate('AssignTaskList1', {
-        idEducator: this.state.idEducator
-      }) }>
+              idEducator: this.state.idEducator
+            }) }>
               <Text style={styles.loginAdminText}>Asignar Tarea</Text>
             </TouchableOpacity>
           </View>
@@ -65,6 +59,14 @@ class EducatorMain extends Component {
           <View style={styles.enterButtonView}>
             <TouchableOpacity onPress={() => this.props.navigation.navigate('EducatorAssignedTasksList') }>
               <Text style={styles.loginAdminText}>Tareas Asignadas</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.middleView}>
+          </View>
+          <View style={styles.enterButtonView}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('SearchStudentsList') }>
+              <Text style={styles.loginAdminText}>    Buscar</Text>
+              <Text style={styles.loginAdminText}>estudiantes</Text>
             </TouchableOpacity>
           </View>
         </View>

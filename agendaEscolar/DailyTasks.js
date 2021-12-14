@@ -32,6 +32,7 @@ class DailyTasks extends Component {
             this.setState({ tasksId: json.items.filter(function(assigned){
                 if (assigned.idStudent == auxIdStudent && assigned.completed == 0) return (assigned.idTask);
             }) });
+            console.log(this.state.tasksId);
         
         } catch (error) {
           console.log(error);
@@ -73,8 +74,10 @@ class DailyTasks extends Component {
         return(
             <TouchableOpacity 
                 style={styles.taskButton} 
-                onPress={ () => this.props.navigation.navigate('InfoTask', {
-                    task: this.state.tasks[this.state.currentTask]
+                onPress={ () => this.props.navigation.navigate('PictogramTask', {
+                    task: this.state.tasks[this.state.currentTask],
+                    tipoAcc: this.state.student.accessibilityType,
+                    assigned: this.state.tasksId[this.state.currentTask]
                 }) }
                 accessibilityLabel="Tarea seleccionada"
                 accessibilityRole="button"
@@ -94,7 +97,9 @@ class DailyTasks extends Component {
             <TouchableOpacity 
                 style={styles.taskButton} 
                 onPress={ () => this.props.navigation.navigate('PictogramTask', {
-                    task: this.state.tasks[this.state.currentTask]
+                    task: this.state.tasks[this.state.currentTask],
+                    tipoAcc: this.state.student.accessibilityType,
+                    assigned: this.state.tasksId[this.state.currentTask]
                 }) }
                 accessibilityLabel="Tarea seleccionada"
                 accessibilityRole="button"
@@ -117,7 +122,9 @@ class DailyTasks extends Component {
             <TouchableOpacity 
                 style={styles.taskButton} 
                 onPress={ () => this.props.navigation.navigate('PictogramTask', {
-                    task: this.state.tasks[this.state.currentTask]
+                    task: this.state.tasks[this.state.currentTask],
+                    tipoAcc: this.state.student.accessibilityType,
+                    assigned: this.state.tasksId[this.state.currentTask]
                 }) }
                 accessibilityLabel="Tarea seleccionada"
                 accessibilityRole="button"
