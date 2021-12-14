@@ -3,6 +3,7 @@ import React, { Fragment, useState, useRef, useEffect, Component } from "react";
 import { Text, SafeAreaView, TouchableOpacity, View, Image } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import styles from "./Styles";
+import { Button } from 'react-native-elements/dist/buttons/Button';
 
 async function changeScreenOrientation() {
     await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT);
@@ -196,7 +197,7 @@ class DailyTasks extends Component {
                             accessibilityLabel="Volver al inicio"
                             accessibilityRole="button"
                             accessibilityHint="Vuelve al menú de inicio"
-                            onPress={() => this.props.navigation.navigate('WeeklyStats')}>
+                            onPress={() => this.props.navigation.navigate('CalendarMenu')}>
                             <Image
                                 source={require('./img/grafica.png')}
                                 style={{ height: '100px', width: '100px' }}
@@ -232,11 +233,12 @@ class DailyTasks extends Component {
                                 style={{ height: '100px', width: '100px' }}
                             />
                         </TouchableOpacity>
+
                         <TouchableOpacity
                             accessibilityLabel="Volver al inicio"
                             accessibilityRole="button"
                             accessibilityHint="Vuelve al menú de inicio"
-                            onPress={() => this.props.navigation.navigate('WeeklyStats')}>
+                            onPress={() => this.props.navigation.navigate('CalendarMenu')}>
                             <Image
                                 source={require('./img/grafica.png')}
                                 style={{ height: '100px', width: '100px' }}
@@ -255,6 +257,13 @@ class DailyTasks extends Component {
                     <SafeAreaView style={styles.banner}>
                         <Text style={styles.headerText} value="TAREAS DIARIAS">TAREAS DIARIAS</Text>
                     </SafeAreaView>
+                    <TouchableOpacity
+                            accessibilityLabel="Ir al calendario"
+                            accessibilityRole="button"
+                            accessibilityHint="Va al menú del calendario"
+                            onPress={() => this.props.navigation.navigate('CalendarMenu')}>
+                            
+                    </TouchableOpacity>
                     <View style={styles.dailyTaskView}>
                         <Text style={styles.dailyTaks}>No te quedan tareas por realizar.</Text>
                         <Text style={styles.dailyTaks}>!Buen trabajo!</Text>
@@ -276,6 +285,16 @@ class DailyTasks extends Component {
                             accessibilityRole="button"
                             accessibilityHint="Vuelve al menú de inicio"
                             onPress={() => this.props.navigation.navigate('WeeklyStats')}>
+                            <Image
+                                source={require('./img/grafica.png')}
+                                style={{ height: '100px', width: '100px' }}
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            accessibilityLabel="Ir al calendario"
+                            accessibilityRole="button"
+                            accessibilityHint="Va al menú del calendario"
+                            onPress={() => this.props.navigation.navigate('CalendarMenu')}>
                             <Image
                                 source={require('./img/grafica.png')}
                                 style={{ height: '100px', width: '100px' }}

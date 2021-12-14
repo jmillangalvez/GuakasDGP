@@ -31,9 +31,9 @@ class CalendarMenu extends Component{
           tasksId: [],
           dates: [],
           currentTask: 0,
-          idStudent: props.route.params.idStudent,
+          idStudent: props.route.params.idStudent
         };
-        // this.componentDidMount;
+        //this.componentDidMount;
         this.onDateChange = this.onDateChange.bind(this);
     }
 
@@ -52,27 +52,25 @@ class CalendarMenu extends Component{
 
       async getAssigneds() {
         try {
-            const response = await fetch('http://localhost:8000/assigneds/', {
+            const response = await fetch('http://localhost:8000/api/v1/assignedTasks/', {
                 method: 'GET',
                 mode: 'cors',
                 headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-                },
-            });
-            const json = await response.json();
-            const auxIdStudent = this.state.idStudent;
-            this.setState({ tasksId: json.items.filter(function(assigned){
-                if (assigned.studentId == auxIdStudent) return (assigned.taskId);
-            }) });
+              Accept: 'application/json',
+              'Content-Type': 'application/json'
+            },
+          });
+          const json = await response.json();
+          this.setState({assigneds: json.items});
+          
         } catch (error) {
-            console.log("Error en getAssigneds "+error);
+          console.log(error);
         }
     }
 
     async getTasks() {
         try {
-            const response = await fetch('http://localhost:8000/tasks/', {
+            const response = await fetch('http://localhost:8000/api/v1/tasks/', {
                 method: 'GET',
                 mode: 'cors',
                 headers: {
@@ -119,8 +117,17 @@ class CalendarMenu extends Component{
                 <SafeAreaView style={styles.banner}>
                     <Text style={styles.headerText} value="CALENDARIO DE TAREAS">TAREAS DIARIAS</Text>
                 </SafeAreaView>
-
-                <View>
+                <View style={styles.goBackView}>
+                    <TouchableOpacity 
+                        onPress={() => this.props.navigation.navigate('DailyTasks') }
+                        accessibilityLabel="Volver"
+                        accessibilityRole="Button"
+                        accessibilityHint="Vuelve al calendario"
+                        color="#bcbcbc">
+                        <Text style={styles.backText}>Volver</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.container}>
                     <CalendarPicker
                         startFromMonday={true}
                         allowRangeSelection={true}
@@ -132,21 +139,22 @@ class CalendarMenu extends Component{
                         onDateChange={this.onDateChange}
                     />
                     <View>
-                        <Text>SELECTED START DATE:{ startDate }</Text>
-                        <Text>SELECTED END DATE:{ endDate }</Text>
+                        <Text>FECHA DE INICIO:{ startDate }</Text>
+                        <Text>FECHA DE FINALIZACIÓN:{ endDate }</Text>
                     </View>
                 </View>
 
                 <View style={styles.sideBanner}>
                     <View style={styles.confirmButton}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('') }>
-                        <Button
-                            title="Ver Estadísticas"
-                            accessibilityLabel="Ver Estadísticas"
-                            accessibilityRole="Button"
-                            accessibilityHint="Ir al menu de estadísticas"
-                            color="#bcbcbc"
-                        />
+                        <TouchableOpacity
+                            accessibilityLabel="Volver al inicio"
+                            accessibilityRole="button"
+                            accessibilityHint="Vuelve al menú de inicio"
+                            onPress={() => this.props.navigation.navigate('WeeklyStats')}>
+                            <Image
+                                source={require('./img/grafica.png')}
+                                style={{ height: '100px', width: '100px' }}
+                            />
                         </TouchableOpacity>
                     </View>
                     
