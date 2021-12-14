@@ -52,7 +52,7 @@ class CompletedMenuList extends Component {
                 </TouchableOpacity>
 
                 <View style={styles.listContent}>
-                  <Text  style={styles.listText}>{item.fecha}</Text>
+                  <Text  style={styles.listText}>Fecha del menu: {item.fecha}</Text>
                 </View>
               </View>
             )

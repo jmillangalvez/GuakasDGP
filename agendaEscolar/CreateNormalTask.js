@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Button, Text, SafeAreaView, TouchableOpacity, View, TextInput, Alert} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { StyleSheet, Button, Text, SafeAreaView, TouchableOpacity, View, TextInput, Alert, Image} from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import styles from './Styles';
+import * as DocumentPicker from 'expo-document-picker';
 
 
 // Boceto 4: Pantalla principal del administrador
@@ -18,10 +17,47 @@ async function changeScreenOrientation() {
 class CreateNormalTask extends Component {
   constructor(props) {
     super(props);
-    this.state = { titulo: "", descripcion: "", tituloPic: "", descripcionPic: ""  };
+    this.state = { titulo: "", descripcion: "", tituloPic: "microondas.png", descripcionPic1: "nueva.png", 
+    titleChosen: false, desChosen: false, descripcionPic2: "nueva.png",descripcionPic3: "nueva.png",
+    descripcionPic4: "nueva.png",descripcionPic5: "nueva.png", descripcionPic: "" };
   };
 
   createTask = () =>{
+    if(descripcionPic1 != "nueva.png"){
+      descripcionPic =+ descripcionPic1;
+      descripcionPic =+ ",";
+    }else{
+      descripcionPic =+ "nueva.png";
+      descripcionPic =+ ",";
+    }
+    if(descripcionPic2 != "nueva.png"){
+      descripcionPic =+ descripcionPic2;
+      descripcionPic =+ ",";
+    }else{
+      descripcionPic =+ "nueva.png";
+      descripcionPic =+ ",";
+    }
+    if(descripcionPic3 != "nueva.png"){
+      descripcionPic =+ descripcionPic3;
+      descripcionPic =+ ",";
+    }else{
+      descripcionPic =+ "nueva.png";
+      descripcionPic =+ ",";
+    }
+    if(descripcionPic4 != "nueva.png"){
+      descripcionPic =+ descripcionPic4;
+      descripcionPic =+ ",";
+    }else{
+      descripcionPic =+ "nueva.png";
+      descripcionPic =+ ",";
+    }
+    if(descripcionPic5 != "nueva.png"){
+      descripcionPic =+ descripcionPic5;
+      descripcionPic =+ ",";
+    }else{
+      descripcionPic =+ "nueva.png";
+      descripcionPic =+ ",";
+    }
     this.createTaskDB();
     Alert.alert(
       "Operación satisfactoria",
@@ -49,9 +85,150 @@ class CreateNormalTask extends Component {
       console.log(error);
     }
   }
+
+  imageComponentTitle(){
+    let nom = this.state.tituloPic;
+    let image = require('./data/imagenesTareas/'+nom)
+    return (
+      <View style={styles.selectImage}>
+        <Image
+          style={styles.image}
+          source={image}
+          accessibilityLabel="Pasar hacia la izquierda"
+        />
+        <Text></Text>
+      </View>
+    );
+  }
+
+  async SingleFilePickerTitle() {
+    try {
+      const res = await DocumentPicker.getDocumentAsync();
+      this.setState({ tituloPic: res.name });
+      this.setState({ titleChosen: true });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  imageComponentDes1(){
+    let nom = this.state.descripcionPic1;
+    let image = require('./data/imagenesTareas/'+nom)
+    return (
+      <View style={styles.selectImage2}>
+        <Image
+          style={styles.image}
+          source={image}
+          accessibilityLabel="Pasar hacia la izquierda"
+        />
+        <Text></Text>
+      </View>
+    );
+  }
+
+  imageComponentDes2(){
+    let nom = this.state.descripcionPic2;
+    let image = require('./data/imagenesTareas/'+nom)
+    return (
+      <View style={styles.selectImage2}>
+        <Image
+          style={styles.image}
+          source={image}
+          accessibilityLabel="Pasar hacia la izquierda"
+        />
+        <Text></Text>
+      </View>
+    );
+  }
+
+  imageComponentDes3(){
+    let nom = this.state.descripcionPic3;
+    let image = require('./data/imagenesTareas/'+nom)
+    return (
+      <View style={styles.selectImage2}>
+        <Image
+          style={styles.image}
+          source={image}
+          accessibilityLabel="Pasar hacia la izquierda"
+        />
+        <Text></Text>
+      </View>
+    );
+  }
+
+  imageComponentDes4(){
+    let nom = this.state.descripcionPic4;
+    let image = require('./data/imagenesTareas/'+nom)
+    return (
+      <View style={styles.selectImage2}>
+        <Image
+          style={styles.image}
+          source={image}
+          accessibilityLabel="Pasar hacia la izquierda"
+        />
+        <Text></Text>
+      </View>
+    );
+  }
+
+  imageComponentDes5(){
+    let nom = this.state.descripcionPic5;
+    let image = require('./data/imagenesTareas/'+nom)
+    return (
+      <View style={styles.selectImage2}>
+        <Image
+          style={styles.image}
+          source={image}
+          accessibilityLabel="Pasar hacia la izquierda"
+        />
+      </View>
+    );
+  }
+
+  async SingleFilePickerDes1() {
+    try {
+      const res = await DocumentPicker.getDocumentAsync();
+      this.setState({ descripcionPic1: res.name });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async SingleFilePickerDes2() {
+    try {
+      const res = await DocumentPicker.getDocumentAsync();
+      this.setState({ descripcionPic2: res.name });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async SingleFilePickerDes3() {
+    try {
+      const res = await DocumentPicker.getDocumentAsync();
+      this.setState({ descripcionPic3: res.name });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async SingleFilePickerDes4() {
+    try {
+      const res = await DocumentPicker.getDocumentAsync();
+      this.setState({ descripcionPic4: res.name });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async SingleFilePickerDes5() {
+    try {
+      const res = await DocumentPicker.getDocumentAsync();
+      this.setState({ descripcionPic5: res.name });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   
   render (){
-    const { titulo, descripcion } = this.state;
 
     changeScreenOrientation();
     return(
@@ -97,16 +274,16 @@ class CreateNormalTask extends Component {
             </View>
 
             <View style={styles.formItem}>
-              <TextInput 
-                style={styles.formContentLine}
-                onChangeText = {(text) => this.setState({tituloPic: text})}
-                defaultValue = {this.state.tituloPic}
-                placeholder = "Titulo Pictograma"
-                accessibilityLabel="Titulo Tarea"
-                accessibilityHint="Introduce el titulo de la tarea" 
-              />
+              <TouchableOpacity
+                activeOpacity={0.5}
+                style={styles.buttonStyle}
+                onPress={this.SingleFilePickerTitle.bind(this)}>
+                <Text style={styles.textStyle}>Choose Image</Text>
+              </TouchableOpacity>
             </View>
           </View>
+
+          {this.state.titleChosen? this.imageComponentTitle() : null}
 
           <View style={styles.fixToText}>
             <View style={styles.formItem}>
@@ -131,20 +308,55 @@ class CreateNormalTask extends Component {
               <Text style={styles.formContent}>Descripción en pictograna:</Text>
             </View>
 
+            
+          </View>
+        
+        </View>
+        <View style={styles.formItem}>
+          <View style={styles.fixToText}>
             <View style={styles.formItem}>
-              <TextInput 
-                style={styles.formContentBox}
-                onChangeText = {(text) => this.setState({descripcionPic: text})}
-                defaultValue = {this.state.descripcionPic}
-                multiline={true}
-                placeholder = ".............................."
-                accessibilityLabel="Descripcion tarea"
-                accessibilityHint="Introduce la descripción de la tarea" 
-              />
+              <TouchableOpacity
+                activeOpacity={0.5}
+                style={styles.buttonStyle}
+                onPress={this.SingleFilePickerDes1.bind(this)}>
+                {this.imageComponentDes1()}
+              </TouchableOpacity>
+            </View>
+            <View style={styles.formItem}>
+              <TouchableOpacity
+                activeOpacity={0.5}
+                style={styles.buttonStyle}
+                onPress={this.SingleFilePickerDes2.bind(this)}>
+                {this.imageComponentDes2()}
+              </TouchableOpacity>
+            </View>
+            <View style={styles.formItem}>
+              <TouchableOpacity
+                activeOpacity={0.5}
+                style={styles.buttonStyle}
+                onPress={this.SingleFilePickerDes3.bind(this)}>
+                {this.imageComponentDes3()}
+              </TouchableOpacity>
+            </View>
+            <View style={styles.formItem}>
+              <TouchableOpacity
+                activeOpacity={0.5}
+                style={styles.buttonStyle}
+                onPress={this.SingleFilePickerDes4.bind(this)}>
+                {this.imageComponentDes4()}
+              </TouchableOpacity>
+            </View>
+            <View style={styles.formItem}>
+              <TouchableOpacity
+                activeOpacity={0.5}
+                style={styles.buttonStyle}
+                onPress={this.SingleFilePickerDes5.bind(this)}>
+                {this.imageComponentDes5()}
+              </TouchableOpacity>
             </View>
           </View>
         </View>
-
+        
         <View style={styles.confirmButton}>
           <Button
             title="Crear Tarea"

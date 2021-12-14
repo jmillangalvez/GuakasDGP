@@ -303,7 +303,15 @@ const styles = StyleSheet.create({
       width: 100,
       height: 100,
       margin: 100,
-    }
+    },
+    selectImage: {
+      width: 100,
+      height: 100,
+    },
+    selectImage2: {
+      width: 75,
+      height: 75,
+    },
     
   });
 

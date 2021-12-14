@@ -1,8 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { Fragment, useState, useRef, useEffect, Component } from "react";
+import React, { Fragment, useState, useRef, useEffect, Component, FormData } from "react";
 import { Text, SafeAreaView, TouchableOpacity, View, Image, ViewPropTypes, Button, TextInput, Picker, Alert } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import styles from "./Styles";
+import * as DocumentPicker from 'expo-document-picker';
 
 
 async function changeScreenOrientation() {
@@ -13,7 +14,7 @@ class AddStudent extends Component {
 
   constructor(props){
     super(props);
-    this.state= {name:"", accesibilidad: 1, picture: '8.jpg'}
+    this.state= {name:"", accesibilidad: 1, picture: '8.jpg', selectedFile: false, fileName: ""}
     this.students = require('./data/students.json');
   }
 
@@ -25,6 +26,22 @@ class AddStudent extends Component {
       "El estudiante ha sido añadido",
     )
   }
+
+  imageComponent(){
+    let nom = this.state.fileName
+    let image = require('./data/imagenesAlumnos/'+nom)
+    return (
+      <View style={styles.selectImage}>
+        <Image
+          style={styles.image}
+          source={image}
+          accessibilityLabel="Pasar hacia la izquierda"
+        />
+        <Text></Text>
+      </View>
+    );
+  }
+
 
   async createStudentDB() {
     try {
@@ -38,11 +55,21 @@ class AddStudent extends Component {
         body: JSON.stringify({
             name: this.state.name,
             accessibilityType: this.state.accesibilidad,
-            picture: this.state.picture
+            picture: this.state.fileName
         })
       });
     } catch (error) {
       console.log(error);
+    }
+  }
+
+
+  async SingleFilePicker() {
+    try {
+      const res = await DocumentPicker.getDocumentAsync();
+      this.setState({ selectedFile: true, fileName: res.name });
+    } catch (err) {
+      console.log(err);
     }
   }
 
@@ -115,6 +142,23 @@ class AddStudent extends Component {
           </View>        
         </View>
 
+        <View style={styles.fixToText}>
+          <View style={styles.formItem}>
+            <Text style={styles.formContent}>Seleccionar Foto:</Text>
+          </View>
+
+          <View style={styles.formItem}>
+          <TouchableOpacity
+            activeOpacity={0.5}
+            style={styles.buttonStyle}
+            onPress={this.SingleFilePicker.bind(this)}>
+            <Text style={styles.textStyle}>Choose Image</Text>
+          </TouchableOpacity>
+          </View>
+        </View>
+
+        {this.state.selectedFile? this.imageComponent() : null}
+
         <View style={styles.confirmButton}>
           <Button
             title="Añadir Estudiante"
@@ -125,7 +169,6 @@ class AddStudent extends Component {
             onPress={this.aniadirEstudiante}
           />
         </View>
-        
 
       </View>
 
