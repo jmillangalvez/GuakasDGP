@@ -11,86 +11,64 @@ async function changeScreenOrientation() {
 class DailyTasks extends Component {
     constructor(props) {
         super(props);
-        this.state = { tasks: [1,2], assigneds: [], currentTask: 0, currentTitle: "", idStudent: props.route.params.idStudent };
+        this.state = { tasks: [], tasksId: [], currentTask: 0, currentTitle: "default", currentPicto: "init.png", student: props.route.params.student };
+        this.getTasks();
     };
 
-    async getAssigneds() {
+    async getTasks() {
         try {
             const response = await fetch('http://localhost:8000/api/v1/assignedTasks/', {
                 method: 'GET',
                 mode: 'cors',
                 headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json'
-            },
-          });
-          const json = await response.json();
-          this.setState({assigneds: json.items});
-          
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+            });
+            const json = await response.json();
+
+            //Guarda los ids de las tareas asignadas al alumno que no están completadas
+            const auxIdStudent = this.state.student.idStudent;
+            this.setState({ tasksId: json.items.filter(function(assigned){
+                if (assigned.idStudent == auxIdStudent && assigned.completed == 0) return (assigned.idTask);
+            }) });
+        
         } catch (error) {
           console.log(error);
         }
-    }
 
-    async getTasks() {
         try {
-          const response = await fetch('http://localhost:8000/api/v1/tasks/', {
-            method: 'GET',
-            mode: 'cors',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json'
-            },
-          });
-          const json = await response.json();
-          this.setState({tasks: json.items});
-          const taskUncompleted = []
-            this.state.assigneds.forEach(task => {
-                if (task.completed == 0) taskUncompleted.push(task);
+            const response = await fetch('http://localhost:8000/api/v1/tasks/', {
+                method: 'GET',
+                mode: 'cors',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
             });
-            const auxIdStudent = this.state.idStudent
-            const taskStudent = this.state.assigneds.filter(function(task){
-                if (task.idStudent == auxIdStudent) return task;
-            });
-            this.setState({assigneds: taskStudent});
-            console.log(this.state.idStudent)
-            const finalTasks = [];
-            taskUncompleted.forEach(elementTaskUncompleted => {
-                this.state.assigneds.forEach(elementAssigneds => {
-                    if (elementAssigneds.taskId == elementTaskUncompleted.taskId) finalTasks.push(elementTaskUncompleted);
+            const json = await response.json();
+            const allTasks = json.items;
+
+            var finalTasks = [];
+
+            /*Filtra de entre todas las tareas, las que se encuentran en el vector filtrado anterior,
+            generando un array con las tareas no completadas del alumno*/
+            allTasks.forEach(elementTask => {
+                this.state.tasksId.forEach(elementId => {
+                    if (elementTask.idTask == elementId.idTask) finalTasks.push(elementTask);
                 })
-            });         
-            //this.setState({ tasks: finalTasks });
-            this.setState({ currentTitle: this.state.tasks[0].title });
+            });
+
+            this.setState({ tasks: finalTasks });
+            this.setState({ currentTitle: this.state.tasks[this.state.currentTask].title });
+            this.setState({ currentPicto: this.state.tasks[this.state.currentTask].pictogramTitle});
+
         } catch (error) {
-          console.log(error);
-        }
+            console.log(error);
+        }        
     }
 
-    componentDidMount(){
-        this.getAssigneds();
-        this.getTasks();
-    }
-
-    getNotCompleted(){
-        const taskUncompleted = []
-        this.state.assigneds.forEach(task => {
-            if (task.completed == 0) taskUncompleted.push(task);
-        });
-        const taskStudent = this.state.assigneds.filter(function(task){
-            if (task.idStudent == this.state.idStudent) return task;
-        });
-        this.setState({assigneds: taskStudent});
-        const finalTasks = [];
-        taskUncompleted.forEach(elementTaskUncompleted => {
-            this.state.assigneds.forEach(elementAssigneds => {
-                if (elementAssigneds.taskId == elementTaskUncompleted.taskId) finalTasks.push(elementTaskUncompleted);
-            })
-        });         
-        //this.setState({ tasks: finalTasks });
-        //this.setState({ currentTitle: this.state.tasks[0].title });
-    }
-
+    //Función que muestra las tareas en modo texto (accesibilidad tipo 1)
     listTask1 = () => {
         return(
             <TouchableOpacity 
@@ -102,12 +80,16 @@ class DailyTasks extends Component {
                 accessibilityRole="button"
                 accessibilityHint="Pulsa para mostrar la tarea"
                 >
-                <Text style={styles.dailyTaks}>Poner el microondas</Text>
+                <Text style={styles.dailyTaks}>{this.state.currentTitle}</Text>
             </TouchableOpacity>
         );
     };
 
+    //Función que muestra las tareas en modo pictograma (accesibilidad tipo 2)
     listTask2 = () => {
+        let nom = this.state.currentPicto;
+        let imagenTarea = require('./data/imagenesTareas/' + nom);
+
         return(
             <TouchableOpacity 
                 style={styles.taskButton} 
@@ -119,173 +101,529 @@ class DailyTasks extends Component {
                 accessibilityHint="Pulsa para mostrar la tarea"
                 >
                 <Image
-                    source={require('./img/comer.png')}
+                    source={imagenTarea}
                     style={{ height: '100px', width: '100px' }}
                 />
             </TouchableOpacity>
         );
     };
 
+    //Función que muestra las tareas en modo pictograma y texto (accesibilidad tipo 3)
+    listTask3 = () => {
+        let nom = this.state.currentPicto;
+        let imagenTarea = require('./data/imagenesTareas/' + nom);
+
+        return(
+            <TouchableOpacity 
+                style={styles.taskButton} 
+                onPress={ () => this.props.navigation.navigate('PictogramTask', {
+                    task: this.state.tasks[this.state.currentTask]
+                }) }
+                accessibilityLabel="Tarea seleccionada"
+                accessibilityRole="button"
+                accessibilityHint="Pulsa para mostrar la tarea"
+                >
+                <Image
+                    source={imagenTarea}
+                    style={{ height: '100px', width: '100px' }}
+                />
+                <Text style={styles.dailyTaks}>{this.state.currentTitle}</Text>
+            </TouchableOpacity>
+        );
+    };
+
+    /*Función que cambia la tarea mostrada por la siguiente en la lista
+      en caso de ser la última, muestra la primera otra vez, generando el ciclo*/
     nextTask = () => {
         this.state.currentTask++;
         this.state.currentTask %= this.state.tasks.length;
+
         this.setState({ currentTitle: this.state.tasks[this.state.currentTask].title });
-        this.listTask();
+        this.setState({ currentPicto: this.state.tasks[this.state.currentTask].pictogramTitle });
+
+        if (this.state.student.accessibilityType == 1) {
+            this.listTask1();
+        } else if (this.state.student.accessibilityType == 2) {
+            this.listTask2();
+        } else if (this.state.student.accessibilityType == 3) {
+            this.listTask3();
+        }
     };
 
+    /*Función que cambia la tarea mostrada por la anterior en la lista
+      en caso de ser la primera, muestra la última, generando el ciclo*/
     prevTask = () => {
         this.state.currentTask--;
         if (this.state.currentTask < 0) this.state.currentTask += this.state.tasks.length;
+
         this.setState({ currentTitle: this.state.tasks[this.state.currentTask].title });
-        this.listTask();
+        this.setState({ currentPicto: this.state.tasks[this.state.currentTask].pictogramTitle });
+        
+        if (this.state.student.accessibilityType == 1) {
+            this.listTask1();
+        } else if (this.state.student.accessibilityType == 2) {
+            this.listTask2();
+        } else if (this.state.student.accessibilityType == 3) {
+            this.listTask3();
+        }
     };
 
+    //Según el número de tareas y el tipo de accesibilidad del niño renderiza una pantalla u otra
     render() {
         changeScreenOrientation();
+        //Si el niño tiene más de una tarea pendiente...
         if (this.state.tasks.length > 1) {
-            return (
-                <View style={styles.mainView}>
-                    <SafeAreaView style={styles.banner}>
-                        <Text style={styles.headerText} value="TAREAS DIARIAS">TAREAS DIARIAS</Text>
-                    </SafeAreaView>
-                    <View style={[styles.dailyTaskView, {flexDirection: "row"}]}>
-                        
-                        <TouchableOpacity
-                            style={styles.arrowButtonDailyTasks} 
-                            onPress={() => this.prevTask() }
-                            accessibilityLabel="Tarea Anterior"
-                            accessibilityRole="button"
-                            accessibilityHint="Muestra la tarea anterior sin completar del día"
-                            >
-                            <Image
-                                style={styles.image}
-                                source={require('./img/arrowLeft.png')}
-                            />
-                        </TouchableOpacity>
-
-                        
-                        {this.state.idStudent == 0? this.listTask1() : this.listTask2()}
-        
-                        <TouchableOpacity 
-                            style={styles.arrowButtonDailyTasks} 
-                            onPress={() => this.nextTask() }
-                            accessibilityLabel="Tarea Siguiente"
-                            accessibilityRole="button"
-                            accessibilityHint="Muestra la siguiente tarea sin completar del día"
-                            >
-                            <Image
-                                style={styles.image}
-                                source={require('./img/arrowRight.png')}
-                            />
-                        </TouchableOpacity>
-                        
+            //... y su accesibilidad es de tipo texto (1)
+            if (this.state.student.accessibilityType == 1) {
+                return (
+                    <View style={styles.mainView}>
+                        <SafeAreaView style={styles.banner}>
+                            <Text style={styles.headerText} value="TAREAS DIARIAS" accesibilityRole="header">TAREAS DIARIAS</Text>
+                        </SafeAreaView>
+                        <View style={[styles.dailyTaskView, {flexDirection: "row"}]}>
+                            
+                            <TouchableOpacity
+                                style={styles.arrowButtonDailyTasks} 
+                                onPress={() => this.prevTask() }
+                                accessibilityLabel="Tarea Anterior"
+                                accessibilityRole="button"
+                                accessibilityHint="Muestra la tarea anterior sin completar del día"
+                                >
+                                <Image
+                                    style={styles.image}
+                                    source={require('./img/arrowLeft.png')}
+                                />
+                            </TouchableOpacity>
+    
+                            
+                            {this.listTask1()}
+            
+                            <TouchableOpacity 
+                                style={styles.arrowButtonDailyTasks} 
+                                onPress={() => this.nextTask() }
+                                accessibilityLabel="Tarea Siguiente"
+                                accessibilityRole="button"
+                                accessibilityHint="Muestra la siguiente tarea sin completar del día"
+                                >
+                                <Image
+                                    style={styles.image}
+                                    source={require('./img/arrowRight.png')}
+                                />
+                            </TouchableOpacity>
+                            
+                        </View>
+                        <SafeAreaView style={styles.bottomBanner}>
+                        <View style={styles.fixToText}>
+                            <TouchableOpacity
+                                accessibilityLabel="Volver al inicio"
+                                accessibilityRole="button"
+                                accessibilityHint="Vuelve al menú de inicio"
+                                onPress={() => this.props.navigation.navigate('DailyTasks')}>
+                                <Image
+                                    source={require('./img/casa.png')}
+                                    style={{ height: '100px', width: '100px' }}
+                                />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                accessibilityLabel="Estadísticas"
+                                accessibilityRole="button"
+                                accessibilityHint="Muestra las estadísticas de la semana"
+                                onPress={() => this.props.navigation.navigate('WeeklyStats')}>
+                                <Image
+                                    source={require('./img/grafica.png')}
+                                    style={{ height: '100px', width: '100px' }}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        </SafeAreaView>
+                        <StatusBar style="auto" />
                     </View>
-                    <SafeAreaView style={styles.bottomBanner}>
-                    <View style={styles.fixToText}>
-                        <TouchableOpacity
-                            accessibilityLabel="Volver al inicio"
-                            accessibilityRole="button"
-                            accessibilityHint="Vuelve al menú de inicio"
-                            onPress={() => this.props.navigation.navigate('DailyTasks')}>
-                            <Image
-                                source={require('./img/casa.png')}
-                                style={{ height: '100px', width: '100px' }}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            accessibilityLabel="Volver al inicio"
-                            accessibilityRole="button"
-                            accessibilityHint="Vuelve al menú de inicio"
-                            onPress={() => this.props.navigation.navigate('WeeklyStats')}>
-                            <Image
-                                source={require('./img/grafica.png')}
-                                style={{ height: '100px', width: '100px' }}
-                            />
-                        </TouchableOpacity>
+                );
+            }
+            //... y su accesibilidad es de tipo pictograma (2)
+            else if (this.state.student.accessibilityType == 2) {
+                return (
+                    <View style={styles.mainView}>
+                        <SafeAreaView style={styles.banner}>
+                            <Text style={styles.headerText} value="TAREAS DIARIAS" accesibilityRole="header">TAREAS DIARIAS</Text>
+                        </SafeAreaView>
+                        <View style={[styles.dailyTaskView, {flexDirection: "row"}]}>
+                            
+                            <TouchableOpacity
+                                style={styles.arrowButtonDailyTasks} 
+                                onPress={() => this.prevTask() }
+                                accessibilityLabel="Tarea Anterior"
+                                accessibilityRole="button"
+                                accessibilityHint="Muestra la tarea anterior sin completar del día"
+                                >
+                                <Image
+                                    style={styles.image}
+                                    source={require('./img/arrowLeft.png')}
+                                />
+                            </TouchableOpacity>
+    
+                            
+                            {this.listTask2()}
+            
+                            <TouchableOpacity 
+                                style={styles.arrowButtonDailyTasks} 
+                                onPress={() => this.nextTask() }
+                                accessibilityLabel="Tarea Siguiente"
+                                accessibilityRole="button"
+                                accessibilityHint="Muestra la siguiente tarea sin completar del día"
+                                >
+                                <Image
+                                    style={styles.image}
+                                    source={require('./img/arrowRight.png')}
+                                />
+                            </TouchableOpacity>
+                            
+                        </View>
+                        <SafeAreaView style={styles.bottomBanner}>
+                        <View style={styles.fixToText}>
+                            <TouchableOpacity
+                                accessibilityLabel="Volver al inicio"
+                                accessibilityRole="button"
+                                accessibilityHint="Vuelve al menú de inicio"
+                                onPress={() => this.props.navigation.navigate('DailyTasks')}>
+                                <Image
+                                    source={require('./img/casa.png')}
+                                    style={{ height: '100px', width: '100px' }}
+                                />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                accessibilityLabel="Estadísticas"
+                                accessibilityRole="button"
+                                accessibilityHint="Muestra las estadísticas de la semana"
+                                onPress={() => this.props.navigation.navigate('WeeklyStats')}>
+                                <Image
+                                    source={require('./img/grafica.png')}
+                                    style={{ height: '100px', width: '100px' }}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        </SafeAreaView>
+                        <StatusBar style="auto" />
                     </View>
-                    </SafeAreaView>
-                    <StatusBar style="auto" />
-                </View>
-            );
+                );
+            }
+            //... y su accesibilidad es de tipo texto y pitctograma (3)
+            else if (this.state.student.accessibilityType == 3) {
+                return (
+                    <View style={styles.mainView}>
+                        <SafeAreaView style={styles.banner}>
+                            <Text style={styles.headerText} value="TAREAS DIARIAS" accesibilityRole="header">TAREAS DIARIAS</Text>
+                        </SafeAreaView>
+                        <View style={[styles.dailyTaskView, {flexDirection: "row"}]}>
+                            
+                            <TouchableOpacity
+                                style={styles.arrowButtonDailyTasks} 
+                                onPress={() => this.prevTask() }
+                                accessibilityLabel="Tarea Anterior"
+                                accessibilityRole="button"
+                                accessibilityHint="Muestra la tarea anterior sin completar del día"
+                                >
+                                <Image
+                                    style={styles.image}
+                                    source={require('./img/arrowLeft.png')}
+                                />
+                            </TouchableOpacity>
+    
+                            
+                            {this.listTask3()}
+            
+                            <TouchableOpacity 
+                                style={styles.arrowButtonDailyTasks} 
+                                onPress={() => this.nextTask() }
+                                accessibilityLabel="Tarea Siguiente"
+                                accessibilityRole="button"
+                                accessibilityHint="Muestra la siguiente tarea sin completar del día"
+                                >
+                                <Image
+                                    style={styles.image}
+                                    source={require('./img/arrowRight.png')}
+                                />
+                            </TouchableOpacity>
+                            
+                        </View>
+                        <SafeAreaView style={styles.bottomBanner}>
+                        <View style={styles.fixToText}>
+                            <TouchableOpacity
+                                accessibilityLabel="Volver al inicio"
+                                accessibilityRole="button"
+                                accessibilityHint="Vuelve al menú de inicio"
+                                onPress={() => this.props.navigation.navigate('DailyTasks')}>
+                                <Image
+                                    source={require('./img/casa.png')}
+                                    style={{ height: '100px', width: '100px' }}
+                                />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                accessibilityLabel="Estadísticas"
+                                accessibilityRole="button"
+                                accessibilityHint="Muestra las estadísticas de la semana"
+                                onPress={() => this.props.navigation.navigate('WeeklyStats')}>
+                                <Image
+                                    source={require('./img/grafica.png')}
+                                    style={{ height: '100px', width: '100px' }}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        </SafeAreaView>
+                        <StatusBar style="auto" />
+                    </View>
+                );
+            }
         }
-
+        //Si el niño sólo tiene una tarea pendiente...
         else if (this.state.tasks.length == 1) {
-            return (
-                <View style={styles.mainView}>
-                    <SafeAreaView style={styles.banner}>
-                        <Text style={styles.headerText} value="TAREAS DIARIAS">TAREAS DIARIAS</Text>
-                    </SafeAreaView>
-                    <View style={styles.dailyTaskView}>
-                        
-                        { this.listTask() }
-                        
+            //... y su accesibilidad es de tipo texto (1)
+            if (this.state.student.accessibilityType == 1) {
+                return (
+                    <View style={styles.mainView}>
+                        <SafeAreaView style={styles.banner}>
+                            <Text style={styles.headerText} value="TAREAS DIARIAS" accesibilityRole="header">TAREAS DIARIAS</Text>
+                        </SafeAreaView>
+                        <View style={styles.dailyTaskView}>
+                            
+                            { this.listTask1() }
+                            
+                        </View>
+                        <SafeAreaView style={styles.bottomBanner}>
+                        <View style={styles.fixToText}>
+                            <TouchableOpacity
+                                accessibilityLabel="Volver al inicio"
+                                accessibilityRole="button"
+                                accessibilityHint="Vuelve al menú de inicio"
+                                onPress={() => this.props.navigation.navigate('DailyTasks')}>
+                                <Image
+                                    source={require('./img/casa.png')}
+                                    style={{ height: '100px', width: '100px' }}
+                                />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                accessibilityLabel="Estadísticas"
+                                accessibilityRole="button"
+                                accessibilityHint="Muestra las estadísticas de la semana"
+                                onPress={() => this.props.navigation.navigate('WeeklyStats')}>
+                                <Image
+                                    source={require('./img/grafica.png')}
+                                    style={{ height: '100px', width: '100px' }}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        </SafeAreaView>
+                        <StatusBar style="auto" />
                     </View>
-                    <SafeAreaView style={styles.bottomBanner}>
-                    <View style={styles.fixToText}>
-                        <TouchableOpacity
-                            accessibilityLabel="Volver al inicio"
-                            accessibilityRole="button"
-                            accessibilityHint="Vuelve al menú de inicio"
-                            onPress={() => this.props.navigation.navigate('DailyTasks')}>
-                            <Image
-                                source={require('./img/casa.png')}
-                                style={{ height: '100px', width: '100px' }}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            accessibilityLabel="Volver al inicio"
-                            accessibilityRole="button"
-                            accessibilityHint="Vuelve al menú de inicio"
-                            onPress={() => this.props.navigation.navigate('WeeklyStats')}>
-                            <Image
-                                source={require('./img/grafica.png')}
-                                style={{ height: '100px', width: '100px' }}
-                            />
-                        </TouchableOpacity>
+                );
+            }
+            //... y su accesibilidad es de tipo pictograma (2)
+            else if (this.state.student.accessibilityType == 2) {
+                return (
+                    <View style={styles.mainView}>
+                        <SafeAreaView style={styles.banner}>
+                            <Text style={styles.headerText} value="TAREAS DIARIAS" accesibilityRole="header">TAREAS DIARIAS</Text>
+                        </SafeAreaView>
+                        <View style={styles.dailyTaskView}>
+                            
+                            { this.listTask2() }
+                            
+                        </View>
+                        <SafeAreaView style={styles.bottomBanner}>
+                        <View style={styles.fixToText}>
+                            <TouchableOpacity
+                                accessibilityLabel="Volver al inicio"
+                                accessibilityRole="button"
+                                accessibilityHint="Vuelve al menú de inicio"
+                                onPress={() => this.props.navigation.navigate('DailyTasks')}>
+                                <Image
+                                    source={require('./img/casa.png')}
+                                    style={{ height: '100px', width: '100px' }}
+                                />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                accessibilityLabel="Estadísticas"
+                                accessibilityRole="button"
+                                accessibilityHint="Muestra las estadísticas de la semana"
+                                onPress={() => this.props.navigation.navigate('WeeklyStats')}>
+                                <Image
+                                    source={require('./img/grafica.png')}
+                                    style={{ height: '100px', width: '100px' }}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        </SafeAreaView>
+                        <StatusBar style="auto" />
                     </View>
-                    </SafeAreaView>
-                    <StatusBar style="auto" />
-                </View>
-            );
+                );
+            }
+            //... y su accesibilidad es de tipo texto y pitctograma (3)
+            else if (this.state.student.accessibilityType == 3) {
+                return (
+                    <View style={styles.mainView}>
+                        <SafeAreaView style={styles.banner}>
+                            <Text style={styles.headerText} value="TAREAS DIARIAS" accesibilityRole="header">TAREAS DIARIAS</Text>
+                        </SafeAreaView>
+                        <View style={styles.dailyTaskView}>
+                            
+                            { this.listTask3() }
+                            
+                        </View>
+                        <SafeAreaView style={styles.bottomBanner}>
+                        <View style={styles.fixToText}>
+                            <TouchableOpacity
+                                accessibilityLabel="Volver al inicio"
+                                accessibilityRole="button"
+                                accessibilityHint="Vuelve al menú de inicio"
+                                onPress={() => this.props.navigation.navigate('DailyTasks')}>
+                                <Image
+                                    source={require('./img/casa.png')}
+                                    style={{ height: '100px', width: '100px' }}
+                                />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                accessibilityLabel="Estadísticas"
+                                accessibilityRole="button"
+                                accessibilityHint="Muestra las estadísticas de la semana"
+                                onPress={() => this.props.navigation.navigate('WeeklyStats')}>
+                                <Image
+                                    source={require('./img/grafica.png')}
+                                    style={{ height: '100px', width: '100px' }}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        </SafeAreaView>
+                        <StatusBar style="auto" />
+                    </View>
+                );
+            }
         }
-
+        //Si el niño no tiene tareas pendientes...
         else{
-            return (
-                <View style={styles.mainView}>
-                    <SafeAreaView style={styles.banner}>
-                        <Text style={styles.headerText} value="TAREAS DIARIAS">TAREAS DIARIAS</Text>
-                    </SafeAreaView>
-                    <View style={styles.dailyTaskView}>
-                        <Text style={styles.dailyTaks}>No te quedan tareas por realizar.</Text>
-                        <Text style={styles.dailyTaks}>!Buen trabajo!</Text>
+            //... y su accesibilidad es de tipo texto (1)
+            if (this.state.student.accessibilityType == 1) {
+                return (
+                    <View style={styles.mainView}>
+                        <SafeAreaView style={styles.banner}>
+                            <Text style={styles.headerText} value="TAREAS DIARIAS" accesibilityRole="header">TAREAS DIARIAS</Text>
+                        </SafeAreaView>
+                        <View style={styles.dailyTaskView}>
+                            <Text style={styles.dailyTaks}>No te quedan tareas por realizar.</Text>
+                            <Text style={styles.dailyTaks}>!Buen trabajo!</Text>
+                        </View>
+                        <SafeAreaView style={styles.bottomBanner}>
+                        <View style={styles.fixToText}>
+                            <TouchableOpacity
+                                accessibilityLabel="Volver al inicio"
+                                accessibilityRole="button"
+                                accessibilityHint="Vuelve al menú de inicio"
+                                onPress={() => this.props.navigation.navigate('DailyTasks')}>
+                                <Image
+                                    source={require('./img/casa.png')}
+                                    style={{ height: '100px', width: '100px' }}
+                                />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                accessibilityLabel="Estadísticas"
+                                accessibilityRole="button"
+                                accessibilityHint="Muestra las estadísticas de la semana"
+                                onPress={() => this.props.navigation.navigate('WeeklyStats')}>
+                                <Image
+                                    source={require('./img/grafica.png')}
+                                    style={{ height: '100px', width: '100px' }}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        </SafeAreaView>
+                        <StatusBar style="auto" />
                     </View>
-                    <SafeAreaView style={styles.bottomBanner}>
-                    <View style={styles.fixToText}>
-                        <TouchableOpacity
-                            accessibilityLabel="Volver al inicio"
-                            accessibilityRole="button"
-                            accessibilityHint="Vuelve al menú de inicio"
-                            onPress={() => this.props.navigation.navigate('DailyTasks')}>
+                );
+            }
+            //... y su accesibilidad es de tipo pictograma (2)
+            else if (this.state.student.accessibilityType == 2) {
+                return (
+                    <View style={styles.mainView}>
+                        <SafeAreaView style={styles.banner}>
+                            <Text style={styles.headerText} value="TAREAS DIARIAS" accesibilityRole="header">TAREAS DIARIAS</Text>
+                        </SafeAreaView>
+                        <View style={styles.dailyTaskView}>
                             <Image
-                                source={require('./img/casa.png')}
+                                source={require('./img/si.png')}
                                 style={{ height: '100px', width: '100px' }}
                             />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            accessibilityLabel="Volver al inicio"
-                            accessibilityRole="button"
-                            accessibilityHint="Vuelve al menú de inicio"
-                            onPress={() => this.props.navigation.navigate('WeeklyStats')}>
+                        </View>
+                        <SafeAreaView style={styles.bottomBanner}>
+                        <View style={styles.fixToText}>
+                            <TouchableOpacity
+                                accessibilityLabel="Volver al inicio"
+                                accessibilityRole="button"
+                                accessibilityHint="Vuelve al menú de inicio"
+                                onPress={() => this.props.navigation.navigate('DailyTasks')}>
+                                <Image
+                                    source={require('./img/casa.png')}
+                                    style={{ height: '100px', width: '100px' }}
+                                />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                accessibilityLabel="Estadísticas"
+                                accessibilityRole="button"
+                                accessibilityHint="Muestra las estadísticas de la semana"
+                                onPress={() => this.props.navigation.navigate('WeeklyStats')}>
+                                <Image
+                                    source={require('./img/grafica.png')}
+                                    style={{ height: '100px', width: '100px' }}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        </SafeAreaView>
+                        <StatusBar style="auto" />
+                    </View>
+                );
+            }
+            //... y su accesibilidad es de tipo texto y pitctograma (3)
+            else if (this.state.student.accessibilityType == 3) {
+                return (
+                    <View style={styles.mainView}>
+                        <SafeAreaView style={styles.banner}>
+                            <Text style={styles.headerText} value="TAREAS DIARIAS" accesibilityRole="header">TAREAS DIARIAS</Text>
+                        </SafeAreaView>
+                        <View style={styles.dailyTaskView}>
                             <Image
-                                source={require('./img/grafica.png')}
+                                source={require('./img/si.png')}
                                 style={{ height: '100px', width: '100px' }}
                             />
-                        </TouchableOpacity>
+                            <Text style={styles.dailyTaks}>No te quedan tareas por realizar.</Text>
+                            <Text style={styles.dailyTaks}>!Buen trabajo!</Text>
+                        </View>
+                        <SafeAreaView style={styles.bottomBanner}>
+                        <View style={styles.fixToText}>
+                            <TouchableOpacity
+                                accessibilityLabel="Volver al inicio"
+                                accessibilityRole="button"
+                                accessibilityHint="Vuelve al menú de inicio"
+                                onPress={() => this.props.navigation.navigate('DailyTasks')}>
+                                <Image
+                                    source={require('./img/casa.png')}
+                                    style={{ height: '100px', width: '100px' }}
+                                />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                accessibilityLabel="Estadísticas"
+                                accessibilityRole="button"
+                                accessibilityHint="Muestra las estadísticas de la semana"
+                                onPress={() => this.props.navigation.navigate('WeeklyStats')}>
+                                <Image
+                                    source={require('./img/grafica.png')}
+                                    style={{ height: '100px', width: '100px' }}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        </SafeAreaView>
+                        <StatusBar style="auto" />
                     </View>
-                    </SafeAreaView>
-                    <StatusBar style="auto" />
-                </View>
-            );
+                );
+            }
+            
         }
     };
 }
