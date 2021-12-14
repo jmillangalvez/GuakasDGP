@@ -647,13 +647,13 @@ class ClassMenuView(View):
             items_data.append({
                 'idClassMenu': item.idClassMenu,
                 'idEducator': item.idEducator,
-                'date': item.idDate,
-                'numNormalMenu': item.idNormalMenu,
-                'numNoMeatMenu': item.idNoMeatMenu,
-                'numCrushedMenu': item.idCrushedMenu,
-                'numDessertCrushedFruit': item.idDessertCrushedFruit,
-                'numDessertYogurtCustard': item.idDessertYogurtCustard,
-                'numDessertFruit': item.idDessertFruit,
+                'date': item.date,
+                'numNormalMenu': item.numNormalMenu,
+                'numNoMeatMenu': item.numNoMeatMenu,
+                'numCrushedMenu': item.numCrushedMenu,
+                'numDessertCrushedFruit': item.numDessertCrushedFruit,
+                'numDessertYogurtCustard': item.numDessertYogurtCustard,
+                'numDessertFruit': item.numDessertFruit,
             })
 
         data = {

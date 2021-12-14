@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import {StyleSheet, Text, View,FlatList, TouchableOpacity, Image, SectionList, Button, SafeAreaView} from 'react-native';
+import {StyleSheet, Text, TextInput, View,FlatList, TouchableOpacity, Image, SectionList, Button, SafeAreaView} from 'react-native';
 import styles from './Styles';
 
 class ModifyNormalTaskList extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {tareas: []}
+    this.state = {tareas: [], listaTareas: []}
   }
 
   async getTasks() {
@@ -20,7 +20,7 @@ class ModifyNormalTaskList extends Component {
         },
       });
       const json = await response.json();
-      this.setState({tareas: json.items});
+      this.setState({tareas: json.items, listaTareas: json.items});
     } catch (error) {
       console.log(error);
     }
@@ -28,6 +28,25 @@ class ModifyNormalTaskList extends Component {
 
   componentDidMount(){
     this.getTasks();
+  }
+
+  actualizarLista(titulo){
+    if (titulo == ""){
+      this.setState({listaTareas: this.state.tareas})
+    }
+    else{
+      let nuevaLista = []
+      for(let i = 0; i < this.state.tareas.length; i++){
+        let tituloCompleto = this.state.tareas[i].title.toLowerCase()
+        let re = new RegExp(titulo)
+
+        if(re.exec(tituloCompleto)){
+          nuevaLista.push(this.state.tareas[i])
+        }
+      }
+
+      this.setState({listaTareas: nuevaLista})
+    }
   }
 
 
@@ -48,11 +67,20 @@ class ModifyNormalTaskList extends Component {
           </TouchableOpacity>
         </View>
 
+        <TextInput
+          style={styles.loginAdminInput}
+          onChangeText = {(text) => this.actualizarLista(text)}
+          defaultValue = ""
+          placeholder = "Buscar tarea"
+          accessibilityLabel = "Barra para búsqueda"
+          accessibilityHint = "Espacio para introducir el título de la tarea a buscar."
+        />
+
         <FlatList
           showsHorizontalScrollIndicator={false}
           style={{flex: 1}}
           contentContainerStyle={{flexGrow: 1}}
-          data = {this.state.tareas}
+          data = {this.state.listaTareas}
           renderItem = {({item}) => {
             return(
               <View style={styles.listContainer}>
