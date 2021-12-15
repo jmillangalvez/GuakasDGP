@@ -11,22 +11,87 @@ async function changeScreenOrientation() {
 class PictogramTask extends Component {
     constructor(props) {
         super(props);
-        const data = require('./data/tasks.json');
-        const allTasks = data.tasks;
-        this.state = { tasks: {}, currentTask: 0, currentName: "", pictograms: {}, currentPicto: 1 };
-        this.state.tasks = allTasks.filter(function (task) {
-            if (!task.completed) return task;
-        });
-        this.state.currentName = this.state.tasks[this.state.currentTask].name;
-        this.state.pictograms = this.state.tasks[this.state.currentTask].pictograms;
+        this.state = { task: '', pictogramTitle: '', pictogramDescription: [], currentPicto: 0 };
     };
+
+    async getTask() {
+        try {
+            const response = await fetch('http://localhost:8000/api/v1/tasks/' + this.props.route.params.task.idTask + '/', {
+                method: 'GET',
+                mode: 'cors',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+            });
+            const json = await response.json();
+            this.setState({ task: json.item });
+            let description = (json.item['pictogramDescription']).split(",")
+            description.pop()
+            this.setState({ pictogramDescription: description, pictogramTitle: json.item['pictogramTitle'] });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async modifyTask() {
+        let json = {};
+
+        try {
+            const response = await fetch('http://localhost:8000/api/v1/assignedTasks/' + this.props.route.params.task.idTask + '/', {
+                method: 'GET',
+                mode: 'cors',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+            });
+            json = await response.json();
+        } catch (error) {
+            console.log(error);
+        }
+
+        console.log(json);
+
+        let url = 'http://localhost:8000/api/v1/assignedTasks/' + json.item['idAssignedTask'] + '/'
+        try {
+            const response = await fetch(url, {
+                method: 'PUT',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    idStudent: json.item['idStudent'],
+                    idTask: json.item['idTask'],
+                    idEducator: json.item['idEducator'],
+                    priority: json.item['priority'],
+                    assignedDate: json.item['assignedDate'],
+                    completedDate: json.item['completedDate'],
+                    completed: 1,
+                })
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    completeTask = () => {
+        this.modifyTask();
+        this.props.navigation.navigate('DailyTasks');
+    }
+
+    componentDidMount() {
+        this.getTask();
+    }
 
     listPicto() {
 
-        if (this.state.currentPicto < this.state.pictograms.length) {
+        if (this.state.currentPicto < this.state.pictogramDescription.length) {
+            let image = require('./data/imagenesTareas/' + this.state.pictogramDescription[this.state.currentPicto])
             return (
                 <Image
-                    source={require(`./img/${this.state.pictograms[this.state.currentPicto]}`)}
+                    source={image}
                     style={styles.pictogram}
                 />
             );
@@ -63,16 +128,17 @@ class PictogramTask extends Component {
 
     render() {
         changeScreenOrientation();
+        let pictogramTitle = require('./data/imagenesTareas/microondas.png')
         return (
             <View style={styles.mainView}>
                 <SafeAreaView style={styles.banner}>
-                <Image
-                            source={require(`./img/${this.state.pictograms[0]}`)}
-                            style={{ height: '100px', width: '100px' }}
-                        />
+                    <Image
+                        source={pictogramTitle}
+                        style={{ height: '100px', width: '100px' }}
+                    />
                 </SafeAreaView>
 
-                {this.state.currentPicto <= 1 ? null : <SafeAreaView style={[styles.sideBanner, { left: 0 }]}>
+                {this.state.currentPicto < 1 ? null : <SafeAreaView style={[styles.sideBanner, { left: 0 }]}>
                     <TouchableOpacity
                         onPress={() => this.prevPicto()}
                         accessibilityLabel="Anterior pictograma"
@@ -88,7 +154,7 @@ class PictogramTask extends Component {
 
                 {this.listPicto()}
 
-                {this.state.currentPicto < this.state.pictograms.length ? <SafeAreaView style={styles.sideBanner}>
+                {this.state.currentPicto < this.state.pictogramDescription.length ? <SafeAreaView style={styles.sideBanner}>
                     <TouchableOpacity
                         accessibilityLabel="Siguiente pictograma"
                         accessibilityRole="button"
@@ -100,21 +166,21 @@ class PictogramTask extends Component {
                         />
                     </TouchableOpacity>
                 </SafeAreaView> :
-                <SafeAreaView style={styles.sideBannerLast}> 
-                <TouchableOpacity
-                        accessibilityLabel="Siguiente pictograma"
-                        accessibilityRole="button"
-                        accessibilityHint="Pasa al siguiente pictograma que describe la tarea"
-                        onPress={() => this.props.navigation.navigate('DailyTasks')}>
-                        <Image
-                            source={require('./img/si.png')}
-                            style={{ height: '100px', width: '100px' }}
-                        />
-                    </TouchableOpacity>
-                </SafeAreaView> }
+                    <SafeAreaView style={styles.sideBannerLast}>
+                        <TouchableOpacity
+                            accessibilityLabel="Siguiente pictograma"
+                            accessibilityRole="button"
+                            accessibilityHint="Pasa al siguiente pictograma que describe la tarea"
+                            onPress={this.completeTask}>
+                            <Image
+                                source={require('./img/si.png')}
+                                style={{ height: '100px', width: '100px' }}
+                            />
+                        </TouchableOpacity>
+                    </SafeAreaView>}
 
                 <SafeAreaView style={styles.bottomBanner}>
-                <View style={styles.fixToText}>
+                    <View style={styles.fixToText}>
                         <TouchableOpacity
                             accessibilityLabel="Volver al inicio"
                             accessibilityRole="button"
