@@ -65,10 +65,6 @@ class AssignTask extends Component {
   }
   
   render (){
-<<<<<<< HEAD
-
-=======
->>>>>>> 9f838237e277518f19e3953fb507f0a69b72b33b
     changeScreenOrientation();
     return(
       <View style={styles.mainView}>   

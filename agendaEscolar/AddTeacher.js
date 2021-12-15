@@ -4,29 +4,47 @@ import { Text, SafeAreaView, TouchableOpacity, View, Image, ViewPropTypes, Butto
 import * as ScreenOrientation from 'expo-screen-orientation';
 import styles from "./Styles";
 import * as DocumentPicker from 'expo-document-picker';
+import { default as ReactSelect } from "react-select";
+import { components } from "react-select";
 
 
 async function changeScreenOrientation() {
     await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT);
 }
 
+const Option = (props) => {
+
+  return (
+    <div>
+      <components.Option {...props}>
+        <input
+        type="checkbox"
+        checked={props.isSelected}
+        onChange={() => null}
+        />{" "}
+        <label>{props.label}</label>
+      </components.Option>
+    </div>
+  );
+};
+
 class AddTeacher extends Component {
 
   constructor(props){
     super(props);
-    this.state= {name:"", email:"",pass:"", clase:"1a", picture: '2.jpg', selectedFile: false, fileName: ""}
-    this.students = require('./data/students.json');
+    this.state= { name:"", email:"",pass:"", clase:"1a", picture: '2.jpg', selectedFile: false, fileName: "", students: [], studentsOptions: [] }
+    this.getStudents();
   }
 
   aniadirProfesor = () => {
-    this.createStudentDB();
+    this.createEducatorDB();
     Alert.alert(
       "Operación satisfactoria",
       "El profesor ha sido añadido",
     )
   }
 
-  async createStudentDB() {
+  async createEducatorDB() {
     try {
       const response = await fetch('http://localhost:8000/api/v1/educators/', {
         method: 'POST',
@@ -68,6 +86,30 @@ class AddTeacher extends Component {
       this.setState({ selectedFile: true, fileName: res.name });
     } catch (err) {
       console.log(err);
+    }
+  }
+
+  async getStudents() {
+    try {
+      const response = await fetch('http://localhost:8000/api/v1/students/', {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+      });
+      const json = await response.json();
+      this.setState({ students: json.items });
+      let aux = []
+      this.state.students.forEach(  e => {
+        var feed = {image: e.picture, value: e.name, label: e.name};
+        aux.push( feed );
+      } )
+      this.setState({ studentsOptions: aux });
+      console.log(this.state.studentsOptions)
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -164,6 +206,23 @@ class AddTeacher extends Component {
         </View>
 
         {this.state.selectedFile? this.imageComponent() : null}
+
+        <View style={styles.fixToText, {zIndex: 10}}>
+          <Text>Alumnos: </Text>
+          <ReactSelect
+            options={this.state.studentsOptions}
+            style={styles.formItem}
+            isMulti
+            closeMenuOnSelect={false}
+            hideSelectedOptions={false}
+            components={{
+                Option
+            }}
+            onChange={this.handleChangeP}
+            allowSelectAll={true}
+            value={this.state.optionSelectedP}
+            />
+        </View>
 
         <View style={styles.confirmButton}>
           <Button
