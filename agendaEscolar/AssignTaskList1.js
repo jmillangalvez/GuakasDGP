@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, Image, FlatList, Button, SafeAreaView} from 'react-native';
+import {TextInput, Text, View, TouchableOpacity, Image, FlatList, Button, SafeAreaView} from 'react-native';
 import styles from './Styles';
 
 
@@ -8,7 +8,7 @@ class AssignTaskList1 extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {estudiantes: [], idEducator: props.route.params.idEducator};
+    this.state = {estudiantes: [], idEducator: props.route.params.idEducator, listaEstudiantes: []};
   }
 
   async getStudents() {
@@ -22,7 +22,7 @@ class AssignTaskList1 extends Component {
         },
       });
       const json = await response.json();
-      this.setState({estudiantes: json.items});
+      this.setState({estudiantes: json.items, listaEstudiantes: json.items});
     } catch (error) {
       console.log(error);
     }
@@ -30,6 +30,25 @@ class AssignTaskList1 extends Component {
 
   componentDidMount(){
     this.getStudents();
+  }
+
+  actualizarLista(nombre){
+    if (nombre == ""){
+      this.setState({listaEstudiantes: this.state.estudiantes})
+    }
+    else{
+      let nuevaLista = []
+      for(let i = 0; i < this.state.estudiantes.length; i++){
+        let nombreCompleto = this.state.estudiantes[i].name.toLowerCase()
+        let re = new RegExp(nombre)
+
+        if(re.exec(nombreCompleto)){
+          nuevaLista.push(this.state.estudiantes[i])
+        }
+      }
+
+      this.setState({listaEstudiantes: nuevaLista})
+    }
   }
 
 
@@ -50,11 +69,20 @@ class AssignTaskList1 extends Component {
           </TouchableOpacity>
         </View>
 
+        <TextInput
+          style={styles.loginAdminInput}
+          onChangeText = {(text) => this.actualizarLista(text)}
+          defaultValue = ""
+          placeholder = "Buscar nombre del alumno"
+          accessibilityLabel = "Barra para búsqueda"
+          accessibilityHint = "Espacio para introducir el nombre del alumno a buscar."
+        />
+
         <FlatList
           showsHorizontalScrollIndicator={false}
           style={{flex: 1}}
           contentContainerStyle={{flexGrow: 1}}
-          data = {this.state.estudiantes}
+          data = {this.state.listaEstudiantes}
           renderItem = {({item}) => {
             return(
               <View style={styles.listContainer}>

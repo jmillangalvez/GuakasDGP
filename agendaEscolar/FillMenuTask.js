@@ -191,7 +191,7 @@ class FillMenuTask extends Component {
     if(i == 0){
       return(
         <View key={i}>
-          <Image style={styles.listImage} source={require("./data/imagenesMenu/blanco.jpeg")}/>
+          <Image style={styles.listImage2} source={require("./data/imagenesMenu/blanco.jpeg")}/>
         </View>
       )
     }
@@ -200,7 +200,7 @@ class FillMenuTask extends Component {
       let image = require("./data/imagenesEducadores/" + fotoEducador)
       return(
         <View key={i}>
-          <Image style={styles.listImage} source={image}/>
+          <Image style={styles.listImage2} source={image}/>
         </View>
       )
     }
@@ -220,7 +220,7 @@ class FillMenuTask extends Component {
     if(i == 0){
       return(
         <View key={i}>
-          <Image style={styles.listImage} source={require("./data/imagenesMenu/menu.png")}/>
+          <Image style={styles.listImage2} source={require("./data/imagenesMenu/menu.png")}/>
         </View>
       )
     }
@@ -231,7 +231,7 @@ class FillMenuTask extends Component {
         <View key={i}>
             <TouchableOpacity
                 onPress={() => this.onPress("normalMenu", i-1)}>                
-                <Image style={styles.listImage} source={image}/>
+                <Image style={styles.listImage2} source={image}/>
             </TouchableOpacity>
         </View>
       )
@@ -252,7 +252,7 @@ class FillMenuTask extends Component {
     if(i == 0){
       return(
         <View key={i}>
-          <Image style={styles.listImage} source={require("./data/imagenesMenu/noCarne.png")}/>
+          <Image style={styles.listImage2} source={require("./data/imagenesMenu/noCarne.png")}/>
         </View>
       )
     }
@@ -263,7 +263,7 @@ class FillMenuTask extends Component {
         <View key={i}>
           <TouchableOpacity
                 onPress={() => this.onPress("noMeat", i-1)}>                
-                <Image style={styles.listImage} source={image}/>
+                <Image style={styles.listImage2} source={image}/>
             </TouchableOpacity>
         </View>
       )
@@ -284,7 +284,7 @@ class FillMenuTask extends Component {
     if(i == 0){
       return(
         <View key={i}>
-          <Image style={styles.listImage} source={require("./data/imagenesMenu/comidaTriturada.png")}/>
+          <Image style={styles.listImage2} source={require("./data/imagenesMenu/comidaTriturada.png")}/>
         </View>
       )
     }
@@ -295,7 +295,7 @@ class FillMenuTask extends Component {
         <View key={i}>
           <TouchableOpacity
                 onPress={() => this.onPress("crushed", i-1)}>                
-                <Image style={styles.listImage} source={image}/>
+                <Image style={styles.listImage2} source={image}/>
             </TouchableOpacity>
         </View>
       )
@@ -316,7 +316,7 @@ class FillMenuTask extends Component {
     if(i == 0){
       return(
         <View key={i}>
-          <Image style={styles.listImage} source={require("./data/imagenesMenu/frutaTriturada.png")}/>
+          <Image style={styles.listImage2} source={require("./data/imagenesMenu/frutaTriturada.png")}/>
         </View>
       )
     }
@@ -327,7 +327,7 @@ class FillMenuTask extends Component {
         <View key={i}>
           <TouchableOpacity
                 onPress={() => this.onPress("crushedFruit", i-1)}>                
-                <Image style={styles.listImage} source={image}/>
+                <Image style={styles.listImage2} source={image}/>
             </TouchableOpacity>
         </View>
       )
@@ -348,7 +348,7 @@ class FillMenuTask extends Component {
     if(i == 0){
       return(
         <View key={i}>
-          <Image style={styles.listImage} source={require("./data/imagenesMenu/yogur.png")}/>
+          <Image style={styles.listImage2} source={require("./data/imagenesMenu/yogur.png")}/>
         </View>
       )
     }
@@ -359,7 +359,7 @@ class FillMenuTask extends Component {
         <View key={i}>
           <TouchableOpacity
                 onPress={() => this.onPress("yogur", i-1)}>                
-                <Image style={styles.listImage} source={image}/>
+                <Image style={styles.listImage2} source={image}/>
             </TouchableOpacity>
         </View>
       )
@@ -380,7 +380,7 @@ class FillMenuTask extends Component {
     if(i == 0){
       return(
         <View key={i}>
-          <Image style={styles.listImage} source={require("./data/imagenesMenu/manzana.png")}/>
+          <Image style={styles.listImage2} source={require("./data/imagenesMenu/manzana.png")}/>
         </View>
       )
     }
@@ -391,7 +391,7 @@ class FillMenuTask extends Component {
         <View key={i}>
           <TouchableOpacity
                 onPress={() => this.onPress("fruit", i-1)}>                
-                <Image style={styles.listImage} source={image}/>
+                <Image style={styles.listImage2} source={image}/>
             </TouchableOpacity>
         </View>
       )

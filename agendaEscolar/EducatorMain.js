@@ -50,6 +50,15 @@ class EducatorMain extends Component {
               <Text style={styles.loginAdminText}>Completadas</Text>
             </TouchableOpacity>
           </View>
+          <View style={styles.middleView}></View>
+          <View style={styles.enterButtonView}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('AssignCommandTaskList1', {
+              idEducator: this.state.idEducator
+            }) }>
+              <Text style={styles.loginAdminText}>Asignar Tarea</Text>
+              <Text style={styles.loginAdminText}>   Comedor</Text>
+            </TouchableOpacity>
+          </View>
         </View>
         
         <View style={styles.fixToText}>

@@ -96,10 +96,7 @@ class ModifyStudent extends Component {
   modificarAlumno = () => {
     this.modifyStudent();
 
-    Alert.alert(
-      "Operación satisfactoria",
-      "El estudiante ha sido añadido",
-    )
+    setTimeout(()=> { this.props.navigation.navigate('StudentSubmenu') }, 2000);
   }
 
   imageComponent(){

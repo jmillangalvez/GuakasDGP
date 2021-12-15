@@ -14,7 +14,7 @@ class ModifyNormalTask extends Component {
   constructor(props){
     super(props);
     this.state= {titulo: "", descripcion: "", tituloPic: "microondas.png", descripcionPic: "microondas.png" , idTask: props.route.params.idTask, task: '', listDes: [],
-    descripcionPic1: "nueva.png", descripcionPic2: "nueva.png",descripcionPic3: "nueva.png", descripcionPic4: "nueva.png",descripcionPic5: "nueva.png", descripcionPic: ""}
+    descripcionPic1: "nueva.png", descripcionPic2: "nueva.png",descripcionPic3: "nueva.png", descripcionPic4: "nueva.png", descripcionPic5: "nueva.png", descripcionPic: ""}
   }
 
   async getTasks() {
@@ -39,11 +39,21 @@ class ModifyNormalTask extends Component {
           this.setState({descripcion: tasks[i].description});
           this.setState({descripcionPic: tasks[i].pictogramDescription});
           this.setState({listDes: tasks[i].pictogramDescription.split(",")});
-          this.setState({descripcionPic1: tasks[i].pictogramDescription.split(",")[0]});
-          this.setState({descripcionPic2: tasks[i].pictogramDescription.split(",")[1]});
-          this.setState({descripcionPic3: tasks[i].pictogramDescription.split(",")[2]});
-          this.setState({descripcionPic4: tasks[i].pictogramDescription.split(",")[3]});
-          this.setState({descripcionPic5: tasks[i].pictogramDescription.split(",")[4]});
+          if(tasks[i].pictogramDescription.split(",")[0].length > 3){
+            this.setState({descripcionPic1: tasks[i].pictogramDescription.split(",")[0]});
+          }
+          if(tasks[i].pictogramDescription.split(",")[1].length > 3){
+            this.setState({descripcionPic2: tasks[i].pictogramDescription.split(",")[1]});
+          }
+          if(tasks[i].pictogramDescription.split(",")[2].length > 3){
+            this.setState({descripcionPic3: tasks[i].pictogramDescription.split(",")[2]});
+          }
+          if(tasks[i].pictogramDescription.split(",")[3].length > 3){
+            this.setState({descripcionPic4: tasks[i].pictogramDescription.split(",")[3]});
+          }
+          if(tasks[i].pictogramDescription.split(",")[4].length > 3){
+            this.setState({descripcionPic5: tasks[i].pictogramDescription.split(",")[4]});
+          }
         }
       }
     } catch (error) {

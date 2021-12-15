@@ -219,6 +219,7 @@ class DailyTasks extends Component {
                 accessibilityLabel="Volver al inicio"
                 accessibilityRole="button"
                 accessibilityHint="Vuelve al menú de inicio"
+                style={{marginLeft: 10, marginRight: 10}}
                 onPress={() => this.props.navigation.navigate('FillMenuTask', {date: this.state.today})}>
                 <Image
                     source={require('./data/imagenesMenu/menu.png')}
@@ -248,6 +249,7 @@ class DailyTasks extends Component {
                                 accessibilityLabel="Tarea Anterior"
                                 accessibilityRole="button"
                                 accessibilityHint="Muestra la tarea anterior sin completar del día"
+                                style={{marginLeft: 10, marginRight: 10}}
                                 >
                                 <Image
                                     style={styles.image}
@@ -264,6 +266,7 @@ class DailyTasks extends Component {
                                 accessibilityLabel="Tarea Siguiente"
                                 accessibilityRole="button"
                                 accessibilityHint="Muestra la siguiente tarea sin completar del día"
+                                style={{marginLeft: 10, marginRight: 10}}
                                 >
                                 <Image
                                     style={styles.image}
@@ -279,6 +282,7 @@ class DailyTasks extends Component {
                                 accessibilityLabel="Volver al inicio"
                                 accessibilityRole="button"
                                 accessibilityHint="Vuelve al menú de inicio"
+                                style={{marginLeft: 10, marginRight: 10}}
                                 onPress={() => this.props.navigation.navigate('DailyTasks')}>
                                 <Image
                                     source={require('./img/casa.png')}
@@ -289,7 +293,8 @@ class DailyTasks extends Component {
                                 accessibilityLabel="Estadísticas"
                                 accessibilityRole="button"
                                 accessibilityHint="Muestra las estadísticas de la semana"
-                                onPress={() => this.props.navigation.navigate('WeeklyStats')}>
+                                style={{margin: 20}}
+                                onPress={() => this.props.navigation.navigate('CalendarMenu', {idStudent: this.state.student.idStudent} ) }>
                                 <Image
                                     source={require('./img/grafica.png')}
                                     style={{ height: '100px', width: '100px' }}
@@ -316,6 +321,7 @@ class DailyTasks extends Component {
                                 accessibilityLabel="Tarea Anterior"
                                 accessibilityRole="button"
                                 accessibilityHint="Muestra la tarea anterior sin completar del día"
+                                style={{marginLeft: 10, marginRight: 10}}
                                 >
                                 <Image
                                     style={styles.image}
@@ -332,6 +338,7 @@ class DailyTasks extends Component {
                                 accessibilityLabel="Tarea Siguiente"
                                 accessibilityRole="button"
                                 accessibilityHint="Muestra la siguiente tarea sin completar del día"
+                                style={{marginLeft: 10, marginRight: 10}}
                                 >
                                 <Image
                                     style={styles.image}
@@ -347,6 +354,7 @@ class DailyTasks extends Component {
                                 accessibilityLabel="Volver al inicio"
                                 accessibilityRole="button"
                                 accessibilityHint="Vuelve al menú de inicio"
+                                style={{marginLeft: 10, marginRight: 10}}
                                 onPress={() => this.props.navigation.navigate('DailyTasks')}>
                                 <Image
                                     source={require('./img/casa.png')}
@@ -357,7 +365,8 @@ class DailyTasks extends Component {
                                 accessibilityLabel="Estadísticas"
                                 accessibilityRole="button"
                                 accessibilityHint="Muestra las estadísticas de la semana"
-                                onPress={() => this.props.navigation.navigate('WeeklyStats')}>
+                                style={{marginLeft: 10, marginRight: 10}}
+                                onPress={() => this.props.navigation.navigate('CalendarMenu', {idStudent: this.state.student.idStudent} ) }>
                                 <Image
                                     source={require('./img/grafica.png')}
                                     style={{ height: '100px', width: '100px' }}
@@ -384,6 +393,7 @@ class DailyTasks extends Component {
                                 accessibilityLabel="Tarea Anterior"
                                 accessibilityRole="button"
                                 accessibilityHint="Muestra la tarea anterior sin completar del día"
+                                style={{marginLeft: 10, marginRight: 10}}
                                 >
                                 <Image
                                     style={styles.image}
@@ -400,6 +410,7 @@ class DailyTasks extends Component {
                                 accessibilityLabel="Tarea Siguiente"
                                 accessibilityRole="button"
                                 accessibilityHint="Muestra la siguiente tarea sin completar del día"
+                                style={{marginLeft: 10, marginRight: 10}}
                                 >
                                 <Image
                                     style={styles.image}
@@ -415,6 +426,7 @@ class DailyTasks extends Component {
                                 accessibilityLabel="Volver al inicio"
                                 accessibilityRole="button"
                                 accessibilityHint="Vuelve al menú de inicio"
+                                style={{marginLeft: 10, marginRight: 10}}
                                 onPress={() => this.props.navigation.navigate('DailyTasks')}>
                                 <Image
                                     source={require('./img/casa.png')}
@@ -425,7 +437,8 @@ class DailyTasks extends Component {
                                 accessibilityLabel="Estadísticas"
                                 accessibilityRole="button"
                                 accessibilityHint="Muestra las estadísticas de la semana"
-                                onPress={() => this.props.navigation.navigate('WeeklyStats')}>
+                                style={{marginLeft: 10, marginRight: 10}}
+                                onPress={() => this.props.navigation.navigate('CalendarMenu', {idStudent: this.state.student.idStudent} ) }>
                                 <Image
                                     source={require('./img/grafica.png')}
                                     style={{ height: '100px', width: '100px' }}
@@ -459,6 +472,7 @@ class DailyTasks extends Component {
                                 accessibilityLabel="Volver al inicio"
                                 accessibilityRole="button"
                                 accessibilityHint="Vuelve al menú de inicio"
+                                style={{marginLeft: 10, marginRight: 10}}
                                 onPress={() => this.props.navigation.navigate('DailyTasks')}>
                                 <Image
                                     source={require('./img/casa.png')}
@@ -469,7 +483,8 @@ class DailyTasks extends Component {
                                 accessibilityLabel="Estadísticas"
                                 accessibilityRole="button"
                                 accessibilityHint="Muestra las estadísticas de la semana"
-                                onPress={() => this.props.navigation.navigate('WeeklyStats')}>
+                                style={{marginLeft: 10, marginRight: 10}}
+                                onPress={() => this.props.navigation.navigate('CalendarMenu', {idStudent: this.state.student.idStudent} ) }>
                                 <Image
                                     source={require('./img/grafica.png')}
                                     style={{ height: '100px', width: '100px' }}
@@ -500,6 +515,7 @@ class DailyTasks extends Component {
                                 accessibilityLabel="Volver al inicio"
                                 accessibilityRole="button"
                                 accessibilityHint="Vuelve al menú de inicio"
+                                style={{marginLeft: 10, marginRight: 10}}
                                 onPress={() => this.props.navigation.navigate('DailyTasks')}>
                                 <Image
                                     source={require('./img/casa.png')}
@@ -510,7 +526,8 @@ class DailyTasks extends Component {
                                 accessibilityLabel="Estadísticas"
                                 accessibilityRole="button"
                                 accessibilityHint="Muestra las estadísticas de la semana"
-                                onPress={() => this.props.navigation.navigate('WeeklyStats')}>
+                                style={{marginLeft: 10, marginRight: 10}}
+                                onPress={() => this.props.navigation.navigate('CalendarMenu', {idStudent: this.state.student.idStudent} ) }>
                                 <Image
                                     source={require('./img/grafica.png')}
                                     style={{ height: '100px', width: '100px' }}
@@ -541,6 +558,7 @@ class DailyTasks extends Component {
                                 accessibilityLabel="Volver al inicio"
                                 accessibilityRole="button"
                                 accessibilityHint="Vuelve al menú de inicio"
+                                style={{marginLeft: 10, marginRight: 10}}
                                 onPress={() => this.props.navigation.navigate('DailyTasks')}>
                                 <Image
                                     source={require('./img/casa.png')}
@@ -551,7 +569,8 @@ class DailyTasks extends Component {
                                 accessibilityLabel="Estadísticas"
                                 accessibilityRole="button"
                                 accessibilityHint="Muestra las estadísticas de la semana"
-                                onPress={() => this.props.navigation.navigate('WeeklyStats')}>
+                                style={{marginLeft: 10, marginRight: 10}}
+                                onPress={() => this.props.navigation.navigate('CalendarMenu', {idStudent: this.state.student.idStudent} ) }>
                                 <Image
                                     source={require('./img/grafica.png')}
                                     style={{ height: '100px', width: '100px' }}
@@ -584,6 +603,7 @@ class DailyTasks extends Component {
                                 accessibilityLabel="Volver al inicio"
                                 accessibilityRole="button"
                                 accessibilityHint="Vuelve al menú de inicio"
+                                style={{marginLeft: 10, marginRight: 10}}
                                 onPress={() => this.props.navigation.navigate('DailyTasks')}>
                                 <Image
                                     source={require('./img/casa.png')}
@@ -594,7 +614,8 @@ class DailyTasks extends Component {
                                 accessibilityLabel="Estadísticas"
                                 accessibilityRole="button"
                                 accessibilityHint="Muestra las estadísticas de la semana"
-                                onPress={() => this.props.navigation.navigate('WeeklyStats')}>
+                                style={{marginLeft: 10, marginRight: 10}}
+                                onPress={() => this.props.navigation.navigate('CalendarMenu', {idStudent: this.state.student.idStudent} ) }>
                                 <Image
                                     source={require('./img/grafica.png')}
                                     style={{ height: '100px', width: '100px' }}
@@ -626,6 +647,7 @@ class DailyTasks extends Component {
                                 accessibilityLabel="Volver al inicio"
                                 accessibilityRole="button"
                                 accessibilityHint="Vuelve al menú de inicio"
+                                style={{marginLeft: 10, marginRight: 10}}
                                 onPress={() => this.props.navigation.navigate('DailyTasks')}>
                                 <Image
                                     source={require('./img/casa.png')}
@@ -636,7 +658,8 @@ class DailyTasks extends Component {
                                 accessibilityLabel="Estadísticas"
                                 accessibilityRole="button"
                                 accessibilityHint="Muestra las estadísticas de la semana"
-                                onPress={() => this.props.navigation.navigate('WeeklyStats')}>
+                                style={{marginLeft: 10, marginRight: 10}}
+                                onPress={() => this.props.navigation.navigate('CalendarMenu', {idStudent: this.state.student.idStudent} ) }>
                                 <Image
                                     source={require('./img/grafica.png')}
                                     style={{ height: '100px', width: '100px' }}
@@ -671,6 +694,7 @@ class DailyTasks extends Component {
                                 accessibilityLabel="Volver al inicio"
                                 accessibilityRole="button"
                                 accessibilityHint="Vuelve al menú de inicio"
+                                style={{marginLeft: 10, marginRight: 10}}
                                 onPress={() => this.props.navigation.navigate('DailyTasks')}>
                                 <Image
                                     source={require('./img/casa.png')}
@@ -681,7 +705,8 @@ class DailyTasks extends Component {
                                 accessibilityLabel="Estadísticas"
                                 accessibilityRole="button"
                                 accessibilityHint="Muestra las estadísticas de la semana"
-                                onPress={() => this.props.navigation.navigate('WeeklyStats')}>
+                                style={{marginLeft: 10, marginRight: 10}}
+                                onPress={() => this.props.navigation.navigate('CalendarMenu', {idStudent: this.state.student.idStudent})}>
                                 <Image
                                     source={require('./img/grafica.png')}
                                     style={{ height: '100px', width: '100px' }}

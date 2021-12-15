@@ -121,7 +121,7 @@ class CompletedMenu extends Component {
     if(i == 0){
       return(
         <View key={i}>
-          <Image style={styles.listImage} source={require("./data/imagenesMenu/blanco.jpeg")}/>
+          <Image style={styles.listImage2} source={require("./data/imagenesMenu/blanco.jpeg")}/>
         </View>
       )
     }
@@ -130,7 +130,7 @@ class CompletedMenu extends Component {
       let image = require("./data/imagenesEducadores/" + fotoEducador)
       return(
         <View key={i}>
-          <Image style={styles.listImage} source={image}/>
+          <Image style={styles.listImage2} source={image}/>
         </View>
       )
     }
@@ -150,7 +150,7 @@ class CompletedMenu extends Component {
     if(i == 0){
       return(
         <View key={i}>
-          <Image style={styles.listImage} source={require("./data/imagenesMenu/menu.png")}/>
+          <Image style={styles.listImage2} source={require("./data/imagenesMenu/menu.png")}/>
         </View>
       )
     }
@@ -159,7 +159,7 @@ class CompletedMenu extends Component {
       let image = require("./data/imagenesMenu/" + fotoNum)
       return(
         <View key={i}>
-          <Image style={styles.listImage} source={image}/>
+          <Image style={styles.listImage2} source={image}/>
         </View>
       )
     }
@@ -179,7 +179,7 @@ class CompletedMenu extends Component {
     if(i == 0){
       return(
         <View key={i}>
-          <Image style={styles.listImage} source={require("./data/imagenesMenu/noCarne.png")}/>
+          <Image style={styles.listImage2} source={require("./data/imagenesMenu/noCarne.png")}/>
         </View>
       )
     }
@@ -188,7 +188,7 @@ class CompletedMenu extends Component {
       let image = require("./data/imagenesMenu/" + fotoNum)
       return(
         <View key={i}>
-          <Image style={styles.listImage} source={image}/>
+          <Image style={styles.listImage2} source={image}/>
         </View>
       )
     }
@@ -208,7 +208,7 @@ class CompletedMenu extends Component {
     if(i == 0){
       return(
         <View key={i}>
-          <Image style={styles.listImage} source={require("./data/imagenesMenu/comidaTriturada.png")}/>
+          <Image style={styles.listImage2} source={require("./data/imagenesMenu/comidaTriturada.png")}/>
         </View>
       )
     }
@@ -217,7 +217,7 @@ class CompletedMenu extends Component {
       let image = require("./data/imagenesMenu/" + fotoNum)
       return(
         <View key={i}>
-          <Image style={styles.listImage} source={image}/>
+          <Image style={styles.listImage2} source={image}/>
         </View>
       )
     }
@@ -237,7 +237,7 @@ class CompletedMenu extends Component {
     if(i == 0){
       return(
         <View key={i}>
-          <Image style={styles.listImage} source={require("./data/imagenesMenu/frutaTriturada.png")}/>
+          <Image style={styles.listImage2} source={require("./data/imagenesMenu/frutaTriturada.png")}/>
         </View>
       )
     }
@@ -246,7 +246,7 @@ class CompletedMenu extends Component {
       let image = require("./data/imagenesMenu/" + fotoNum)
       return(
         <View key={i}>
-          <Image style={styles.listImage} source={image}/>
+          <Image style={styles.listImage2} source={image}/>
         </View>
       )
     }
@@ -266,7 +266,7 @@ class CompletedMenu extends Component {
     if(i == 0){
       return(
         <View key={i}>
-          <Image style={styles.listImage} source={require("./data/imagenesMenu/yogur.png")}/>
+          <Image style={styles.listImage2} source={require("./data/imagenesMenu/yogur.png")}/>
         </View>
       )
     }
@@ -275,7 +275,7 @@ class CompletedMenu extends Component {
       let image = require("./data/imagenesMenu/" + fotoNum)
       return(
         <View key={i}>
-          <Image style={styles.listImage} source={image}/>
+          <Image style={styles.listImage2} source={image}/>
         </View>
       )
     }
@@ -295,7 +295,7 @@ class CompletedMenu extends Component {
     if(i == 0){
       return(
         <View key={i}>
-          <Image style={styles.listImage} source={require("./data/imagenesMenu/manzana.png")}/>
+          <Image style={styles.listImage2} source={require("./data/imagenesMenu/manzana.png")}/>
         </View>
       )
     }
@@ -304,7 +304,7 @@ class CompletedMenu extends Component {
       let image = require("./data/imagenesMenu/" + fotoNum)
       return(
         <View key={i}>
-          <Image style={styles.listImage} source={image}/>
+          <Image style={styles.listImage2} source={image}/>
         </View>
       )
     }

@@ -201,6 +201,12 @@ const styles = StyleSheet.create({
     borderRadius:20,
     marginLeft:20
   },
+  listImage2:{
+    width:75,
+    height:75,
+    borderRadius:20,
+    marginLeft:20
+  },
   listText:{
     fontSize:40,
   },
@@ -351,6 +357,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  educatorTaskView: {
+    marginTop: '5%',
+    width: '70%',
+    height: '70%',
+    backgroundColor: "#faff6d",
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 25,
+    borderWidth: 3
+  }
 });
 
 export default styles;

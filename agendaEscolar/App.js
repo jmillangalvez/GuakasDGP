@@ -6,10 +6,14 @@ import AddStockTask from './AddStockTask';
 import AddStudent from './AddStudent';
 import AddTeacher from './AddTeacher';
 import AdminMain from './AdminMain';
-import AssignTask from './AssignTask';
 import AssignStockTask from './AssignStockTask';
+import AssignTask from './AssignTask';
 import AssignTaskList1 from './AssignTaskList1';
 import AssignTaskList2 from './AssignTaskList2';
+import AssignCommandTask from './AssignCommandTask';
+import AssignCommandTaskList1 from './AssignCommandTaskList1';
+import AssignCommandTaskList2 from './AssignCommandTaskList2';
+import CalendarMenu from './CalendarMenu';
 import CreateNormalTask from './CreateNormalTask';
 import CreateCommandTask from './CreateCommandTask';
 import CompletedMenu from './CompletedMenu';
@@ -37,6 +41,7 @@ import StudentList from './StudentList';
 import SearchStudents from './SearchStudents';
 import SearchStudentsList from './SearchStudentsList';
 import TaskSubmenu from './TaskSubmenu';
+import TaskDates from './TaskDates';
 import TeacherMain from './TeacherMain';
 import ModifyNormalTaskList from "./ModifyNormalTaskList";
 import WeeklyStats from "./WeeklyStats";
@@ -62,6 +67,10 @@ const App = () => {
         <Stack.Screen
           name="DailyTasks"
           component={DailyTasks}
+        />
+        <Stack.Screen
+          name="CalendarMenu"
+          component={CalendarMenu}
         />
         <Stack.Screen
           name="FillMenuTask"
@@ -112,12 +121,28 @@ const App = () => {
           component={AdminMain}
         />
         <Stack.Screen
+          name="AssignCommandTask"
+          component={AssignCommandTask}
+        />
+        <Stack.Screen
+          name="AssignCommandTaskList1"
+          component={AssignCommandTaskList1}
+        />
+        <Stack.Screen
+          name="AssignCommandTaskList2"
+          component={AssignCommandTaskList2}
+        />
+        <Stack.Screen
           name="StudentList"
           component={StudentList}
         />
         <Stack.Screen
           name="EducatorAssignedTasks"
           component={EducatorAssignedTasks}
+        />
+        <Stack.Screen
+          name="TaskDates"
+          component={TaskDates}
         />
         <Stack.Screen
           name="EducatorCompletedTasks"

@@ -70,24 +70,25 @@ class EducatorCompletedTasks extends Component {
     listTask = () => {
         var component = [];
         this.state.tasks.forEach(task => {
-            component.push(this.showTask(task));
+            let index = this.state.tasks.indexOf(task);
+            component.push(this.showTask(task, this.state.tasksId[index]));
         });
         return component;
     };
 
     //Función que muestra cada tarea que ha completado el alumno
-    showTask = (task) => {
+    showTask = (task, taskId) => {
         return(
             <TouchableOpacity 
-                /*
-                Debe mandar a la información de la tarea
-                onPress={ () => this.props.navigation.navigate('') }*/
+                onPress={ () => this.props.navigation.navigate('InfoTask', {
+                    task: task, assigned: taskId
+                }) }
                 accessibilityLabel="Tarea seleccionada"
                 accessibilityRole="button"
                 accessibilityHint="Pulsa para mostrar la tarea"
-                style={styles.taskButton2}
+                style={{ borderWidth: 3, margin: 5 }}
                 >
-                <Text style={styles.dailyTaks2}>{task.title}</Text>
+                <Text style={styles.dailyTaks}>{task.title}</Text>
             </TouchableOpacity>
         )
     };
