@@ -24,6 +24,7 @@ async function changeScreenOrientation() {
 class CalendarMenu extends Component{
     constructor(props) {
         super(props);
+
         this.state = {
           selectedStartDate: null,
           selectedEndDate: null,
@@ -31,8 +32,9 @@ class CalendarMenu extends Component{
           tasksId: [],
           dates: [],
           currentTask: 0,
-          idStudent: props.route.params.idStudent,
+          idStudent: this.props.route.params.idStudent,
         };
+        
         // this.componentDidMount;
         this.onDateChange = this.onDateChange.bind(this);
     }
@@ -139,13 +141,14 @@ class CalendarMenu extends Component{
 
                 <View style={styles.sideBanner}>
                     <View style={styles.confirmButton}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('') }>
+                        <TouchableOpacity >
                         <Button
                             title="Ver Estadísticas"
                             accessibilityLabel="Ver Estadísticas"
                             accessibilityRole="Button"
                             accessibilityHint="Ir al menu de estadísticas"
                             color="#bcbcbc"
+                            onPress={() => this.props.navigation.navigate('WeeklyStats', {startDate: this.state.selectedStartDate, endDate: this.state.selectedEndDate, idStudent: this.state.idStudent} ) }
                         />
                         </TouchableOpacity>
                     </View>

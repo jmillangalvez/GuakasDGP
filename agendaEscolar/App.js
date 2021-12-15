@@ -9,6 +9,7 @@ import AdminMain from './AdminMain';
 import AssignTask from './AssignTask';
 import AssignTaskList1 from './AssignTaskList1';
 import AssignTaskList2 from './AssignTaskList2';
+import CalendarMenu from './CalendarMenu';
 import CreateNormalTask from './CreateNormalTask';
 import CreateCommandTask from './CreateCommandTask';
 import CompletedMenu from './CompletedMenu';
@@ -36,6 +37,8 @@ import TaskSubmenu from './TaskSubmenu';
 import TeacherMain from './TeacherMain';
 import ModifyNormalTaskList from "./ModifyNormalTaskList";
 import WeeklyStats from "./WeeklyStats";
+import TaskDates from "./TaskDates";
+import TaskCompleteMenu from "./TaskCompleteMenu";
 
 const Stack = createNativeStackNavigator();
 
@@ -44,8 +47,21 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen
+          name="TaskCompleteMenu"
+          component={TaskCompleteMenu}
+        />
+        <Stack.Screen
           name="Login"
           component={Login}
+        />
+       <Stack.Screen
+          name="WeeklyStats"
+          component={WeeklyStats}
+        />
+        
+        <Stack.Screen
+          name="TaskDates"
+          component={TaskDates}
         />
         <Stack.Screen
           name="CreateCommandTask"
@@ -67,10 +83,7 @@ const App = () => {
           name="TaskSubmenu"
           component={TaskSubmenu}
         />
-        <Stack.Screen
-          name="WeeklyStats"
-          component={WeeklyStats}
-        />
+
         <Stack.Screen
           name="ModifyNormalTask"
           component={ModifyNormalTask}
@@ -102,6 +115,10 @@ const App = () => {
         <Stack.Screen
           name="StudentList"
           component={StudentList}
+        />
+        <Stack.Screen
+          name="CalendarMenu"
+          component={CalendarMenu}
         />
         <Stack.Screen
           name="EducatorAssignedTasks"
