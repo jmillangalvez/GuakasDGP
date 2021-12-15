@@ -312,6 +312,16 @@ const styles = StyleSheet.create({
       width: 75,
       height: 75,
     },
+    educatorTaskView: {
+      marginTop: '5%',
+      width: '70%',
+      height: '70%',
+      backgroundColor: "#faff6d",
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 25,
+      borderWidth: 3
+    }
     
   });
 
