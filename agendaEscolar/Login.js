@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import { Text, SafeAreaView, TouchableOpacity, View, Image } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import styles from './Styles';
@@ -11,7 +11,7 @@ async function changeScreenOrientation() {
 class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = { choosingStudent: false, studentsRow: 0, idStudentChosen: -1, data: [], nStudents: 0};
+    this.state = { choosingStudent: false, studentsRow: 0, idStudentChosen: -1, data: [], nStudents: 0, students: []};
   }
   
   async getStudents() {
@@ -34,7 +34,10 @@ class Login extends Component {
 
   componentDidMount(){
     this.getStudents();
+    this._unsubscribe = this.props.navigation.addListener('focus', () => {
+    });
   }
+
 
   chooseStudent = () => {
     this.setState({
@@ -63,13 +66,14 @@ class Login extends Component {
       let nom = this.state.data[i].picture
       let image = require('./data/imagenesAlumnos/'+nom)
       students.push(
-      <TouchableOpacity style={styles.choosingButton} onPress={() => this.selectStudent(i)}>
-        <Image
-            style={styles.image}
-            source={image}
-            accessibilityLabel="Entrar en la aplicacion"
-            />
-      </TouchableOpacity>);
+        <TouchableOpacity style={styles.choosingButton} onPress={() => this.selectStudent(i)}>
+          <Image
+              style={styles.image}
+              source={image}
+              accessibilityLabel="Entrar en la aplicacion"
+          />
+        </TouchableOpacity>
+      );
     }
 
     return students;
@@ -84,7 +88,7 @@ class Login extends Component {
   };
 
   upStudentsRow = () => {
-    if(this.state.studentsRow + 1 < this.students.info.length/4){
+    if(this.state.studentsRow + 1 < this.state.data.length/4){
       this.setState({
         studentsRow: this.state.studentsRow + 1
       });
@@ -142,6 +146,32 @@ class Login extends Component {
       </View>
     )
   }
+
+  loginTrue(){
+    return(
+      <TouchableOpacity style={styles.enterButtonTouch} onPress={() => this.props.navigation.navigate('DailyTasks', {
+        student: this.state.data[this.state.idStudentChosen]
+      }) }>
+        <Image
+        style={styles.image}
+        source={require('./img/enter.png')}
+        accessibilityLabel="Entrar en la aplicacion"
+        />
+      </TouchableOpacity>
+    );
+  }
+
+  loginFalse(){
+    return(
+      <TouchableOpacity style={styles.enterButtonTouch} onPress={() => null}>
+        <Image
+        style={styles.image}
+        source={require('./img/enter.png')}
+        accessibilityLabel="Entrar en la aplicacion"
+        />
+      </TouchableOpacity>
+    );
+  }
   
   render(){
     const { choosingStudent, idStudentChosen } = this.state;
@@ -154,23 +184,12 @@ class Login extends Component {
         {!choosingStudent && idStudentChosen == -1? this.chooseStudentView() : null}
         {choosingStudent? this.choosingStudentView() : null}
         {idStudentChosen != -1? this.studentChosenView(idStudentChosen) : null}
-        <View style={styles.enterButtonLoginView}> 
-          <TouchableOpacity style={styles.enterButtonTouch} onPress={() => this.props.navigation.navigate('DailyTasks', {
-            student: this.state.data[idStudentChosen]
-          }) }>
-            <Image
-            style={styles.image}
-            source={require('./img/enter.png')}
-            accessibilityLabel="Entrar en la aplicacion"
-            />
-          </TouchableOpacity>
+        <View style={styles.enterButtonLoginView}>
+          {idStudentChosen != -1? this.loginTrue() : this.loginFalse()}
         </View>
         <View style={styles.loginAdminView}> 
           <TouchableOpacity onPress={() => this.props.navigation.navigate('LoginAdmin') }>
             <Text style={styles.normalText}>Login Admin/Educador</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('PictogramTask') }>
-            <Text style={styles.normalText}>Demo</Text>
           </TouchableOpacity>
         </View>
         <StatusBar style="auto" />

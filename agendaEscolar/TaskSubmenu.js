@@ -65,21 +65,6 @@ class TaskSubmenu extends Component{
                             <Text style={styles.loginAdminText}>         fija</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={styles.middleView}>
-                    </View>
-
-                    {/* Ir al menu de tareas (Boceto 11)*/}
-                    <View style={styles.enterButtonDownView}>
-                        <TouchableOpacity
-                            accessibilityLabel="Modificar educador"
-                            accessibilityRole="button"
-                            accessibilityHint="Modificar datos de un educador"
-                            onPress={() => this.props.navigation.navigate('ModifyCommandTaskList')}>
-                            <Text style={styles.loginAdminText}>Modificar</Text>
-                            <Text style={styles.loginAdminText}>comanda</Text>
-                            <Text style={styles.loginAdminText}>comedor</Text>
-                        </TouchableOpacity>
-                    </View>
                 </View>
             </View>
         );

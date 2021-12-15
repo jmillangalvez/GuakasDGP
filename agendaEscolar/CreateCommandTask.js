@@ -17,24 +17,6 @@ async function changeScreenOrientation() {
   await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT);
 }
 
-export const colourOptions = [
-    { value: "ca", label: "Clase A" },
-    { value: "cb", label: "Clase B" },
-    { value: "cc", label: "Clase C" },
-    { value: "cd", label: "Clase D" },
-    { value: "ce", label: "Clase E" },
-    { value: "cf", label: "Clase F" }
-  ];
-
-export const platesOptions = [
-    { value: "m1", label: "Menu 1" },
-    { value: "m2", label: "Menu 2" },
-    { value: "m3", label: "Menu 3" },
-    { value: "m4", label: "Menu 4" },
-    { value: "m5", label: "Menu 5" },
-    { value: "m6", label: "Menu 6" }
-  ];
-
 const Option = (props) => {
     return (
         <div>
@@ -53,26 +35,76 @@ const Option = (props) => {
 class CreateCommandTask extends Component {
   constructor(props) {
     super(props);
-    this.state = { titulo: "", descripcion: "", optionSelectedC: null, optionSelectedP: null};
+    this.state = { date: "", optionSelectedC: null, educadores: [], options: []};
   };
 
+  async getEducators() {
+    try {
+      const response = await fetch('http://localhost:8000/api/v1/educators/', {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+      });
+      const json = await response.json();
+      this.setState({educadores: json.items});
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async createClassMenu(idEdu) {
+    try {
+      const response = await fetch('http://localhost:8000/api/v1/classMenus/', {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            idEducator: idEdu,
+            date: this.state.date,
+            numNormalMenu: 0,
+            numNoMeatMenu: 0,
+            numCrushedMenu: 0,
+            numDessertFruit: 0,
+            numDessertCrushedFruit: 0,
+            numDessertYogurtCustard: 0,
+        })
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  componentDidMount(){
+    this.getEducators();
+  }
+
+  getOptions(){
+    let options = [];
+
+    this.state.educadores.forEach(edu => {
+      options.push({value: edu.idEducator, label: edu.name})
+    });
+
+    return options;
+
+  }
+
   createTask = () =>{
-    this.createTaskDB();
-    Alert.alert(
-      "Operación satisfactoria",
-      "La tarea ha sido creada",
-    )
+    console.log(this.state.optionSelectedC)
+    this.state.optionSelectedC.forEach(edu => {
+      this.createClassMenu(edu.value);
+    });
   }
 
   handleChangeC = (selected) => {
     this.setState({
       optionSelectedC: selected
-    });
-  };
-
-  handleChangeP = (selected) => {
-    this.setState({
-      optionSelectedP: selected
     });
   };
 
@@ -101,10 +133,26 @@ class CreateCommandTask extends Component {
         </View>
 
         <View style={styles.fixToText}>
+          <View style={styles.formItem}>
+            <Text style={styles.formContent}>Fecha:</Text>
+          </View>
+
+          <View style={styles.formItem}>
+            <TextInput 
+              style={styles.formContentLine}
+              onChangeText = {(text) => this.setState({date: text})}
+              defaultValue = {this.state.titulo}
+              placeholder = "yyyy-mm-dd"
+              accessibilityLabel="ID Alumno Asignado"
+              accessibilityHint="Introduce el id del alumno" 
+            />
+          </View>
+        </View>
+
+        <View style={styles.fixToText}>
           <Text>Clases: </Text>
           <ReactSelect
-            options={colourOptions}
-            style={styles.formItem}
+            options={this.getOptions()}
             isMulti
             closeMenuOnSelect={false}
             hideSelectedOptions={false}
@@ -117,40 +165,6 @@ class CreateCommandTask extends Component {
             />
         </View>
 
-        <View style={styles.fixToText}>
-          <Text>Platos: </Text>
-          <ReactSelect
-            options={platesOptions}
-            style={styles.formItem}
-            isMulti
-            closeMenuOnSelect={false}
-            hideSelectedOptions={false}
-            components={{
-                Option
-            }}
-            onChange={this.handleChangeP}
-            allowSelectAll={true}
-            value={this.state.optionSelectedP}
-            />
-        </View>
-
-        <View style={styles.fixToText}>
-            <View style={styles.formItem}>
-              <Text style={styles.formContent}>Fecha:</Text>
-            </View>
-
-            <View style={styles.formItem}>
-              <TextInput 
-                style={styles.formContentLine}
-                onChangeText = {(text) => this.setState({alumno: text})}
-                defaultValue = {this.state.titulo}
-                placeholder = "01/01/2021"
-                accessibilityLabel="ID Alumno Asignado"
-                accessibilityHint="Introduce el id del alumno" 
-              />
-            </View>
-          </View>
-
         <View style={styles.confirmButton}>
           <Button
             title="Crear Tarea"
@@ -158,7 +172,7 @@ class CreateCommandTask extends Component {
             accessibilityRole="Button"
             accessibilityHint="Crea la tarea"
             color="#bcbcbc"
-            onPress ={() => this.createTask }
+            onPress ={this.createTask }
           />
         </View>
 

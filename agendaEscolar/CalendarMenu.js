@@ -24,6 +24,7 @@ async function changeScreenOrientation() {
 class CalendarMenu extends Component{
     constructor(props) {
         super(props);
+
         this.state = {
           selectedStartDate: null,
           selectedEndDate: null,
@@ -31,8 +32,9 @@ class CalendarMenu extends Component{
           tasksId: [],
           dates: [],
           currentTask: 0,
-          idStudent: props.route.params.idStudent,
+          idStudent: this.props.route.params.idStudent,
         };
+        
         // this.componentDidMount;
         this.onDateChange = this.onDateChange.bind(this);
     }
@@ -93,7 +95,7 @@ class CalendarMenu extends Component{
             this.setState({ tasks: finalTasks });
             this.setState({ currentTitle: this.state.tasks[0].title });
         } catch (error) {
-            console.log("Error en getTasks "+error);
+            console.log("Error en getTasks " + error);
         }
     }
 
@@ -102,8 +104,6 @@ class CalendarMenu extends Component{
         this.getTasks();
     }
 
-
-
     render(){
         changeScreenOrientation();
         const { selectedStartDate, selectedEndDate } = this.state;
@@ -111,17 +111,22 @@ class CalendarMenu extends Component{
         minDate.setDate(minDate.getDate() - 365); // Desde hace 365 dias
         const maxDate = new Date (); //Fecha maxima
         maxDate.setDate(maxDate.getDate() + 365); // Hasta dentro de 365 dias
-        const startDate = selectedStartDate ? selectedStartDate.toString() : '';
-        const endDate = selectedEndDate ? selectedEndDate.toString() : '';
 
         return (
             <View style={styles.mainView}>
                 <SafeAreaView style={styles.banner}>
-                    <Text style={styles.headerText} value="CALENDARIO DE TAREAS">TAREAS DIARIAS</Text>
+                    <Text style={styles.headerText} value="CALENDARIO DE TAREAS">ESTADÍSTICAS</Text>
                 </SafeAreaView>
-
-                <View>
+                <View style={styles.goBackView}>
+                {/* Volver a la pantalla anterior */}
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('DailyTasks')}>
+                    <Text style={styles.backText}>Volver</Text>
+                </TouchableOpacity>
+                </View>
+                <View style={styles.calendar}>
                     <CalendarPicker
+                        width={700}
+                        height={700}
                         startFromMonday={true}
                         allowRangeSelection={true}
                         minDate={minDate}
@@ -131,40 +136,38 @@ class CalendarMenu extends Component{
                         selectedDayTextColor="#FFFFFF"
                         onDateChange={this.onDateChange}
                     />
-                    <View>
-                        <Text>SELECTED START DATE:{ startDate }</Text>
-                        <Text>SELECTED END DATE:{ endDate }</Text>
-                    </View>
                 </View>
 
                 <View style={styles.sideBanner}>
                     <View style={styles.confirmButton}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('') }>
+                        <TouchableOpacity >
                         <Button
                             title="Ver Estadísticas"
                             accessibilityLabel="Ver Estadísticas"
                             accessibilityRole="Button"
                             accessibilityHint="Ir al menu de estadísticas"
                             color="#bcbcbc"
+                            onPress={() => this.props.navigation.navigate('WeeklyStats', {startDate: this.state.selectedStartDate, endDate: this.state.selectedEndDate, idStudent: this.state.idStudent} ) }
                         />
                         </TouchableOpacity>
                     </View>
                     
                     <View style={styles.confirmButton}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('TaskDates', {startDate: this.state.selectedStartDate, endDate: this.state.selectedEndDate, idStudent: this.state.idStudent} ) }>
+                        <TouchableOpacity>
                         <Button
                             title="Ver Tareas"
                             accessibilityLabel="Ver Tareas"
                             accessibilityRole="Button"
                             accessibilityHint="Ir al menu de tareas en ese tramo"
                             color="#bcbcbc"
+                            onPress={() => this.props.navigation.navigate('TaskDates', {startDate: this.state.selectedStartDate, endDate: this.state.selectedEndDate, idStudent: this.state.idStudent} ) }
                         />
                         </TouchableOpacity>
                     </View>
                 </View>
 
-                <View style={styles.bottomBanner}>
-                    <SafeAreaView style={styles.bottomBanner}>
+                <SafeAreaView style={styles.bottomBanner}>
+                    <View style={styles.fixToText}>
                         <TouchableOpacity
                             accessibilityLabel="Volver al inicio"
                             accessibilityRole="button"
@@ -175,8 +178,8 @@ class CalendarMenu extends Component{
                                 style={{ height: '100px', width: '100px' }}
                             />
                         </TouchableOpacity>
-                    </SafeAreaView>
-                </View>
+                    </View>
+                </SafeAreaView>
             </View>
         )
     }

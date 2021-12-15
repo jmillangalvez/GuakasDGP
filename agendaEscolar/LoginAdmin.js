@@ -1,17 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from "react";
-import { Text, TextInput, SafeAreaView, TouchableOpacity, View, Image, Alert } from 'react-native';
+import { Text, TextInput, SafeAreaView, TouchableOpacity, View, Image } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import styles from './Styles';
 
 async function changeScreenOrientation() {
   await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT);
 }
+
   
 class LoginAdmin extends Component {
   constructor(props) {
     super(props);
-    this.state = { authenticated: false, email:"", password:"", listAdmins: []};
+    this.state = { authenticated: false, email:"", password:"", listAdmins: [], show: false};
     //this.listAdmins = require('./data/admin.json');
   }
 
@@ -54,17 +55,20 @@ class LoginAdmin extends Component {
     if(notFound){
       this.setState({
         email: "",
-        password: ""
+        password: "",
+        show: true
       });
-      Alert.alert(
-          "Authentication Error",
-          "Nombre de usuario o contraseña incorrectos. Por favor, vuelva a introducirlos de nuevo.",
-      )
     }else{
       this.props.navigation.navigate('AdminMain')
     }
 
   };
+
+  showAlert(){
+    return(
+      <Text style={{color: '#ff0000'}}>Usuario o contraseña incorrectas</Text>
+    )
+  }
 
   loginView(){
     return(
@@ -112,6 +116,8 @@ class LoginAdmin extends Component {
 
         <View style = {styles.center}>
           {this.loginView()}
+
+          {this.state.show? this.showAlert() : null}
         </View>
         <View style = {styles.center}>
           <TouchableOpacity

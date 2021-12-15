@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, Image, FlatList, Button, SafeAreaView} from 'react-native';
+import {StyleSheet, Text, TextInput, View, TouchableOpacity, Image, FlatList, Button, SafeAreaView} from 'react-native';
 import styles from './Styles';
 
 class ModifyTeacherList extends Component {
@@ -7,7 +7,7 @@ class ModifyTeacherList extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {educadores: []}
+    this.state = {educadores: [], listaEducadores: []}
   }
 
   async getEducators() {
@@ -21,7 +21,7 @@ class ModifyTeacherList extends Component {
         },
       });
       const json = await response.json();
-      this.setState({educadores: json.items});
+      this.setState({educadores: json.items, listaEducadores: json.items});
     } catch (error) {
       console.log(error);
     }
@@ -29,6 +29,25 @@ class ModifyTeacherList extends Component {
 
   componentDidMount(){
     this.getEducators();
+  }
+
+  actualizarLista(nombre){
+    if (nombre == ""){
+      this.setState({listaEducadores: this.state.educadores})
+    }
+    else{
+      let nuevaLista = []
+      for(let i = 0; i < this.state.educadores.length; i++){
+        let nombreCompleto = this.state.educadores[i].name.toLowerCase()
+        let re = new RegExp(nombre)
+
+        if(re.exec(nombreCompleto)){
+          nuevaLista.push(this.state.educadores[i])
+        }
+      }
+
+      this.setState({listaEducadores: nuevaLista})
+    }
   }
 
 
@@ -49,11 +68,20 @@ class ModifyTeacherList extends Component {
           </TouchableOpacity>
         </View>
 
+        <TextInput
+          style={styles.loginAdminInput}
+          onChangeText = {(text) => this.actualizarLista(text)}
+          defaultValue = ""
+          placeholder = "Buscar nombre del educador"
+          accessibilityLabel = "Barra para búsqueda"
+          accessibilityHint = "Espacio para introducir el nombre del educador a buscar."
+        />
+
         <FlatList
           showsHorizontalScrollIndicator={false}
           style={{flex: 1}}
           contentContainerStyle={{flexGrow: 1}}
-          data = {this.state.educadores}
+          data = {this.state.listaEducadores}
           renderItem = {({item}) => {
             return(
               <View style={styles.listContainer}>

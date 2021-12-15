@@ -23,46 +23,30 @@ class CreateNormalTask extends Component {
   };
 
   createTask = () =>{
-    if(descripcionPic1 != "nueva.png"){
-      descripcionPic =+ descripcionPic1;
-      descripcionPic =+ ",";
-    }else{
-      descripcionPic =+ "nueva.png";
-      descripcionPic =+ ",";
+    let descripcion = "";
+    if(this.state.descripcionPic1 != "nueva.png"){
+      descripcion =+ this.state.descripcionPic1;
+      descripcion =+ ",";
     }
-    if(descripcionPic2 != "nueva.png"){
-      descripcionPic =+ descripcionPic2;
-      descripcionPic =+ ",";
-    }else{
-      descripcionPic =+ "nueva.png";
-      descripcionPic =+ ",";
+    if(this.state.descripcionPic2 != "nueva.png"){
+      descripcion =+ this.state.descripcionPic2;
+      descripcion =+ ",";
     }
-    if(descripcionPic3 != "nueva.png"){
-      descripcionPic =+ descripcionPic3;
-      descripcionPic =+ ",";
-    }else{
-      descripcionPic =+ "nueva.png";
-      descripcionPic =+ ",";
+    if(this.state.descripcionPic3 != "nueva.png"){
+      descripcion =+ this.state.descripcionPic3;
+      descripcion =+ ",";
     }
-    if(descripcionPic4 != "nueva.png"){
-      descripcionPic =+ descripcionPic4;
-      descripcionPic =+ ",";
-    }else{
-      descripcionPic =+ "nueva.png";
-      descripcionPic =+ ",";
+    if(this.state.descripcionPic4 != "nueva.png"){
+      descripcion =+ this.state.descripcionPic4;
+      descripcion =+ ",";
     }
-    if(descripcionPic5 != "nueva.png"){
-      descripcionPic =+ descripcionPic5;
-      descripcionPic =+ ",";
-    }else{
-      descripcionPic =+ "nueva.png";
-      descripcionPic =+ ",";
+    if(this.state.descripcionPic5 != "nueva.png"){
+      descripcion =+ this.state.descripcionPic5;
+      descripcion =+ ",";
     }
+    //this.setState({descripcionPic: descripcion});
+    //console.log(descripcion);
     this.createTaskDB();
-    Alert.alert(
-      "Operación satisfactoria",
-      "La tarea ha sido creada",
-    )
   }
 
   async createTaskDB() {
@@ -189,6 +173,7 @@ class CreateNormalTask extends Component {
     try {
       const res = await DocumentPicker.getDocumentAsync();
       this.setState({ descripcionPic1: res.name });
+      this.setState({ descripcionPic: res.name + "," });
     } catch (err) {
       console.log(err);
     }
@@ -198,6 +183,7 @@ class CreateNormalTask extends Component {
     try {
       const res = await DocumentPicker.getDocumentAsync();
       this.setState({ descripcionPic2: res.name });
+      this.setState({ descripcionPic: this.state.descripcionPic + res.name + "," });
     } catch (err) {
       console.log(err);
     }
@@ -206,6 +192,7 @@ class CreateNormalTask extends Component {
     try {
       const res = await DocumentPicker.getDocumentAsync();
       this.setState({ descripcionPic3: res.name });
+      this.setState({ descripcionPic: this.state.descripcionPic + res.name + "," });
     } catch (err) {
       console.log(err);
     }
@@ -214,6 +201,7 @@ class CreateNormalTask extends Component {
     try {
       const res = await DocumentPicker.getDocumentAsync();
       this.setState({ descripcionPic4: res.name });
+      this.setState({ descripcionPic: this.state.descripcionPic + res.name + "," });
     } catch (err) {
       console.log(err);
     }
@@ -222,6 +210,7 @@ class CreateNormalTask extends Component {
     try {
       const res = await DocumentPicker.getDocumentAsync();
       this.setState({ descripcionPic5: res.name });
+      this.setState({ descripcionPic: this.state.descripcionPic + res.name + "," });
     } catch (err) {
       console.log(err);
     }

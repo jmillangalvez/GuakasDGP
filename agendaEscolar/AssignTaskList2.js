@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, Image, FlatList, Button, SafeAreaView} from 'react-native';
+import {TextInput, Text, View, TouchableOpacity, Image, FlatList, Button, SafeAreaView} from 'react-native';
 import styles from './Styles';
 
 class AssignTaskList2 extends Component {
@@ -7,7 +7,7 @@ class AssignTaskList2 extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {tareas: [], idStudent: props.route.params.idStudent, idEducator: props.route.params.idEducator};
+    this.state = {tareas: [], idStudent: props.route.params.idStudent, idEducator: props.route.params.idEducator, listaTareas: []};
   }
 
   async getTasks() {
@@ -21,7 +21,7 @@ class AssignTaskList2 extends Component {
         },
       });
       const json = await response.json();
-      this.setState({tareas: json.items});
+      this.setState({tareas: json.items, listaTareas: json.items});
     } catch (error) {
       console.log(error);
     }
@@ -29,6 +29,65 @@ class AssignTaskList2 extends Component {
 
   componentDidMount(){
     this.getTasks();
+  }
+
+  actualizarLista(titulo){
+    if (titulo == ""){
+      this.setState({listaTareas: this.state.tareas})
+    }
+    else{
+      let nuevaLista = []
+      for(let i = 0; i < this.state.tareas.length; i++){
+        let tituloCompleto = this.state.tareas[i].title.toLowerCase()
+        let re = new RegExp(titulo)
+
+        if(re.exec(tituloCompleto)){
+          nuevaLista.push(this.state.tareas[i])
+        }
+      }
+
+      this.setState({listaTareas: nuevaLista})
+    }
+  }
+
+  goNormalTask(item){
+    return(
+      <TouchableOpacity onPress={() => this.props.navigation.navigate('AssignTask', {idStudent: this.state.idStudent,
+            idTask: item.idTask, idEducator: this.state.idEducator})}>
+        <Image style={styles.listImage} source={require('./data/imagenesTareas/' + item.pictogramTitle)}/>
+      </TouchableOpacity>
+    )
+  }
+
+  goStockTask(item){
+    return(
+      <TouchableOpacity onPress={() => this.props.navigation.navigate('AssignStockTask', {idStudent: this.state.idStudent,
+            idTask: item.idTask, idEducator: this.state.idEducator})}>
+        <Image style={styles.listImage} source={require('./data/imagenesTareas/' + item.pictogramTitle)}/>
+      </TouchableOpacity>
+    )
+  }
+
+  goNormalTaskText(item){
+    return(
+      <View style={styles.listContent}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('AssignTask', {idStudent: this.state.idStudent,
+              idTask: item.idTask, idEducator: this.state.idEducator})}>
+          <Text  style={styles.listText}>{item.title}</Text>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+
+  goStockTaskText(item){
+    return(
+      <View style={styles.listContent}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('AssignStockTask', {idStudent: this.state.idStudent,
+              idTask: item.idTask, idEducator: this.state.idEducator})}>
+          <Text  style={styles.listText}>{item.title}</Text>
+        </TouchableOpacity>
+      </View>
+    )
   }
 
   render() {
@@ -48,25 +107,26 @@ class AssignTaskList2 extends Component {
           </TouchableOpacity>
         </View>
 
+        <TextInput
+          style={styles.loginAdminInput}
+          onChangeText = {(text) => this.actualizarLista(text)}
+          defaultValue = ""
+          placeholder = "Buscar tarea"
+          accessibilityLabel = "Barra para búsqueda"
+          accessibilityHint = "Espacio para introducir el título de la tarea a buscar."
+        />
+
         <FlatList
           showsHorizontalScrollIndicator={false}
           style={{flex: 1}}
           contentContainerStyle={{flexGrow: 1}}
-          data = {this.state.tareas}
+          data = {this.state.listaTareas}
           renderItem = {({item}) => {
             return(
               <View style={styles.listContainer}>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('AssignTask', {idStudent: this.state.idStudent,
-                      idTask: item.idTask, idEducator: this.state.idEducator})}>
-                  <Image style={styles.listImage} source={require('./data/imagenesTareas/' + item.pictogramTitle)}/>
-                </TouchableOpacity>
-
-                <View style={styles.listContent}>
-                  <TouchableOpacity onPress={() => this.props.navigation.navigate('AssignTask', {idStudent: this.state.idStudent,
-                        idTask: item.idTask, idEducator: this.state.idEducator})}>
-                    <Text  style={styles.listText}>{item.title}</Text>
-                  </TouchableOpacity>
-                </View>
+                {item.idTask == 3? this.goStockTask(item) : this.goNormalTask(item)}
+                
+                {item.idTask == 3? this.goStockTaskText(item) : this.goNormalTaskText(item)}
               </View>
             )
           }}

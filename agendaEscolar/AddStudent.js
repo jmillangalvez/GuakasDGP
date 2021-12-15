@@ -121,22 +121,27 @@ class AddStudent extends Component {
             </View>
 
             <View style={styles.formItem}>
-            <Picker
-              accessibilityLabel="Clase asignada"
-              accessibilityRole="spinbutton"
-              accessibilityHint="Selecciona a que clase esta asignado" 
-              onValueChange = {(itemValue) => this.setState({accesibilidad: parseInt(itemValue)})}
-            >
-                <Picker.Item
-                accessibilityLabel="Primero A"
-                accessibilityRole="Button"
-                accessibilityHint="Selecciona Primero A como clase" 
-                label="Texto" value="1" />
-                <Picker.Item
-                accessibilityLabel="Primero B"
-                accessibilityRole="Button"
-                accessibilityHint="Selecciona Primero B como clase" 
-                label="Pictogramas" value="2" />
+              <Picker
+                accessibilityLabel="Clase asignada"
+                accessibilityRole="spinbutton"
+                accessibilityHint="Selecciona a que clase esta asignado" 
+                onValueChange = {(itemValue) => this.setState({accesibilidad: parseInt(itemValue)})}
+              >
+                  <Picker.Item
+                  accessibilityLabel="Primero A"
+                  accessibilityRole="Button"
+                  accessibilityHint="Selecciona Primero A como clase" 
+                  label="Texto" value="1" />
+                  <Picker.Item
+                  accessibilityLabel="Primero B"
+                  accessibilityRole="Button"
+                  accessibilityHint="Selecciona Primero B como clase" 
+                  label="Pictogramas" value="2" />
+                  <Picker.Item
+                  accessibilityLabel="Primero B"
+                  accessibilityRole="Button"
+                  accessibilityHint="Selecciona Primero B como clase" 
+                  label="Pictogramas y Texto" value="3" />
               </Picker>
             </View>
           </View>        
