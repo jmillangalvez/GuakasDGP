@@ -79,7 +79,9 @@ class EducatorCompletedTasks extends Component {
     showTask = (task) => {
         return(
             <TouchableOpacity 
-                onPress={ () => this.props.navigation.navigate('ConfirmTask',{task}) }
+                /*
+                Debe mandar a la información de la tarea
+                onPress={ () => this.props.navigation.navigate('') }*/
                 accessibilityLabel="Tarea seleccionada"
                 accessibilityRole="button"
                 accessibilityHint="Pulsa para mostrar la tarea"

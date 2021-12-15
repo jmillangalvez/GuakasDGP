@@ -52,22 +52,6 @@ const App = () => {
           component={CreateCommandTask}
         />
         <Stack.Screen
-          name="EducatorCompletedTasks"
-          component={EducatorCompletedTasks}
-        />
-        <Stack.Screen
-          name="WeeklyStats"
-          component={WeeklyStats}
-        />
-        <Stack.Screen
-          name="ModifyNormalTaskList"
-          component={ModifyNormalTaskList}
-        />
-        <Stack.Screen
-          name="TaskSubmenu"
-          component={TaskSubmenu}
-        />
-        <Stack.Screen
           name="PictogramTask"
           component={PictogramTask}
         />
@@ -76,8 +60,24 @@ const App = () => {
           component={DailyTasks}
         />
         <Stack.Screen
+          name="EducatorMain"
+          component={EducatorMain}
+        />
+        <Stack.Screen
+          name="TaskSubmenu"
+          component={TaskSubmenu}
+        />
+        <Stack.Screen
+          name="WeeklyStats"
+          component={WeeklyStats}
+        />
+        <Stack.Screen
           name="ModifyNormalTask"
           component={ModifyNormalTask}
+        />
+        <Stack.Screen
+          name="ModifyNormalTaskList"
+          component={ModifyNormalTaskList}
         />
         <Stack.Screen
           name="ModifyCommandTask"
@@ -106,6 +106,10 @@ const App = () => {
         <Stack.Screen
           name="EducatorAssignedTasks"
           component={EducatorAssignedTasks}
+        />
+        <Stack.Screen
+          name="EducatorCompletedTasks"
+          component={EducatorCompletedTasks}
         />
         <Stack.Screen
           name="EducatorAssignedTasksList"
@@ -182,10 +186,7 @@ const App = () => {
           component={CompletedMenu}
         />
 
-      <Stack.Screen
-          name="EducatorMain"
-          component={EducatorMain}
-        />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

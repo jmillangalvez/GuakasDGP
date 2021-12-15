@@ -1,8 +1,6 @@
 import React, { Fragment, useState, useRef, useEffect, Component } from "react";
 import { Text, SafeAreaView, TouchableOpacity, View, Image, Button, TextInput, Picker, Alert } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import styles from "./Styles";
 import * as DocumentPicker from 'expo-document-picker';
 
@@ -274,7 +272,7 @@ class ModifyNormalTask extends Component {
       <View style={styles.mainView}>
 
         <SafeAreaView style={styles.banner}>
-          <Text style={styles.headerText} value="ModificarEstudiante" accessibilityRole="header">Modificar Tarea Fija</Text>
+          <Text style={styles.headerText} value="ModificarEstudiante">Modificar Tarea Fija</Text>
         </SafeAreaView>
 
         <View style={styles.goBackView}>
@@ -282,7 +280,7 @@ class ModifyNormalTask extends Component {
             onPress={() => this.props.navigation.navigate('TaskSubmenu') }
             accessibilityLabel="Volver"
             accessibilityRole="Button"
-            accessibilityHint="Vuelve al menu de tareas"
+            accessibilityHint="Vuelve al menu del administrador"
             color="#bcbcbc"
             >
             <Text style={styles.backText}>Volver</Text>

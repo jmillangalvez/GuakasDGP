@@ -72,8 +72,8 @@ class DailyTasks extends Component {
     listTask1 = () => {
         return(
             <TouchableOpacity 
-                style={styles.taskButton} 
-                onPress={ () => this.props.navigation.navigate('TaskBegin', {
+                style={styles.choosingButton} 
+                onPress={ () => this.props.navigation.navigate('InfoTask', {
                     task: this.state.tasks[this.state.currentTask]
                 }) }
                 accessibilityLabel="Tarea seleccionada"

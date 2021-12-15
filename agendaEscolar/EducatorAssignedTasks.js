@@ -93,6 +93,16 @@ class EducatorAssignedTasks extends Component {
 
     render() {
         changeScreenOrientation();
+<<<<<<< HEAD
+        return (
+            <View style={styles.mainView}>
+                <SafeAreaView style={styles.banner}>
+                    <Text style={styles.headerText} accessibilityRole="header" value="TAREAS ASIGNADAS">TAREAS ASIGNADAS</Text>
+                </SafeAreaView>
+                <View style={styles.dailyTaskView}>
+                    
+                    { this.listTask() }
+=======
         if (this.state.tasks.length > 0) {
             return (
                 <View style={styles.mainView}>
@@ -118,6 +128,7 @@ class EducatorAssignedTasks extends Component {
                 </View>
             );
         }
+>>>>>>> 2e1d4e8106cf40937a51badb8271ad1a234a97e7
 
         else {
             return (
@@ -141,8 +152,17 @@ class EducatorAssignedTasks extends Component {
                     </View>
                     <StatusBar style="auto" />
                 </View>
+<<<<<<< HEAD
+                <SafeAreaView style={styles.bottomBanner}>
+                    <Text style={styles.headerText} value="HOME">PARTE DE ABAJO</Text>
+                </SafeAreaView>
+                <StatusBar style="auto" />
+            </View>
+        );
+=======
             );
         }
+>>>>>>> 2e1d4e8106cf40937a51badb8271ad1a234a97e7
     };
 }
 
