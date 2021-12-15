@@ -15,16 +15,117 @@ class WeeklyStats extends Component {
   constructor(props) {
     super(props);
 
+    this.getTareasCompletadas();
+    this.state = {tareasCompletadas: [], fechasNormalizadas: [], valoresDiarios: []}
+
   }
 
+  //Pido las tareas
+  async getTareasCompletadas() {
+    try {
+      const response = await fetch('http://localhost:8000/api/v1/assignedTasks/', {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+      });
+
+      const json = await response.json();
+      this.setState({tareasCompletadas: json.items});
+
+      //Saco un array con las fechas que quiere el usuario
+      var fechaIni = this.props.route.params.startDate.toISOString().split('T')[0];
+      var fechaFin = this.props.route.params.endDate.toISOString().split('T')[0];
+
+      const getDatesBetweenDates = (startDate, endDate) => {
+        let dates = []
+        //to avoid modifying the original date
+        const theDate = new Date(startDate)
+        while (theDate < endDate) {
+          dates = [...dates, new Date(theDate)]
+          theDate.setDate(theDate.getDate() + 1)
+        }
+        dates = [...dates, endDate]
+        return dates
+      }
+
+      //Paso las fechas al formato que deseo
+      var fechas = getDatesBetweenDates(new Date(fechaIni), new Date(fechaFin));
+      
+      for(var i = 0; i < fechas.length; i +=1){
+
+        this.state.fechasNormalizadas.push(fechas[i].toISOString().split('T')[0])
+        
+      }
+
+      //Guardo en un array las tareas correspondientes a ese usuario que ha completado
+      var idUsuario = this.props.route.params.idStudent;
+      var tareasUsuario = []
+
+      for(var i = 0; i < this.state.tareasCompletadas.length; i += 1){
+
+        if(this.state.tareasCompletadas[i].idStudent == idUsuario && this.state.tareasCompletadas[i].completed == 1){
+
+          tareasUsuario.push(this.state.tareasCompletadas[i]);
+
+        }
+
+      }
+
+      var taresIntervalo = []
+      //Guardo en un array las tareas correspondientes en el intervalo de tiempo
+      for(var i = 0; i < tareasUsuario.length; i += 1){
+
+        if(this.state.fechasNormalizadas.includes(tareasUsuario[i].completedDate)){
+
+          taresIntervalo.push(tareasUsuario[i])
+
+        }
+
+      }
+
+      //Defino el número de tareas completadas
+
+
+      //Para cada día
+      for(var i = 0; i < this.state.fechasNormalizadas.length; i += 1){
+
+        var contador = 0
+
+        //Miro cuántas tareas se completaron
+        for(var j = 0; j < taresIntervalo.length; j += 1){
+
+          if(taresIntervalo[j].completedDate == this.state.fechasNormalizadas[i]){
+
+            contador += 1
+
+          }
+
+        }
+
+        this.state.valoresDiarios.push(contador);
+
+      }
+
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  componentDidMount(){
+    this.getTareasCompletadas();
+  }
 
   render() {
 
     const barData = {
-        labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
+        labels: this.state.fechasNormalizadas,
         datasets: [
           {
-            data: [140, 120, 100, 124, 135, 165, 155],
+            data: this.state.valoresDiarios,
           },
         ],
       };
