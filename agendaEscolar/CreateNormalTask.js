@@ -23,9 +23,9 @@ class CreateNormalTask extends Component {
   };
 
   createTask = () =>{
-    if(descripcionPic1 != "nueva.png"){
-      descripcionPic =+ descripcionPic1;
-      descripcionPic =+ ",";
+    if(this.state.descripcionPic1 != "nueva.png"){
+      this.state.descripcionPic =+ this.state.descripcionPic1;
+      this.state.descripcionPic =+ ",";
     }else{
       descripcionPic =+ "nueva.png";
       descripcionPic =+ ",";
@@ -268,22 +268,6 @@ class CreateNormalTask extends Component {
             </View>
           </View>
 
-          <View style={styles.fixToText}>
-            <View style={styles.formItem}>
-              <Text style={styles.formContent}>Titulo en pictograna:</Text>
-            </View>
-
-            <View style={styles.formItem}>
-              <TouchableOpacity
-                activeOpacity={0.5}
-                style={styles.buttonStyle}
-                onPress={this.SingleFilePickerTitle.bind(this)}>
-                <Text style={styles.textStyle}>Choose Image</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-
-          {this.state.titleChosen? this.imageComponentTitle() : null}
 
           <View style={styles.fixToText}>
             <View style={styles.formItem}>
@@ -292,7 +276,7 @@ class CreateNormalTask extends Component {
 
             <View style={styles.formItem}>
               <TextInput 
-                style={styles.formContentBox}
+                style={styles.formContentLine}
                 onChangeText = {(text) => this.setState({descripcion: text})}
                 defaultValue = {this.state.descripcion}
                 multiline={true}
@@ -305,16 +289,33 @@ class CreateNormalTask extends Component {
 
           <View style={styles.fixToText}>
             <View style={styles.formItem}>
-              <Text style={styles.formContent}>Descripción en pictograna:</Text>
+              <Text style={styles.formContent}>Titulo en pictograma:</Text>
+            </View>
+
+            <View style={styles.formItem}>
+              <TouchableOpacity
+                activeOpacity={0.5}
+                style={styles.chooseImgTouch}
+                onPress={this.SingleFilePickerTitle.bind(this)}>
+                <Text style={styles.textStyle}>Seleccionar imagen</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          {this.state.titleChosen? this.imageComponentTitle() : null}
+
+          <View style={styles.fixToText}>
+            <View style={styles.formItem}>
+              <Text style={styles.formContent}>Descripción en pictograma:</Text>
             </View>
 
             
           </View>
         
         </View>
-        <View style={styles.formItem}>
+        <View style={styles.formItem2}>
           <View style={styles.fixToText}>
-            <View style={styles.formItem}>
+            <View style={styles.formItem2}>
               <TouchableOpacity
                 activeOpacity={0.5}
                 style={styles.buttonStyle}
@@ -322,7 +323,7 @@ class CreateNormalTask extends Component {
                 {this.imageComponentDes1()}
               </TouchableOpacity>
             </View>
-            <View style={styles.formItem}>
+            <View style={styles.formItem2}>
               <TouchableOpacity
                 activeOpacity={0.5}
                 style={styles.buttonStyle}
@@ -330,7 +331,7 @@ class CreateNormalTask extends Component {
                 {this.imageComponentDes2()}
               </TouchableOpacity>
             </View>
-            <View style={styles.formItem}>
+            <View style={styles.formItem2}>
               <TouchableOpacity
                 activeOpacity={0.5}
                 style={styles.buttonStyle}
@@ -338,7 +339,7 @@ class CreateNormalTask extends Component {
                 {this.imageComponentDes3()}
               </TouchableOpacity>
             </View>
-            <View style={styles.formItem}>
+            <View style={styles.formItem2}>
               <TouchableOpacity
                 activeOpacity={0.5}
                 style={styles.buttonStyle}
@@ -346,7 +347,7 @@ class CreateNormalTask extends Component {
                 {this.imageComponentDes4()}
               </TouchableOpacity>
             </View>
-            <View style={styles.formItem}>
+            <View style={styles.formItem2}>
               <TouchableOpacity
                 activeOpacity={0.5}
                 style={styles.buttonStyle}
@@ -363,7 +364,7 @@ class CreateNormalTask extends Component {
             accessibilityLabel="Crear Tarea"
             accessibilityRole="Button"
             accessibilityHint="Crea la tarea"
-            color="#bcbcbc"
+            color="#248aff"
             onPress={this.createTask}
           />
         </View>

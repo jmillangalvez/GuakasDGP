@@ -84,7 +84,7 @@ class Login extends Component {
   };
 
   upStudentsRow = () => {
-    if(this.state.studentsRow + 1 < this.students.info.length/4){
+    if(this.state.studentsRow + 1 < this.state.data.length/4){
       this.setState({
         studentsRow: this.state.studentsRow + 1
       });
@@ -155,9 +155,10 @@ class Login extends Component {
         {choosingStudent? this.choosingStudentView() : null}
         {idStudentChosen != -1? this.studentChosenView(idStudentChosen) : null}
         <View style={styles.enterButtonLoginView}> 
-          <TouchableOpacity style={styles.enterButtonTouch} onPress={() => this.props.navigation.navigate('DailyTasks', {
-            student: this.state.data[idStudentChosen]
-          }) }>
+          <TouchableOpacity style={styles.enterButtonTouch} onPress={() => {!choosingStudent && idStudentChosen == -1 ? this.choosingStudentView() :
+            this.props.navigation.navigate('DailyTasks', {
+              student: this.state.data[idStudentChosen]
+          }) }}>
             <Image
             style={styles.image}
             source={require('./img/enter.png')}
@@ -168,9 +169,6 @@ class Login extends Component {
         <View style={styles.loginAdminView}> 
           <TouchableOpacity onPress={() => this.props.navigation.navigate('LoginAdmin') }>
             <Text style={styles.normalText}>Login Admin/Educador</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('PictogramTask') }>
-            <Text style={styles.normalText}>Demo</Text>
           </TouchableOpacity>
         </View>
         <StatusBar style="auto" />

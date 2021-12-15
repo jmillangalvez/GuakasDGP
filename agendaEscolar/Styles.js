@@ -2,7 +2,8 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   mainView: {
-      backgroundColor: '#fff',
+      //backgroundColor: '#A0A0A0',
+      backgroundColor: '#ffff',
       width: '100%',
       height: '100%',
       alignItems: 'center',
@@ -45,6 +46,9 @@ const styles = StyleSheet.create({
     },
     headerText: {
       fontSize: 60,
+      color: "#ffff",
+      //textShadowColor: "#000000",
+      //textShadowOffset:{width: -3, height: 2},
       fontWeight: 'bold'
     },
     enterButtonLoginView: {
@@ -60,6 +64,24 @@ const styles = StyleSheet.create({
     formItem: {
       marginTop: '10%',
       marginRight: '10%',
+    },
+    formItem2: {
+      marginTop: '5%',
+      marginRight: '15%',
+      alignItems: "flex-end"
+    },
+    formContent: {
+      fontSize: 25,
+      fontWeight: 'bold',
+      lineHeight: 30
+    },
+    formContentLine: {
+      borderWidth: 2,
+      textAlign: "center",
+      //color: "#ffff",
+      fontSize: 20,
+      borderRadius: 7,
+      //borderBottomColor: "black"
     },
     confirmButton: {
       marginTop: '5%',
@@ -141,6 +163,18 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center'
     },
+    buttonStyle: {
+      borderWidth: 2,
+      borderRadius: 5,
+      borderColor: "#000000",
+      //backgroundColor: "#faff6d",
+    },
+    chooseImgTouch: {
+      borderWidth: 1,
+      borderColor: "#000000",
+      backgroundColor: "#E2E2E2",
+      marginTop: "8%"
+    },
     buttonText: {
       marginBottom: 15,
       fontSize: 25,
@@ -186,7 +220,8 @@ const styles = StyleSheet.create({
     backText: {
       width: '100%',
       height: '100%',
-      fontSize: 20
+      fontSize: 20,
+      color: '#ffff'
     },
     normalText: {
       width: '100%',

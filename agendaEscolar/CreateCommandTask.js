@@ -94,76 +94,78 @@ class CreateCommandTask extends Component {
             accessibilityLabel="Volver"
             accessibilityRole="Button"
             accessibilityHint="Vuelve al menu del administrador"
-            color="#bcbcbc"
-            >
+            color="#bcbcbc">
             <Text style={styles.backText}>Volver</Text>
           </TouchableOpacity>
         </View>
 
-        <View style={styles.fixToText}>
-          <Text>Clases: </Text>
-          <ReactSelect
-            options={colourOptions}
-            style={styles.formItem}
-            isMulti
-            closeMenuOnSelect={false}
-            hideSelectedOptions={false}
-            components={{
-                Option
-            }}
-            onChange={this.handleChangeC}
-            allowSelectAll={true}
-            value={this.state.optionSelectedC}
+        <View styles={styles.fixToText}>
+
+          <View style={{flexDirection: 'row', justifyContent: 'space-around', zIndex:2, top: 15, marginBottom: "10%"}}>
+            <Text style={styles.formContent}>Clases: </Text>
+            <ReactSelect
+              options={colourOptions}
+              isMulti
+              closeMenuOnSelect={false}
+              hideSelectedOptions={false}
+              components={{
+                  Option
+              }}
+              onChange={this.handleChangeC}
+              allowSelectAll={true}
+              value={this.state.optionSelectedC}
             />
-        </View>
+          </View>
 
-        <View style={styles.fixToText}>
-          <Text>Platos: </Text>
-          <ReactSelect
-            options={platesOptions}
-            style={styles.formItem}
-            isMulti
-            closeMenuOnSelect={false}
-            hideSelectedOptions={false}
-            components={{
-                Option
-            }}
-            onChange={this.handleChangeP}
-            allowSelectAll={true}
-            value={this.state.optionSelectedP}
+          <View style={{flexDirection: 'row', justifyContent: 'space-around', zIndex:1, top: 15, marginBottom: "10%"}}>
+            <Text style={styles.formContent}>Platos: </Text>
+            <ReactSelect
+              options={platesOptions}
+              isMulti
+              closeMenuOnSelect={false}
+              hideSelectedOptions={false}
+              components={{
+                  Option
+              }}
+              onChange={this.handleChangeP}
+              allowSelectAll={true}
+              value={this.state.optionSelectedP}
             />
-        </View>
+          </View>
 
-        <View style={styles.fixToText}>
-            <View style={styles.formItem}>
-              <Text style={styles.formContent}>Fecha:</Text>
-            </View>
+          <View style={{flexDirection: 'row', justifyContent: 'space-around', top: 15, marginBottom: "10%"}}>
+            <View style={styles.fixToText}>
+              <View style={styles.formItem}>
+                <Text style={styles.formContent}>Fecha:</Text>
+              </View>
 
-            <View style={styles.formItem}>
-              <TextInput 
-                style={styles.formContentLine}
-                onChangeText = {(text) => this.setState({alumno: text})}
-                defaultValue = {this.state.titulo}
-                placeholder = "01/01/2021"
-                accessibilityLabel="ID Alumno Asignado"
-                accessibilityHint="Introduce el id del alumno" 
-              />
+              <View style={styles.formItem}>
+                <TextInput 
+                  style={styles.formContentLine}
+                  onChangeText = {(text) => this.setState({alumno: text})}
+                  defaultValue = {this.state.titulo}
+                  placeholder = "01/01/2021"
+                  accessibilityLabel="ID Alumno Asignado"
+                  accessibilityHint="Introduce el id del alumno" 
+                  />
+              </View>
             </View>
           </View>
 
-        <View style={styles.confirmButton}>
-          <Button
-            title="Crear Tarea"
-            accessibilityLabel="Crear Tarea"
-            accessibilityRole="Button"
-            accessibilityHint="Crea la tarea"
-            color="#bcbcbc"
-            onPress ={() => this.createTask }
-          />
-        </View>
+          <View style={styles.confirmButton}>
+            <Button
+              title="Crear Tarea"
+              accessibilityLabel="Crear Tarea"
+              accessibilityRole="Button"
+              accessibilityHint="Crea la tarea"
+              color="#248aff"
+              onPress ={() => this.createTask }
+            />
+          </View>
 
+        </View>
       </View>
-    )
+    );
   }
 }
 

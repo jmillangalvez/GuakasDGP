@@ -52,28 +52,12 @@ const App = () => {
           component={CreateCommandTask}
         />
         <Stack.Screen
-          name="PictogramTask"
-          component={PictogramTask}
-        />
-        <Stack.Screen
           name="EducatorCompletedTasks"
           component={EducatorCompletedTasks}
         />
         <Stack.Screen
-          name="ConfirmTask"
-          component={ConfirmTask}
-        />
-        <Stack.Screen
-          name="TaskBegin"
-          component={TaskBegin}
-        />
-        <Stack.Screen
           name="WeeklyStats"
           component={WeeklyStats}
-        />
-        <Stack.Screen
-          name="ModifyNormalTask"
-          component={ModifyNormalTask}
         />
         <Stack.Screen
           name="ModifyNormalTaskList"
@@ -82,10 +66,6 @@ const App = () => {
         <Stack.Screen
           name="TaskSubmenu"
           component={TaskSubmenu}
-        />
-        <Stack.Screen
-          name="CreateCommandTask"
-          component={CreateCommandTask}
         />
         <Stack.Screen
           name="PictogramTask"
@@ -126,10 +106,6 @@ const App = () => {
         <Stack.Screen
           name="EducatorAssignedTasks"
           component={EducatorAssignedTasks}
-        />
-        <Stack.Screen
-          name="EducatorCompletedTasks"
-          component={EducatorCompletedTasks}
         />
         <Stack.Screen
           name="EducatorAssignedTasksList"
@@ -206,7 +182,10 @@ const App = () => {
           component={CompletedMenu}
         />
 
-
+      <Stack.Screen
+          name="EducatorMain"
+          component={EducatorMain}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

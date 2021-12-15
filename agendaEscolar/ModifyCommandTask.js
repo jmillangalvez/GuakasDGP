@@ -79,7 +79,7 @@ class ModifyCommandTask extends Component {
       <View style={styles.mainView}>
 
         <SafeAreaView style={styles.banner}>
-          <Text style={styles.headerText} value="ModificarTareaComedor">Modificar Tarea Comedor</Text>
+          <Text style={styles.headerText} value="ModificarTareaComedor" accessibilityRole="header">Modificar Tarea Comedor</Text>
         </SafeAreaView>
 
         <View style={styles.goBackView}>
@@ -88,68 +88,70 @@ class ModifyCommandTask extends Component {
             accessibilityLabel="Volver"
             accessibilityRole="Button"
             accessibilityHint="Vuelve al submenu anterior"
-            color="#bcbcbc"
-          >
+            color="#bcbcbc">
             <Text style={styles.backText}>Volver</Text>
           </TouchableOpacity>
         </View>
 
-        <View style={styles.fixToText}>
-          <Text>Clases: </Text>
-          <ReactSelect
-            options={colourOptions}
-            style={styles.formItem}
-            isMulti
-            closeMenuOnSelect={false}
-            hideSelectedOptions={false}
-            components={{
-                Option
-            }}
-            onChange={this.handleChangeC}
-            allowSelectAll={true}
-            value={this.state.optionSelectedC}
+        <View styles={{top: 20}}>
+          
+          <View style={{flexDirection: 'row', justifyContent: 'space-between', zIndex:2, top: 15, marginBottom: "10%"}}>
+            <View style={styles.fixToText}>
+              <Text style={styles.formContent}>Clases: </Text>
+              <ReactSelect
+                options={colourOptions}
+                isMulti
+                closeMenuOnSelect={false}
+                hideSelectedOptions={false}
+                components={{
+                  Option
+                }}
+                onChange={this.handleChangeC}
+                allowSelectAll={true}
+                value={this.state.optionSelectedC}
+              />
+            </View>
+          </View>
+
+          <View style={{flexDirection: 'row', justifyContent: 'space-between', zIndex:1, top: 15, marginBottom: "10%"}}>
+            <Text style={styles.formContent}>Platos: </Text>
+            <ReactSelect
+              options={platesOptions}
+              isMulti
+              closeMenuOnSelect={false}
+              hideSelectedOptions={false}
+              components={{
+                  Option
+              }}
+              onChange={this.handleChangeP}
+              allowSelectAll={true}
+              value={this.state.optionSelectedP}
             />
-        </View>
+          </View>
 
-        <View style={styles.fixToText}>
-          <Text>Platos: </Text>
-          <ReactSelect
-            options={platesOptions}
-            style={styles.formItem}
-            isMulti
-            closeMenuOnSelect={false}
-            hideSelectedOptions={false}
-            components={{
-                Option
-            }}
-            onChange={this.handleChangeP}
-            allowSelectAll={true}
-            value={this.state.optionSelectedP}
+          <View style={styles.confirmButton}>
+            <Button
+              title="Modificar Tarea"
+              accessibilityLabel="Modificar tarea comanda"
+              accessibilityRole="Button"
+              accessibilityHint="Modifica la tarea comedor"
+              color="#248aff"
+              onPress={() =>this.props.navigation.navigate('ModifyCommandTask')}
             />
-        </View>
+          </View>
+          
+          <View style={styles.removeButton}>
+            <Button
+              title="Eliminar Tarea"
+              accessibilityLabel="Eliminar tarea comanda"
+              accessibilityRole="Button"
+              accessibilityHint="Elimina la tarea comanda"
+              color="#A52A2A"
+              onPress={() =>this.props.navigation.navigate('ModifyCommandTask')}
+            />
+          </View>
 
-        <View style={styles.confirmButton}>
-          <Button
-            title="Modificar Tarea"
-            accessibilityLabel="Modificar tarea comanda"
-            accessibilityRole="Button"
-            accessibilityHint="Modifica la tarea comedor"
-            color="#bcbcbc"
-            onPress={() =>this.props.navigation.navigate('ModifyCommandTask')}
-          />
         </View>
-        
-        <View style={styles.removeButton}>
-          <Button
-            title="Eliminar Tarea"
-            accessibilityLabel="Eliminar tarea comanda"
-            accessibilityRole="Button"
-            accessibilityHint="Elimina la tarea comanda"
-            color="#A52A2A"
-            onPress={() =>this.props.navigation.navigate('ModifyCommandTask')}
-          />
-        </View>
-
       </View>
     );
   }

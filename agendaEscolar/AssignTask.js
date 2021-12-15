@@ -118,7 +118,7 @@ class AssignTask extends Component {
             accessibilityLabel="Asignar la Tarea"
             accessibilityRole="Button"
             accessibilityHint="Asigna la tarea"
-            color="#bcbcbc"
+            color="#248aff"
             onPress={this.asignar}
           />
         </View>

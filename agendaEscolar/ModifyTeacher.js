@@ -214,9 +214,9 @@ class ModifyTeacher extends Component {
           <View style={styles.formItem}>
           <TouchableOpacity
             activeOpacity={0.5}
-            style={styles.buttonStyle}
+            style={styles.chooseImgTouch}
             onPress={this.SingleFilePicker.bind(this)}>
-            <Text style={styles.textStyle}>Choose Image</Text>
+            <Text style={styles.textStyle}>Seleccionar imagen</Text>
           </TouchableOpacity>
           </View>
         </View>
@@ -229,7 +229,7 @@ class ModifyTeacher extends Component {
             accessibilityLabel="Añadir Educador"
             accessibilityRole="Button"
             accessibilityHint="Añade el Educador"
-            color="#bcbcbc"
+            color="#248aff"
             onPress={this.modificarEducador}
           />
         </View>

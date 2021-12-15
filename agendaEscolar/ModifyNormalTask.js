@@ -87,35 +87,11 @@ class ModifyNormalTask extends Component {
 
   eliminarTarea = () => {
     this.deleteTask();
-  }
 
-  modifyTask = () =>{
-    this.modifyTaskDB();
     Alert.alert(
       "Operación satisfactoria",
       "La tarea ha sido eliminada",
     )
-    this.props.navigation.navigate('TaskSubmenu')
-  }
-
-  async modifyTaskDB() {
-    try {
-      const response = await fetch('http://localhost:8000/tasks/' + this.props.route.params.item.taskId + '/', {
-        method: 'PUT',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            title: this.state.titulo,
-            description: this.state.descripcion,
-            finished: 0,
-            taskDate: "2021-11-18"
-        })
-      });
-    } catch (error) {
-      console.log(error);
-    }
   }
 
 
@@ -145,7 +121,7 @@ class ModifyNormalTask extends Component {
 
     Alert.alert(
       "Operación satisfactoria",
-      "El estudiante ha sido añadido",
+      "La tarea ha sido modificada",
     )
   }
 
@@ -313,127 +289,131 @@ class ModifyNormalTask extends Component {
           </TouchableOpacity>
         </View>
 
-        <View style={styles.addStudent}>
-          <View style={styles.fixToText}>
-            <View style={styles.formItem}>
-              <Text style={styles.formContent}>Titulo:</Text>
+        <View styles={{top:15}}>
+
+          <View style={{top:15}}>
+            <View style={styles.fixToText}>
+              <View style={styles.formItem}>
+                <Text style={styles.formContent}>Titulo:</Text>
+              </View>
+
+              <View style={styles.formItem}>
+                <TextInput 
+                  style={styles.formContentLine}
+                  onChangeText = {(text) => this.setState({titulo: text})}
+                  defaultValue = {this.state.task.title}
+                  placeholder = "Titulo Tarea"
+                  accessibilityLabel="Titulo Tarea"
+                  accessibilityHint="Introduce el titulo de la tarea" 
+                />
+              </View>
             </View>
 
-            <View style={styles.formItem}>
-              <TextInput 
-                style={styles.formContentLine}
-                onChangeText = {(text) => this.setState({titulo: text})}
-                defaultValue = {this.state.task.title}
-                placeholder = "Titulo Tarea"
-                accessibilityLabel="Titulo Tarea"
-                accessibilityHint="Introduce el titulo de la tarea" 
-              />
+            <View style={styles.fixToText}>
+              <View style={styles.formItem}>
+                <Text style={styles.formContent}>Descripción:</Text>
+              </View>
+
+              <View style={styles.formItem}>
+                <TextInput 
+                  style={styles.formContentLine}
+                  onChangeText = {(text) => this.setState({descripcion: text})}
+                  defaultValue = {this.state.task.description}
+                  multiline={true}
+                  placeholder = "............................"
+                  accessibilityLabel="Descripcion tarea"
+                  accessibilityHint="Introduce la descripción de la tarea" 
+                />
+              </View>
+            </View>
+
+            <View style={styles.fixToText}>
+              <View style={styles.formItem}>
+                <Text style={styles.formContent}>Titulo en pictograma:</Text>
+              </View>
+
+              <View style={styles.formItem}>
+                <TouchableOpacity
+                  activeOpacity={0.5}
+                  style={styles.chooseImgTouch}
+                  onPress={this.SingleFilePickerTitle.bind(this)}>
+                  <Text style={styles.textStyle}>Seleccionar imagen</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            {this.imageComponentTitle()} 
+
+          
+          </View>
+
+          <View style={styles.formItem2}>
+            <View style={styles.fixToText}>
+              <View style={styles.formItem2}>
+                <TouchableOpacity
+                  activeOpacity={0.5}
+                  style={styles.buttonStyle}
+                  onPress={this.SingleFilePickerDes1.bind(this)}>
+                  {this.imageComponentDes1()}
+                </TouchableOpacity>
+              </View>
+              <View style={styles.formItem2}>
+                <TouchableOpacity
+                  activeOpacity={0.5}
+                  style={styles.buttonStyle}
+                  onPress={this.SingleFilePickerDes2.bind(this)}>
+                  {this.imageComponentDes2()}
+                </TouchableOpacity>
+              </View>
+              <View style={styles.formItem2}>
+                <TouchableOpacity
+                  activeOpacity={0.5}
+                  style={styles.buttonStyle}
+                  onPress={this.SingleFilePickerDes3.bind(this)}>
+                  {this.imageComponentDes3()}
+                </TouchableOpacity>
+              </View>
+              <View style={styles.formItem2}>
+                <TouchableOpacity
+                  activeOpacity={0.5}
+                  style={styles.buttonStyle}
+                  onPress={this.SingleFilePickerDes4.bind(this)}>
+                  {this.imageComponentDes4()}
+                </TouchableOpacity>
+              </View>
+              <View style={styles.formItem2}>
+                <TouchableOpacity
+                  activeOpacity={0.5}
+                  style={styles.buttonStyle}
+                  onPress={this.SingleFilePickerDes5.bind(this)}>
+                  {this.imageComponentDes5()}
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
 
-          <View style={styles.fixToText}>
-            <View style={styles.formItem}>
-              <Text style={styles.formContent}>Titulo en pictograna:</Text>
-            </View>
-
-            <View style={styles.formItem}>
-              <TouchableOpacity
-                activeOpacity={0.5}
-                style={styles.buttonStyle}
-                onPress={this.SingleFilePickerTitle.bind(this)}>
-                <Text style={styles.textStyle}>Choose Image</Text>
-              </TouchableOpacity>
-            </View>
+          <View style={styles.confirmButton}>
+            <Button
+              title="Modificar Tarea"
+              accessibilityLabel="Modificar Estudiante"
+              accessibilityRole="Button"
+              accessibilityHint="Modifica el estudiante"
+              color="#248aff"
+              onPress={this.modificarTarea}
+            />
           </View>
-
-          {this.imageComponentTitle()} 
-
-          <View style={styles.fixToText}>
-            <View style={styles.formItem}>
-              <Text style={styles.formContent}>Descripción:</Text>
-            </View>
-
-            <View style={styles.formItem}>
-              <TextInput 
-                style={styles.formContentBox}
-                onChangeText = {(text) => this.setState({descripcion: text})}
-                defaultValue = {this.state.task.description}
-                multiline={true}
-                placeholder = ".............................."
-                accessibilityLabel="Descripcion tarea"
-                accessibilityHint="Introduce la descripción de la tarea" 
-              />
-            </View>
+          
+          <View style={styles.removeButton}>
+            <Button
+              title="Eliminar Tarea"
+              accessibilityLabel="Eliminar Estudiante"
+              accessibilityRole="Button"
+              accessibilityHint="Eliminar el estudiante"
+              color="#A52A2A"
+              onPress={this.eliminarTarea}
+            />
           </View>
         </View>
-
-        <View style={styles.formItem}>
-          <View style={styles.fixToText}>
-            <View style={styles.formItem}>
-              <TouchableOpacity
-                activeOpacity={0.5}
-                style={styles.buttonStyle}
-                onPress={this.SingleFilePickerDes1.bind(this)}>
-                {this.imageComponentDes1()}
-              </TouchableOpacity>
-            </View>
-            <View style={styles.formItem}>
-              <TouchableOpacity
-                activeOpacity={0.5}
-                style={styles.buttonStyle}
-                onPress={this.SingleFilePickerDes2.bind(this)}>
-                {this.imageComponentDes2()}
-              </TouchableOpacity>
-            </View>
-            <View style={styles.formItem}>
-              <TouchableOpacity
-                activeOpacity={0.5}
-                style={styles.buttonStyle}
-                onPress={this.SingleFilePickerDes3.bind(this)}>
-                {this.imageComponentDes3()}
-              </TouchableOpacity>
-            </View>
-            <View style={styles.formItem}>
-              <TouchableOpacity
-                activeOpacity={0.5}
-                style={styles.buttonStyle}
-                onPress={this.SingleFilePickerDes4.bind(this)}>
-                {this.imageComponentDes4()}
-              </TouchableOpacity>
-            </View>
-            <View style={styles.formItem}>
-              <TouchableOpacity
-                activeOpacity={0.5}
-                style={styles.buttonStyle}
-                onPress={this.SingleFilePickerDes5.bind(this)}>
-                {this.imageComponentDes5()}
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-
-        <View style={styles.confirmButton}>
-          <Button
-            title="Modificar Tarea"
-            accessibilityLabel="Modificar Estudiante"
-            accessibilityRole="Button"
-            accessibilityHint="Modifica el estudiante"
-            color="#bcbcbc"
-            onPress={this.modificarTarea}
-          />
-        </View>
-        
-        <View style={styles.removeButton}>
-          <Button
-            title="Eliminar Tarea"
-            accessibilityLabel="Eliminar Estudiante"
-            accessibilityRole="Button"
-            accessibilityHint="Eliminar el estudiante"
-            color="#A52A2A"
-            onPress={this.eliminarTarea}
-          />
-        </View>
-
       </View>
 
     );
