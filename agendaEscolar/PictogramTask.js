@@ -16,48 +16,72 @@ class PictogramTask extends Component {
 
     async getTask() {
         try {
-          const response = await fetch('http://localhost:8000/api/v1/tasks/' + this.props.route.params.task.idTask  + '/', {
-            method: 'GET',
-            mode: 'cors',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json'
-            },
-          });
-          const json = await response.json();
-          this.setState({ task: json.item });
-          let description = (json.item['pictogramDescription']).split(",")
-          description.pop()
-          this.setState({ pictogramDescription: description, pictogramTitle: json.item['pictogramTitle'] });
+            const response = await fetch('http://localhost:8000/api/v1/tasks/' + this.props.route.params.task.idTask + '/', {
+                method: 'GET',
+                mode: 'cors',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+            });
+            const json = await response.json();
+            this.setState({ task: json.item });
+            let description = (json.item['pictogramDescription']).split(",")
+            description.pop()
+            this.setState({ pictogramDescription: description, pictogramTitle: json.item['pictogramTitle'] });
         } catch (error) {
-          console.log(error);
+            console.log(error);
         }
     }
 
-
     async modifyTask() {
-        let url = 'http://localhost:8000/api/v1/assignedTasks/' + this.props.route.params.task.idTask + '/'
+        let json = {};
+
         try {
-        const response = await fetch(url, {
-            method: 'PUT',
-            mode: 'cors',
-            headers: {
-            'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                completed: 1,
-            })
-        });
+            const response = await fetch('http://localhost:8000/api/v1/assignedTasks/' + this.props.route.params.task.idTask + '/', {
+                method: 'GET',
+                mode: 'cors',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+            });
+            json = await response.json();
         } catch (error) {
-        console.log(error);
+            console.log(error);
+        }
+
+        console.log(json);
+
+        let url = 'http://localhost:8000/api/v1/assignedTasks/' + json.item['idAssignedTask'] + '/'
+        try {
+            const response = await fetch(url, {
+                method: 'PUT',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    idStudent: json.item['idStudent'],
+                    idTask: json.item['idTask'],
+                    idEducator: json.item['idEducator'],
+                    priority: json.item['priority'],
+                    assignedDate: json.item['assignedDate'],
+                    completedDate: json.item['completedDate'],
+                    completed: 1,
+                })
+            });
+        } catch (error) {
+            console.log(error);
         }
     }
 
     completeTask = () => {
+        this.modifyTask();
         this.props.navigation.navigate('DailyTasks');
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.getTask();
     }
 
@@ -108,10 +132,10 @@ class PictogramTask extends Component {
         return (
             <View style={styles.mainView}>
                 <SafeAreaView style={styles.banner}>
-                <Image
-                            source={pictogramTitle}
-                            style={{ height: '100px', width: '100px' }}
-                        />
+                    <Image
+                        source={pictogramTitle}
+                        style={{ height: '100px', width: '100px' }}
+                    />
                 </SafeAreaView>
 
                 {this.state.currentPicto < 1 ? null : <SafeAreaView style={[styles.sideBanner, { left: 0 }]}>
@@ -142,21 +166,21 @@ class PictogramTask extends Component {
                         />
                     </TouchableOpacity>
                 </SafeAreaView> :
-                <SafeAreaView style={styles.sideBannerLast}> 
-                <TouchableOpacity
-                        accessibilityLabel="Siguiente pictograma"
-                        accessibilityRole="button"
-                        accessibilityHint="Pasa al siguiente pictograma que describe la tarea"
-                        onPress={this.completeTask}>
-                        <Image
-                            source={require('./img/si.png')}
-                            style={{ height: '100px', width: '100px' }}
-                        />
-                    </TouchableOpacity>
-                </SafeAreaView> }
+                    <SafeAreaView style={styles.sideBannerLast}>
+                        <TouchableOpacity
+                            accessibilityLabel="Siguiente pictograma"
+                            accessibilityRole="button"
+                            accessibilityHint="Pasa al siguiente pictograma que describe la tarea"
+                            onPress={this.completeTask}>
+                            <Image
+                                source={require('./img/si.png')}
+                                style={{ height: '100px', width: '100px' }}
+                            />
+                        </TouchableOpacity>
+                    </SafeAreaView>}
 
                 <SafeAreaView style={styles.bottomBanner}>
-                <View style={styles.fixToText}>
+                    <View style={styles.fixToText}>
                         <TouchableOpacity
                             accessibilityLabel="Volver al inicio"
                             accessibilityRole="button"
