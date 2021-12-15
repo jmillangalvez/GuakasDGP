@@ -373,7 +373,7 @@ class AssignedTaskView(View):
         }
         return JsonResponse(data, status=201)
     
-    def get(self, request):
+    def get(self, request, idAssignedTask=-1):
         items_count = AssignedTask.objects.count()
         items = AssignedTask.objects.all()
 
@@ -390,10 +390,23 @@ class AssignedTaskView(View):
                 'completed': item.completed,
             })
 
-        data = {
-            'items': items_data,
-            'count': items_count,
-        }
+        if idAssignedTask==-1:
+            data = {
+                'items': items_data,
+                'count': items_count,
+            }
+        else:
+            index = 0
+            for student in items_data:
+                print(student)
+                if(student["idAssignedTask"] == idAssignedTask):
+                    break
+                else:
+                    index+=1
+            
+            data = {
+                'item': items_data[index]
+            }
 
         return JsonResponse(data)
     
