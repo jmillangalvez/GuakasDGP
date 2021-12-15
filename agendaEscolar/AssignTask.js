@@ -15,8 +15,22 @@ async function changeScreenOrientation() {
 class AssignTask extends Component {
   constructor(props) {
     super(props);
-    this.state = { prio: -1, fecha: "", idStudent: props.route.params.idStudent, idTask: props.route.params.idTask, idEducator: props.route.params.idEducator};
+    this.state = { prio: 0, 
+      fecha: null,
+      idStudent: props.route.params.idStudent, 
+      idTask: props.route.params.idTask, 
+      idEducator: props.route.params.idEducator};
+
+      this.onDateChange = this.onDateChange.bind(this);
   };
+
+  onDateChange(date){
+    this.setState({ fecha : date});
+  }
+
+  onValueChange(value){
+    this.setState({ prio : value});
+  }
 
   asignar = () =>{
     this.asignarDB();
@@ -78,14 +92,15 @@ class AssignTask extends Component {
             </View>
 
             <View style={styles.formItem}>
-              <TextInput 
-                style={styles.formContentLine}
-                onChangeText = {(text) => this.setState({prio: text})}
-                defaultValue = {this.state.titulo}
-                placeholder = "1, 2, ... , 10"
-                accessibilityLabel="ID Tarea"
-                accessibilityHint="Introduce el id de la tarea" 
-              />
+              <Picker
+                selectedValue={ this.state.prio}
+                style={{ height: 50, width: 150 }}
+                onValueChange={this.onValueChange}
+              >
+                <Picker.Item label="Prioridad baja" value='0' />
+                <Picker.Item label="Prioridad media" value='1' />
+                <Picker.Item label="Prioridad alta" value='2' />
+              </Picker>
             </View>
           </View>
 
@@ -95,13 +110,14 @@ class AssignTask extends Component {
             </View>
 
             <View style={styles.formItem}>
-              <TextInput 
-                style={styles.formContentLine}
-                onChangeText = {(text) => this.setState({fecha: text})}
-                defaultValue = {this.state.titulo}
-                placeholder = "2021-12-8"
+              <CalendarPicker
+                startFromMonday={true}
+                todayBackgroundColor="#f2e6ff"
+                selectedDayColor="#7300e6"
+                selectedDayTextColor="#FFFFFF"
+                onDateChange={this.onDateChange}
                 accessibilityLabel="ID Alumno Asignado"
-                accessibilityHint="Introduce el id del alumno" 
+                accessibilityHint="Introduce el id del alumno"
               />
             </View>
           </View>
