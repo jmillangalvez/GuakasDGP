@@ -17,20 +17,6 @@ class ModifyNormalTask extends Component {
     descripcionPic1: "nueva.png", descripcionPic2: "nueva.png",descripcionPic3: "nueva.png", descripcionPic4: "nueva.png",descripcionPic5: "nueva.png", descripcionPic: ""}
   }
 
-  getList(){
-    console.log(this.state.descripcionPic);
-    this.setState({listDes: this.state.descripcionPic.split(",")});
-    console.log(this.state.listDes);
-  }
-
-  getNames(){
-    this.setState({descripcionPic1: this.state.listDes[0]});
-    this.setState({descripcionPic2: this.state.listDes[1]});
-    this.setState({descripcionPic3: this.state.listDes[2]});
-    this.setState({descripcionPic4: this.state.listDes[3]});
-    this.setState({descripcionPic5: this.state.listDes[4]});
-  }
-
   async getTasks() {
     try {
       const response = await fetch('http://localhost:8000/api/v1/tasks/', {

@@ -17,8 +17,8 @@ class Task(models.Model):
 
 class DinningTask(models.Model):
     idDinningTask = models.AutoField(primary_key=True)
-    classes = models.CharField(max_length=250, default='test')
-    menus = models.CharField(max_length=250, default='test')
+    idStudent = models.IntegerField()
+    date = models.DateField()
 
 class StockTask(models.Model):
     idStockTask = models.AutoField(primary_key=True)
