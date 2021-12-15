@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import { Text, SafeAreaView, TouchableOpacity, View, Image } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import styles from './Styles';
@@ -34,7 +34,10 @@ class Login extends Component {
 
   componentDidMount(){
     this.getStudents();
+    this._unsubscribe = this.props.navigation.addListener('focus', () => {
+    });
   }
+
 
   chooseStudent = () => {
     this.setState({

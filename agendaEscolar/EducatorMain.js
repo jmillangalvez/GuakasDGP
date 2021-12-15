@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Button, Text, SafeAreaView, TouchableOpacity, View} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Text, SafeAreaView, TouchableOpacity, View} from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import styles from './Styles';
 
@@ -65,7 +62,7 @@ class EducatorMain extends Component {
           </View>
           <View style={styles.enterButtonView}>
             <TouchableOpacity onPress={() => this.props.navigation.navigate('SearchStudentsList') }>
-              <Text style={styles.loginAdminText}>    Buscar</Text>
+              <Text style={styles.loginAdminText}>Información</Text>
               <Text style={styles.loginAdminText}>estudiantes</Text>
             </TouchableOpacity>
           </View>

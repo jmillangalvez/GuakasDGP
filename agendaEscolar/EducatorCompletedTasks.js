@@ -85,8 +85,9 @@ class EducatorCompletedTasks extends Component {
                 accessibilityLabel="Tarea seleccionada"
                 accessibilityRole="button"
                 accessibilityHint="Pulsa para mostrar la tarea"
+                style={styles.taskButton2}
                 >
-                <Text style={styles.dailyTaks}>{task.title}</Text>
+                <Text style={styles.dailyTaks2}>{task.title}</Text>
             </TouchableOpacity>
         )
     };

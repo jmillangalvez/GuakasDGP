@@ -16,17 +16,11 @@ async function changeScreenOrientation() {
 class AssignStockTask extends Component {
   constructor(props) {
     super(props);
-    this.state = { prio: -1, fecha: "", idStudent: props.route.params.idStudent, idTask: props.route.params.idTask, idEducator: props.route.params.idEducator,
-                   selectedFile: false, fileName: "1.jpg"};
+    this.state = { prio: -1, fecha: "",idStudent: props.route.params.idStudent, idTask: props.route.params.idTask, idEducator: props.route.params.idEducator,
+                   selectedFilePlace: false, fileNamePlace: "init.png", selectedFileMaterial: false, fileNameMaterial: "init.png",
+                   selectedFileQuantity: false, fileNameQuantity: "init.png", titulo: "Tarea stock", tituloPic: "almacen.png", des: "a", desPic: "a",
+                   lugar: "", material: "", cantidad: ""};
   };
-
-  asignar = () =>{
-    this.asignarDB();
-    Alert.alert(
-      "Operación satisfactoria",
-      "La tarea se ha asignado al alumno",
-    )
-  }
 
   async asignarDB() {
     try {
@@ -39,7 +33,7 @@ class AssignStockTask extends Component {
         },
         body: JSON.stringify({
             idStudent: this.state.idStudent,
-            idTask: this.state.idTask,
+            idTask: 3,
             idEducator: this.state.idEducator,
             priority: this.state.prio,
             assignedDate: this.state.fecha,
@@ -52,9 +46,55 @@ class AssignStockTask extends Component {
     }
   }
 
-  imageComponent(){
-    let nom = this.state.fileName
-    let image = require('./data/imagenesAlumnos/'+nom)
+  async modifyTask() {
+    let url = 'http://localhost:8000/api/v1/tasks/' + 3 + '/'
+    try {
+      const response = await fetch(url, {
+        method: 'PUT',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            title: this.state.titulo,
+            pictogramTitle: this.state.tituloPic,
+            description: this.state.des,
+            pictogramDescription: this.state.desPic,
+        })
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async getFieldsTask(){
+    console.log("ENTRA")
+    let title = "Tarea de " + this.state.lugar;
+    this.setState({ titulo: title });
+    this.setState({ tituloPic: this.state.fileNamePlace });
+    let desc = [];
+    desc.push("Ir a " + this.state.lugar);
+    desc.push("Buscar " + this.state.material);
+    desc.push("Coger " + this.state.cantidad);
+    this.setState({ des: desc });
+    let descPic = [];
+    descPic.push(this.state.fileNamePlace);
+    descPic.push(this.state.fileNameMaterial);
+    descPic.push(this.state.fileNameQuantity);
+    this.setState({ desPic: descPic });
+    console.log(this.state.lugar);
+    console.log(this.state.titulo);   
+  }
+
+  asignar = () => {
+    this.getFieldsTask();
+    this.modifyTask();
+    //this.asignarDB();
+  }
+
+  imageComponentPlace(){
+    let nom = this.state.fileNamePlace
+    let image = require('./data/imagenesTareas/'+nom)
     return (
       <View style={styles.selectImage}>
         <Image
@@ -67,10 +107,67 @@ class AssignStockTask extends Component {
     );
   }
 
-  async SingleFilePicker() {
+  imageComponentMaterial(){
+    let nom = this.state.fileNameMaterial
+    let image = require('./data/imagenesTareas/'+nom)
+    return (
+      <View style={styles.selectImage}>
+        <Image
+          style={styles.image}
+          source={image}
+          accessibilityLabel="Pasar hacia la izquierda"
+        />
+        <Text></Text>
+      </View>
+    );
+  }
+
+  imageComponentQuantity(){
+    let nom = this.state.fileNameQuantity
+    let image = require('./data/imagenesTareas/'+nom)
+    return (
+      <View style={styles.selectImage}>
+        <Image
+          style={styles.image}
+          source={image}
+          accessibilityLabel="Pasar hacia la izquierda"
+        />
+        <Text></Text>
+      </View>
+    );
+  }
+
+  async SingleFilePickerPlace() {
     try {
       const res = await DocumentPicker.getDocumentAsync();
-      this.setState({ selectedFile: true, fileName: res.name });
+      this.setState({ selectedFilePlace: true, fileNamePlace: res.name });
+      this.setState({ desPic: res.name});
+      let name = res.name.split(".")[0];
+      this.setState({ des: "Ir al " + name});
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async SingleFilePickerMaterial() {
+    try {
+      const res = await DocumentPicker.getDocumentAsync();
+      this.setState({ selectedFileMaterial: true, fileNameMaterial: res.name });
+      this.setState({ desPic: this.state.desPic + "," + res.name});
+      let name = res.name.split(".")[0];
+      this.setState({ des: this.state.des + "," + "Buscar " + name});
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async SingleFilePickerQuantity() {
+    try {
+      const res = await DocumentPicker.getDocumentAsync();
+      this.setState({ selectedFileQuantity: true, fileNameQuantity: res.name });
+      this.setState({ desPic: this.state.desPic + "," + res.name + ","});
+      let name = res.name.split(".")[0];
+      this.setState({ des: this.state.des + "," + "Coger " + name + ","});
     } catch (err) {
       console.log(err);
     }
@@ -138,7 +235,7 @@ class AssignStockTask extends Component {
             <View style={styles.formItem}>
               <TextInput 
                 style={styles.formContentLine}
-                onChangeText = {(text) => this.setState({lugar: text})}
+                onChangeText = {(text) => this.setState({titulo: "Tarea de "+text})}
                 placeholder = "Almacen, Clase, ..."
                 accessibilityLabel="ID Alumno Asignado"
                 accessibilityHint="Introduce el id del alumno" 
@@ -187,13 +284,13 @@ class AssignStockTask extends Component {
                 <TouchableOpacity
                     activeOpacity={0.5}
                     style={styles.buttonStyle}
-                    onPress={this.SingleFilePicker.bind(this)}>
+                    onPress={this.SingleFilePickerPlace.bind(this)}>
                     <Text style={styles.textStyle}>Choose Image</Text>
                 </TouchableOpacity>
             </View>
           </View>
 
-        {this.state.selectedFile? this.imageComponent() : null}
+          {this.state.selectedFilePlace? this.imageComponentPlace() : null}
 
           <View style={styles.fixToText}>
             <View style={styles.formItem}>
@@ -204,13 +301,13 @@ class AssignStockTask extends Component {
                 <TouchableOpacity
                     activeOpacity={0.5}
                     style={styles.buttonStyle}
-                    onPress={this.SingleFilePicker.bind(this)}>
+                    onPress={this.SingleFilePickerMaterial.bind(this)}>
                     <Text style={styles.textStyle}>Choose Image</Text>
                 </TouchableOpacity>
             </View>
           </View>
 
-          {this.state.selectedFile? this.imageComponent() : null}
+          {this.state.selectedFileMaterial? this.imageComponentMaterial() : null}
 
           <View style={styles.fixToText}>
             <View style={styles.formItem}>
@@ -221,13 +318,14 @@ class AssignStockTask extends Component {
                 <TouchableOpacity
                     activeOpacity={0.5}
                     style={styles.buttonStyle}
-                    onPress={this.SingleFilePicker.bind(this)}>
+                    onPress={this.SingleFilePickerQuantity.bind(this)}>
                     <Text style={styles.textStyle}>Choose Image</Text>
                 </TouchableOpacity>
             </View>
           </View>
 
-          {this.state.selectedFile? this.imageComponent() : null}
+          {this.state.selectedFileQuantity? this.imageComponentQuantity() : null}
+
         </View>
         
 

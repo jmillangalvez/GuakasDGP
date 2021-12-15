@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { Fragment, useState, useRef, useEffect, Component } from "react";
+import React, { Component } from "react";
 import { Text, SafeAreaView, TouchableOpacity, View, Image } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import styles from "./Styles";
@@ -11,9 +11,47 @@ async function changeScreenOrientation() {
 class DailyTasks extends Component {
     constructor(props) {
         super(props);
-        this.state = { tasks: [], tasksId: [], currentTask: 0, currentTitle: "default", currentPicto: "init.png", student: props.route.params.student };
+        this.state = { tasks: [], tasksId: [], currentTask: 0, currentTitle: "default", currentPicto: "init.png", student: props.route.params.student,
+                       hasCommandTask: false, dinningTasks: [], today: "" };
         this.getTasks();
+        this.getCommandTasks();
     };
+
+    componentWillUnmount() {
+        this._unsubscribe();
+      }
+
+    componentDidMount(){
+        this._unsubscribe = this.props.navigation.addListener('focus', () => {
+            this.getTasks();
+            this.getCommandTasks();
+        });
+    }
+
+    async getCommandTasks() {
+        try {
+          const response = await fetch('http://localhost:8000/api/v1/dinningTasks/', {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json'
+            },
+          });
+          const json = await response.json();
+          var todayDay = new Date();
+          let today = todayDay.getFullYear()+'-'+("0" + (todayDay.getMonth() + 1)).slice(-2)+'-'+("0" + todayDay.getDate()).slice(-2);
+          this.setState({dinningTasks: json.items});
+          this.setState({today: today});
+          this.state.dinningTasks.forEach(din => {
+              if(din.idStudent == this.state.student.idStudent && din.date == today){    
+                this.setState({hasCommandTask: true});
+              }
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      }
 
     async getTasks() {
         try {
@@ -175,6 +213,21 @@ class DailyTasks extends Component {
         }
     };
 
+    getDinningButton(){
+        return(
+            <TouchableOpacity
+                accessibilityLabel="Volver al inicio"
+                accessibilityRole="button"
+                accessibilityHint="Vuelve al menú de inicio"
+                onPress={() => this.props.navigation.navigate('FillMenuTask', {date: this.state.today})}>
+                <Image
+                    source={require('./data/imagenesMenu/menu.png')}
+                    style={{ height: '100px', width: '100px' }}
+                />
+            </TouchableOpacity>
+        )
+    }
+
     //Según el número de tareas y el tipo de accesibilidad del niño renderiza una pantalla u otra
     render() {
         changeScreenOrientation();
@@ -221,6 +274,7 @@ class DailyTasks extends Component {
                         </View>
                         <SafeAreaView style={styles.bottomBanner}>
                         <View style={styles.fixToText}>
+                            {this.state.hasCommandTask? this.getDinningButton() : null}
                             <TouchableOpacity
                                 accessibilityLabel="Volver al inicio"
                                 accessibilityRole="button"
@@ -288,6 +342,7 @@ class DailyTasks extends Component {
                         </View>
                         <SafeAreaView style={styles.bottomBanner}>
                         <View style={styles.fixToText}>
+                            {this.state.hasCommandTask? this.getDinningButton() : null}
                             <TouchableOpacity
                                 accessibilityLabel="Volver al inicio"
                                 accessibilityRole="button"
@@ -355,6 +410,7 @@ class DailyTasks extends Component {
                         </View>
                         <SafeAreaView style={styles.bottomBanner}>
                         <View style={styles.fixToText}>
+                            {this.state.hasCommandTask? this.getDinningButton() : null}
                             <TouchableOpacity
                                 accessibilityLabel="Volver al inicio"
                                 accessibilityRole="button"
@@ -398,6 +454,7 @@ class DailyTasks extends Component {
                         </View>
                         <SafeAreaView style={styles.bottomBanner}>
                         <View style={styles.fixToText}>
+                            {this.state.hasCommandTask? this.getDinningButton() : null}
                             <TouchableOpacity
                                 accessibilityLabel="Volver al inicio"
                                 accessibilityRole="button"
@@ -438,6 +495,7 @@ class DailyTasks extends Component {
                         </View>
                         <SafeAreaView style={styles.bottomBanner}>
                         <View style={styles.fixToText}>
+                            {this.state.hasCommandTask? this.getDinningButton() : null}
                             <TouchableOpacity
                                 accessibilityLabel="Volver al inicio"
                                 accessibilityRole="button"
@@ -478,6 +536,7 @@ class DailyTasks extends Component {
                         </View>
                         <SafeAreaView style={styles.bottomBanner}>
                         <View style={styles.fixToText}>
+                            {this.state.hasCommandTask? this.getDinningButton() : null}
                             <TouchableOpacity
                                 accessibilityLabel="Volver al inicio"
                                 accessibilityRole="button"
@@ -520,6 +579,7 @@ class DailyTasks extends Component {
                         </View>
                         <SafeAreaView style={styles.bottomBanner}>
                         <View style={styles.fixToText}>
+                            {this.state.hasCommandTask? this.getDinningButton() : null}
                             <TouchableOpacity
                                 accessibilityLabel="Volver al inicio"
                                 accessibilityRole="button"
@@ -561,6 +621,7 @@ class DailyTasks extends Component {
                         </View>
                         <SafeAreaView style={styles.bottomBanner}>
                         <View style={styles.fixToText}>
+                            {this.state.hasCommandTask? this.getDinningButton() : null}
                             <TouchableOpacity
                                 accessibilityLabel="Volver al inicio"
                                 accessibilityRole="button"
@@ -604,6 +665,8 @@ class DailyTasks extends Component {
                         </View>
                         <SafeAreaView style={styles.bottomBanner}>
                         <View style={styles.fixToText}>
+
+                            {this.state.hasCommandTask? this.getDinningButton() : null}
                             <TouchableOpacity
                                 accessibilityLabel="Volver al inicio"
                                 accessibilityRole="button"

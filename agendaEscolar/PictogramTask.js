@@ -14,10 +14,8 @@ async function changeScreenOrientation() {
 class PictogramTask extends Component {
     constructor(props) {
         super(props);
-        this.state = { currentTask: 0, currentName: "", pictograms: {}, currentPicto: 1, title: "", titlePic: "",
-                       description: "",
-                       descriptionPic: ""
-                       , assigned: "", listDes: [], listDesPic: [], task: props.route.params.task,
+        this.state = { currentTask: 0, currentName: "", pictograms: {}, currentPicto: 1, title: "", titlePic: "init.png",
+                       description: "", descriptionPic: "init.png", assigned: "", listDes: [], listDesPic: [], task: props.route.params.task,
                        assigned: props.route.params.assigned, tipoAcc: props.route.params.tipoAcc};
     };
 
@@ -57,15 +55,15 @@ class PictogramTask extends Component {
 
     completarTarea = () => {
         this.modifyAssignedTask();
-    
-      }
+        this.props.navigation.navigate('DailyTasks')
+    }
 
     listPicto() {
         if(this.state.tipoAcc == 1){
             if (this.state.currentPicto < this.state.listDes.length) {
                 return (
                     <SafeAreaView style={styles.pictoSafeArea}> 
-                        <Text style={styles.headerText}>{this.state.listDes[this.state.currentPicto-1]}</Text>
+                        <Text style={styles.taskText}>{this.state.listDes[this.state.currentPicto-1]}</Text>
                     </SafeAreaView>
                 );
             }
@@ -90,7 +88,7 @@ class PictogramTask extends Component {
                             source={image}
                             style={styles.pictogram2}
                         />
-                        <Text style={styles.headerText}>{this.state.listDes[this.state.currentPicto-1]}</Text>
+                        <Text style={styles.taskText}>{this.state.listDes[this.state.currentPicto-1]}</Text>
                     </SafeAreaView>
                 );
             }

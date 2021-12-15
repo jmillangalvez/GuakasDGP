@@ -651,7 +651,7 @@ class ClassMenuView(View):
         }
         return JsonResponse(data, status=201)
     
-    def get(self, request):
+    def get(self, request, idClassMenu=-1):
         items_count = ClassMenu.objects.count()
         items = ClassMenu.objects.all()
 
@@ -669,10 +669,19 @@ class ClassMenuView(View):
                 'numDessertFruit': item.numDessertFruit,
             })
 
-        data = {
-            'items': items_data,
-            'count': items_count,
-        }
+        if idClassMenu==-1:
+            data = {
+                'items': items_data,
+                'count': items_count,
+            }
+        else:
+            index = 0
+            for student in items_data:
+                print(student)
+                if(student["idClassMenu"] == idClassMenu):
+                    break
+                else:
+                    index+=1
 
         return JsonResponse(data)
     
@@ -719,13 +728,13 @@ class DinningTaskView(View):
 
         data = json.loads(request.body.decode("utf-8"))
         a_id = data.get('idDinningTask')
-        a_classes = data.get('classes')
-        a_menus = data.get('menus')
+        a_idStudent = data.get('idStudent')
+        a_date = data.get('date')
 
         assigned_data = {
             'idDinningTask': a_id,
-            'classes': a_classes,
-            'menus': a_menus,
+            'idStudent': a_idStudent,
+            'date': a_date,
         }
 
         assigned_item = DinningTask.objects.create(**assigned_data)
@@ -735,7 +744,7 @@ class DinningTaskView(View):
         }
         return JsonResponse(data, status=201)
     
-    def get(self, request):
+    def get(self, request, idDinningTask=-1):
         items_count = DinningTask.objects.count()
         items = DinningTask.objects.all()
 
@@ -743,26 +752,35 @@ class DinningTaskView(View):
         for item in items:
             items_data.append({
                 'idDinningTask': item.idDinningTask,
-                'classes': item.classes,
-                'menus': item.menus,
+                'idStudent': item.idStudent,
+                'date': item.date,
             })
 
-        data = {
-            'items': items_data,
-            'count': items_count,
-        }
+        if idDinningTask==-1:
+            data = {
+                'items': items_data,
+                'count': items_count,
+            }
+        else:
+            index = 0
+            for student in items_data:
+                print(student)
+                if(student["idDinningTask"] == idDinningTask):
+                    break
+                else:
+                    index+=1
 
         return JsonResponse(data)
     
     def put(self, request, idDinningTask):
         data = json.loads(request.body.decode("utf-8"))
-        a_classes = data.get('classes')
-        a_menus = data.get('menus')
+        a_idStudent = data.get('idStudent')
+        a_date = data.get('date')
 
         
         DinningTask.objects.filter(idDinningTask=idDinningTask).update(
-            classes=a_classes,
-            menus=a_menus,
+            idStudent=a_idStudent,
+            date=a_date,
         )
 
         mess = {

@@ -14,5 +14,7 @@ urlpatterns = [
     path('api/v1/stockTasks/', StockTaskView.as_view()),
     path('api/v1/assignedStudents/', AssignedStudentView.as_view()),
     path('api/v1/classMenus/', ClassMenuView.as_view()),
+    path('api/v1/classMenus/<int:idClassMenu>/', ClassMenuView.as_view()),
     path('api/v1/dinningTasks/', DinningTaskView.as_view()),
+    path('api/v1/dinningTasks/<int:idDinningTask>/', DinningTaskView.as_view()),
 ]
