@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Button, Text, SafeAreaView, TouchableOpacity, View, TextInput, Alert} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Button, Text, SafeAreaView, TouchableOpacity, View, TextInput, Alert} from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import styles from './Styles';
 
@@ -68,7 +65,10 @@ class AssignTask extends Component {
   }
   
   render (){
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9f838237e277518f19e3953fb507f0a69b72b33b
     changeScreenOrientation();
     return(
       <View style={styles.mainView}>   

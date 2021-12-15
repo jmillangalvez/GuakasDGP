@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import {Text, View, TouchableOpacity, Image, FlatList, SectionList, Button, SafeAreaView} from 'react-native';
 import styles from './Styles';
 
-class CompletedMenu extends Component {
+class FillMenuTask extends Component {
 
   constructor(props) {
     super(props);
     this.state = {classMenus: [], listaClassMenus: [], educadores: [], date: props.route.params.date}
+    this.onPress = this.onPress.bind(this);
   }
 
   async getClassMenus() {
@@ -33,6 +34,31 @@ class CompletedMenu extends Component {
     }
   }
 
+  async updateClassMenu(classMenu) {
+    try {
+      const response = await fetch('http://localhost:8000/api/v1/classMenus/' + classMenu.idClassMenu + "/", {
+        method: 'PUT',
+        mode: 'cors',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            idEducator: classMenu.idEducator,
+            date: this.state.date,
+            numNormalMenu: classMenu.numNormalMenu,
+            numNoMeatMenu: classMenu.numNoMeatMenu,
+            numCrushedMenu: classMenu.numCrushedMenu,
+            numDessertFruit: classMenu.numDessertFruit,
+            numDessertCrushedFruit: classMenu.numDessertCrushedFruit,
+            numDessertYogurtCustard: classMenu.numDessertYogurtCustard,
+        })
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async getEducators() {
     try {
       const response = await fetch('http://localhost:8000/api/v1/educators/', {
@@ -53,6 +79,17 @@ class CompletedMenu extends Component {
   componentDidMount(){
     this.getClassMenus();
     this.getEducators();
+  }
+
+  onPress(src, index) {
+    this.editNum(src, index)
+  }
+
+  updateMenu(){
+    this.state.listaClassMenus.forEach(lis => {
+        this.updateClassMenu(lis);
+    });
+    this.props.navigation.navigate('DailyTasks')
   }
 
   getFotoEducador(id){
@@ -91,7 +128,7 @@ class CompletedMenu extends Component {
         fotoNum = "6.png"
         break;
       case 7:
-        fotoNum = "7png"
+        fotoNum = "7.png"
         break;
       case 8:
         fotoNum = "8.png"
@@ -105,6 +142,39 @@ class CompletedMenu extends Component {
     }
     
     return fotoNum
+  }
+
+  editNum(str, index){
+    let items = this.state.listaClassMenus;
+    let item = items[index];
+    switch(str){
+        case "normalMenu":
+          item.numNormalMenu++;
+          item.numNormalMenu %= 11;
+          break;
+        case "noMeat":
+          item.numNoMeatMenu++;
+          item.numNoMeatMenu %= 11;
+          break;
+        case "crushed":
+          item.numCrushedMenu++;
+          item.numCrushedMenu %= 11;
+          break;
+        case "fruit":
+          item.numDessertFruit++;
+          item.numDessertFruit %= 11;
+          break;
+        case "crushedFruit":
+          item.numDessertCrushedFruit++;
+          item.numDessertCrushedFruit %= 11;
+          break;
+        case "yogur":
+          item.numDessertYogurtCustard++;
+          item.numDessertYogurtCustard %= 11;
+          break;
+    }
+    items[index] = item;
+    this.setState({ listaClassMenus: items });
   }
 
   //Fila 1
@@ -159,7 +229,10 @@ class CompletedMenu extends Component {
       let image = require("./data/imagenesMenu/" + fotoNum)
       return(
         <View key={i}>
-          <Image style={styles.listImage} source={image}/>
+            <TouchableOpacity
+                onPress={() => this.onPress("normalMenu", i-1)}>                
+                <Image style={styles.listImage} source={image}/>
+            </TouchableOpacity>
         </View>
       )
     }
@@ -188,7 +261,10 @@ class CompletedMenu extends Component {
       let image = require("./data/imagenesMenu/" + fotoNum)
       return(
         <View key={i}>
-          <Image style={styles.listImage} source={image}/>
+          <TouchableOpacity
+                onPress={() => this.onPress("noMeat", i-1)}>                
+                <Image style={styles.listImage} source={image}/>
+            </TouchableOpacity>
         </View>
       )
     }
@@ -217,7 +293,10 @@ class CompletedMenu extends Component {
       let image = require("./data/imagenesMenu/" + fotoNum)
       return(
         <View key={i}>
-          <Image style={styles.listImage} source={image}/>
+          <TouchableOpacity
+                onPress={() => this.onPress("crushed", i-1)}>                
+                <Image style={styles.listImage} source={image}/>
+            </TouchableOpacity>
         </View>
       )
     }
@@ -246,7 +325,10 @@ class CompletedMenu extends Component {
       let image = require("./data/imagenesMenu/" + fotoNum)
       return(
         <View key={i}>
-          <Image style={styles.listImage} source={image}/>
+          <TouchableOpacity
+                onPress={() => this.onPress("crushedFruit", i-1)}>                
+                <Image style={styles.listImage} source={image}/>
+            </TouchableOpacity>
         </View>
       )
     }
@@ -275,7 +357,10 @@ class CompletedMenu extends Component {
       let image = require("./data/imagenesMenu/" + fotoNum)
       return(
         <View key={i}>
-          <Image style={styles.listImage} source={image}/>
+          <TouchableOpacity
+                onPress={() => this.onPress("yogur", i-1)}>                
+                <Image style={styles.listImage} source={image}/>
+            </TouchableOpacity>
         </View>
       )
     }
@@ -304,7 +389,10 @@ class CompletedMenu extends Component {
       let image = require("./data/imagenesMenu/" + fotoNum)
       return(
         <View key={i}>
-          <Image style={styles.listImage} source={image}/>
+          <TouchableOpacity
+                onPress={() => this.onPress("fruit", i-1)}>                
+                <Image style={styles.listImage} source={image}/>
+            </TouchableOpacity>
         </View>
       )
     }
@@ -314,18 +402,8 @@ class CompletedMenu extends Component {
     return (   
       <View style={{flex:1}}>
         <SafeAreaView style={styles.banner}>
-          <Text style={styles.headerText} value="ModifyCommandTaskList" accessibilityRole="header">Menú</Text>
+          <Text style={styles.headerText} value="ModifyCommandTaskList" accessibilityRole="header">MENÚ</Text>
         </SafeAreaView>
-
-        <View style={styles.goBackView}>
-          <TouchableOpacity 
-            accessibilityLabel = "Volver"
-            accessibilityRole = "button"
-            accessibilityHint = "Vuelve al submenú anterior."
-            onPress={() => this.props.navigation.navigate('CompletedMenuList')}>
-            <Text style={styles.backText}>Volver</Text>
-          </TouchableOpacity>
-        </View>
 
         <View style={styles.listContainer}>
           {this.renderRowHead()}
@@ -355,9 +433,24 @@ class CompletedMenu extends Component {
           {this.renderDessertFruit()}
         </View>
 
+        <View>
+            <TouchableOpacity
+                accessibilityLabel="Volver al inicio"
+                accessibilityRole="button"
+                accessibilityHint="Vuelve al menú de inicio"
+                style={{ position: 'absolute', bottom: 400, right: '20%' }}
+                onPress={this.updateMenu.bind(this)}>
+                <Image
+                    source={require('./img/si.png')}
+                    style={{ height: '150px', width: '150px' }}
+                />
+                <Text style={{ fontSize: 20 }}>Guardar Menu</Text>
+            </TouchableOpacity>
+        </View>
+
       </View>
     );
   }
 }
 
-export default CompletedMenu;
+export default FillMenuTask;
