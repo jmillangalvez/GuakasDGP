@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Picker, Text, SafeAreaView, TouchableOpacity, View, TextInput, Alert, Button } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Text, SafeAreaView, TouchableOpacity, View, TextInput, Button } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import { components } from "react-select";
 import { default as ReactSelect } from "react-select";
@@ -156,12 +153,13 @@ class CreateCommandTask extends Component {
           </View>
         </View>
 
-        <View style={styles.fixToText}>
+        <View style={[styles.fixToText , {marginTop: 20, zIndex: 10, fontSize: 30, font: 'inherit'}]}>
           <Text style={styles.formContent}>Clases: </Text>
           <ReactSelect
             options={this.getOptions()}
             isMulti
             closeMenuOnSelect={false}
+            style={{minWidth: 500}}
             hideSelectedOptions={false}
             components={{
                 Option

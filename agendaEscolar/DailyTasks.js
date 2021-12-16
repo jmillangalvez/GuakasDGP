@@ -630,7 +630,7 @@ class DailyTasks extends Component {
                         </SafeAreaView>
                         <View style={styles.dailyTaskView}>
                             <Image
-                                source={require('./img/si.png')}
+                                source={require('./data/imagenesTareas/darPalmas.png')}
                                 style={{ height: '100px', width: '100px' }}
                             />
                         </View>
@@ -674,7 +674,7 @@ class DailyTasks extends Component {
                         </SafeAreaView>
                         <View style={styles.dailyTaskView}>
                             <Image
-                                source={require('./img/si.png')}
+                                source={require('./data/imagenesTareas/darPalmas.png')}
                                 style={{ height: '100px', width: '100px' }}
                             />
                             <Text style={styles.dailyTaks}>No te quedan tareas por realizar.</Text>

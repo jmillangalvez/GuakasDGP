@@ -1,5 +1,5 @@
-import React, { Fragment, useState, useRef, useEffect, Component } from "react";
-import { Text, SafeAreaView, TouchableOpacity, View, Image, Button, TextInput, Picker, Alert } from 'react-native';
+import React, { Component } from "react";
+import { Text, SafeAreaView, TouchableOpacity, View, Image, Button, TextInput } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import styles from "./Styles";
 import * as DocumentPicker from 'expo-document-picker';
@@ -114,8 +114,8 @@ class ModifyNormalTask extends Component {
 
   modificarTarea = () => {
     this.modifyTask();
-    //this.setState({show: true});
-    //setTimeout(()=> { this.props.navigation.navigate('TaskSubmenu') }, 2000);
+    this.setState({show: true});
+    setTimeout(()=> { this.props.navigation.navigate('TaskSubmenu') }, 2000);
     
   }
 
@@ -311,7 +311,7 @@ class ModifyNormalTask extends Component {
                 activeOpacity={0.5}
                 style={styles.buttonStyle}
                 onPress={this.SingleFilePickerTitle.bind(this)}>
-                <Text style={styles.textStyle}>Choose Image</Text>
+                <Text style={[styles.formContentLine , {marginBottom: 5}]}>Selecciona Imagen</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -325,7 +325,7 @@ class ModifyNormalTask extends Component {
 
             <View style={styles.formItem}>
               <TextInput 
-                style={styles.formContentBox}
+                style={styles.formContentLine}
                 onChangeText = {(text) => this.setState({descripcion: text})}
                 defaultValue = {this.state.task.description}
                 multiline={true}
@@ -337,7 +337,7 @@ class ModifyNormalTask extends Component {
           </View>
         </View>
 
-        <View style={styles.formItem}>
+        <View style={[styles.formItem , {marginTop: 0}]}>
           <View style={styles.fixToText}>
             <View style={styles.formItem}>
               <TouchableOpacity

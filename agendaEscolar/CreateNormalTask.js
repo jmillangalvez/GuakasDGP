@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, Button, Text, SafeAreaView, TouchableOpacity, View, TextInput, Alert, Image} from 'react-native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Button, Text, SafeAreaView, TouchableOpacity, View, TextInput, Image} from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import styles from './Styles';
 import * as DocumentPicker from 'expo-document-picker';
@@ -245,7 +244,7 @@ class CreateNormalTask extends Component {
           </TouchableOpacity>
         </View>
 
-        <View style={styles.addStudent}>
+        <View style={[styles.addStudent, {marginBottom: 0}]}>
           <View style={styles.fixToText}>
             <View style={styles.formItem}>
               <Text style={styles.formContent}>Titulo:</Text>
@@ -273,7 +272,7 @@ class CreateNormalTask extends Component {
                 activeOpacity={0.5}
                 style={styles.buttonStyle}
                 onPress={this.SingleFilePickerTitle.bind(this)}>
-                <Text style={styles.textStyle}>Choose Image</Text>
+                <Text style={[styles.formContentLine , {marginBottom: 5}]}>Selecciona Imagen</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -287,7 +286,7 @@ class CreateNormalTask extends Component {
 
             <View style={styles.formItem}>
               <TextInput 
-                style={styles.formContentBox}
+                style={styles.formContentLine}
                 onChangeText = {(text) => this.setState({descripcion: text})}
                 defaultValue = {this.state.descripcion}
                 multiline={true}
@@ -298,16 +297,16 @@ class CreateNormalTask extends Component {
             </View>
           </View>
 
-          <View style={styles.fixToText}>
+          <View style={[styles.fixToText, {marginBottom: 0}]}>
             <View style={styles.formItem}>
-              <Text style={styles.formContent}>Descripción en pictograna:</Text>
+              <Text style={styles.formContent}>Descripción en pictogramas:</Text>
             </View>
 
             
           </View>
         
         </View>
-        <View style={styles.formItem}>
+        <View style={[styles.formItem , {marginTop: 0}]}>
           <View style={styles.fixToText}>
             <View style={styles.formItem}>
               <TouchableOpacity

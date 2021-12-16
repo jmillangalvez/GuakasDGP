@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet, Text, TextInput, View,FlatList, TouchableOpacity, Image, SectionList, Button, SafeAreaView} from 'react-native';
+import { Text, TextInput, View,FlatList, TouchableOpacity, Image, SafeAreaView} from 'react-native';
 import styles from './Styles';
 
 class ModifyNormalTaskList extends Component {
@@ -68,7 +68,7 @@ class ModifyNormalTaskList extends Component {
         </View>
 
         <TextInput
-          style={styles.loginAdminInput}
+          style={styles.searchInput}
           onChangeText = {(text) => this.actualizarLista(text)}
           defaultValue = ""
           placeholder = "Buscar tarea"

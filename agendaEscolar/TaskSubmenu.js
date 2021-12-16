@@ -1,7 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { Component } from "react";
-import { NavigationContainer } from '@react-navigation/native';
-import { Text, SafeAreaView, TouchableOpacity, View, Image, Button } from 'react-native';
+import { Text, SafeAreaView, TouchableOpacity, View } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import styles from './Styles';
 
@@ -63,6 +61,20 @@ class TaskSubmenu extends Component{
                             onPress={() => this.props.navigation.navigate('ModifyNormalTaskList')}>
                             <Text style={styles.loginAdminText}>Modificar tarea</Text>
                             <Text style={styles.loginAdminText}>         fija</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={styles.middleView}>
+                    </View>
+
+                    <View style={styles.enterButtonDownView}>
+                        <TouchableOpacity
+                            accessibilityLabel="Modificar estudiante"
+                            accessibilityRole="button"
+                            accessibilityHint="Modificar datos de un estudiante"
+                            onPress={() => null}>
+                            <Text style={styles.loginAdminText}>Modificar tarea</Text>
+                            <Text style={styles.loginAdminText}>     comedor</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

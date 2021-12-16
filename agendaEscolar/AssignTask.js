@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Text, SafeAreaView, TouchableOpacity, View, TextInput, Alert} from 'react-native';
+import { Button, Text, SafeAreaView, TouchableOpacity, View, TextInput } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import styles from './Styles';
 

@@ -254,6 +254,16 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 5
   },
+  searchInput: {
+    justifyContent: 'center',
+    textAlign: 'center',
+    margin: 5,
+    borderWidth: 5,
+    borderRadius: 10,
+    padding: 5,
+    height: 50,
+    fontSize: 40,
+  },
   loginAdminButton: {
     justifyContent: 'center',
     textAlign: 'center',
@@ -342,8 +352,8 @@ const styles = StyleSheet.create({
     margin: 100,
   },
   selectImage: {
-    width: 100,
-    height: 100,
+    width: 150,
+    height: 150,
   },
   selectImage2: {
     width: 75,
@@ -369,7 +379,11 @@ const styles = StyleSheet.create({
     borderWidth: 3
   },
   formContent: {
-    fontSize: 25
+    fontSize: 35
+  },
+  formContentLine: {
+    borderWidth: 5,
+    fontSize: 35
   }
 });
 

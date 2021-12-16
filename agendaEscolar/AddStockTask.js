@@ -1,10 +1,7 @@
 import React, { Component } from "react";
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, SafeAreaView, TouchableOpacity, View, ScrollView} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { SafeAreaView, TouchableOpacity, View } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
-import { Button, Input, Divider, Text } from 'react-native';
+import { Button, Text } from 'react-native';
 import styles from './Styles';
 
 // Cambiar orientación de la pantalla

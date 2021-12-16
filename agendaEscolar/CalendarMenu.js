@@ -1,12 +1,8 @@
 import React, { Component } from "react";
-import { StatusBar } from 'expo-status-bar';
 import { Button, Text, SafeAreaView, TouchableOpacity, View, Image } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import CalendarPicker from 'react-native-calendar-picker';
 import styles from './Styles';
-import { max } from "moment";
 
 // Boceto 33: Menú Calendario
 // Primero obtenemos las tareas y las almacenamos en una lista
