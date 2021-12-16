@@ -1,6 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { Fragment, useState, useRef, useEffect, Component } from "react";
-import { Text, SafeAreaView, TouchableOpacity, View, Image, ViewPropTypes, Button, TextInput, Picker, Alert } from 'react-native';
+import React, { Component } from "react";
+import { Text, SafeAreaView, TouchableOpacity, View, Image, Button, TextInput } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import styles from "./Styles";
 import * as DocumentPicker from 'expo-document-picker';
@@ -14,7 +13,7 @@ class ModifyTeacher extends Component {
 
   constructor(props){
     super(props);
-    this.state= {name:"", email:"",pass:"", clase:"1a", picture: "1.jpg", idEducator: props.route.params.idEducator, educator: ''}
+    this.state= {name:"", email:"",pass:"", clase:"1a", picture: "1.jpg", idEducator: props.route.params.idEducator, educator: '', show: false}
     this.students = require('./data/students.json');
   }
 
@@ -66,11 +65,8 @@ class ModifyTeacher extends Component {
 
   eliminarEducador = () => {
     this.deleteEducator();
-
-    Alert.alert(
-      "Operación satisfactoria",
-      "El estudiante ha sido añadido",
-    )
+    this.setState({show: true});
+    setTimeout(()=> { this.props.navigation.navigate('StudentSubmenu') }, 2000);
   }
 
   async modifyEducator() {
@@ -96,10 +92,13 @@ class ModifyTeacher extends Component {
 
   modificarEducador = () => {
     this.modifyEducator();
+    this.setState({show: true});
+    setTimeout(()=> { this.props.navigation.navigate('StudentSubmenu') }, 2000);
+  }
 
-    Alert.alert(
-      "Operación satisfactoria",
-      "El estudiante ha sido añadido",
+  showAlert(){
+    return(
+      <Text style={{color: '#000000', marginTop: 20}}>Acción realizada correctamente</Text>
     )
   }
 
@@ -216,12 +215,14 @@ class ModifyTeacher extends Component {
             activeOpacity={0.5}
             style={styles.buttonStyle}
             onPress={this.SingleFilePicker.bind(this)}>
-            <Text style={styles.textStyle}>Choose Image</Text>
+            <Text style={[styles.formContentLine , {marginBottom: 5}]}>Selecciona Imagen</Text>
           </TouchableOpacity>
           </View>
         </View>
 
         {this.imageComponent()}
+
+        {this.state.show? this.showAlert() : null}
 
         <View style={styles.confirmButton}>
           <Button
@@ -229,7 +230,7 @@ class ModifyTeacher extends Component {
             accessibilityLabel="Añadir Educador"
             accessibilityRole="Button"
             accessibilityHint="Añade el Educador"
-            color="#bcbcbc"
+            color="#248aff"
             onPress={this.modificarEducador}
           />
         </View>

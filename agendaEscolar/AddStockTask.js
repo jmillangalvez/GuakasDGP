@@ -1,10 +1,7 @@
 import React, { Component } from "react";
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, SafeAreaView, TouchableOpacity, View, ScrollView} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { SafeAreaView, TouchableOpacity, View } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
-import { Button, Input, Divider, Text } from 'react-native';
+import { Button, Text } from 'react-native';
 import styles from './Styles';
 
 // Cambiar orientación de la pantalla
@@ -16,7 +13,7 @@ async function changeScreenOrientation() {
 class AddStockTask extends Component {
   constructor(props) {
     super(props);
-    this.state = { title: "", description: "", picto: 0};
+    this.state = { title: "", description: "", picto: 0, show: false};
   };
 
   async publishTask(){
@@ -36,6 +33,12 @@ class AddStockTask extends Component {
     } catch (error) {
       consolge.log("Error al enviar formulario: " + error);
     }
+  }
+
+  showAlert(){
+    return(
+      <Text style={{color: '#ff0000'}}>Usuario o contraseña incorrectas</Text>
+    )
   }
 
   render() {
@@ -99,16 +102,6 @@ class AddStockTask extends Component {
                   accessibilityHint="Introduce un título para el pictograma"
               />
           </View>
-          {/* Descripción de los pictogramas: va con una imagen y el icono + */}
-          {/* <View style={styles.Input}>
-              <Input
-                  label='Descripción pictograma'
-                  // placeholder='Introduce un título'
-                  accessibilityLabel="título de pictograma"
-                  accessibilityRole="input"
-                  accessibilityHint="Introduce un título para el pictograma"
-              />
-          </View> */}
           {/* Botón para enviar el formulario */}
           <View>
             <TouchableOpacity onPress={() => this.publishTask }>

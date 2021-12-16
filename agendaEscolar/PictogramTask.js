@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useRef, useEffect, Component } from "react";
+import React, { Component } from "react";
 import { Text, SafeAreaView, TouchableOpacity, View, Image } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import styles from "./Styles";
@@ -132,12 +132,14 @@ class PictogramTask extends Component {
             return(
                 <View style={{ 
                     alignItems: 'center',
-                    justifyContent: 'center', }}>
+                    justifyContent: 'center',
+                    flexDirection: 'row',
+                    alignItems: 'flex-start', }}>
                     <Image
                         source={image}
-                        style={{ height: '75px', width: '75px' }}
+                        style={{ height: '100px', width: '100px' }}
                     />
-                    <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{this.state.title}</Text>
+                    <Text style={{ fontSize: 40, fontWeight: 'bold', marginTop: 25, color: '#ffffff' }}>{this.state.title}</Text>
                 </View>
             )
         }

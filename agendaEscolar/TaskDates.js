@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { Fragment, useState, useRef, useEffect, Component } from "react";
+import React, { Component } from "react";
 import { Text, SafeAreaView, TouchableOpacity, View, Image } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import styles from "./Styles";

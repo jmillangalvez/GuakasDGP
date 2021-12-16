@@ -45,18 +45,18 @@ class EducatorMain extends Component {
           <View style={styles.middleView}>
           </View>
           <View style={styles.enterButtonView}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('EducatorCompletedTasksList') }>
-              <Text style={styles.loginAdminText}>     Tareas</Text>
-              <Text style={styles.loginAdminText}>Completadas</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.middleView}></View>
-          <View style={styles.enterButtonView}>
             <TouchableOpacity onPress={() => this.props.navigation.navigate('AssignCommandTaskList1', {
               idEducator: this.state.idEducator
             }) }>
               <Text style={styles.loginAdminText}>Asignar Tarea</Text>
               <Text style={styles.loginAdminText}>   Comedor</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.middleView}></View>
+          <View style={styles.enterButtonView}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('SearchStudentsList') }>
+              <Text style={styles.loginAdminText}>Información</Text>
+              <Text style={styles.loginAdminText}>estudiantes</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -70,9 +70,9 @@ class EducatorMain extends Component {
           <View style={styles.middleView}>
           </View>
           <View style={styles.enterButtonView}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('SearchStudentsList') }>
-              <Text style={styles.loginAdminText}>Información</Text>
-              <Text style={styles.loginAdminText}>estudiantes</Text>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('EducatorCompletedTasksList') }>
+              <Text style={styles.loginAdminText}>     Tareas</Text>
+              <Text style={styles.loginAdminText}>Completadas</Text>
             </TouchableOpacity>
           </View>
         </View>

@@ -1,6 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { Fragment, useState, useRef, useEffect, Component } from "react";
-import { Text, SafeAreaView, TouchableOpacity, View, Image, ViewPropTypes, Button, TextInput, Picker, Alert } from 'react-native';
+import React, { Component } from "react";
+import { Text, SafeAreaView, TouchableOpacity, View, Image, Button, TextInput, Picker } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import styles from "./Styles";
 import * as DocumentPicker from 'expo-document-picker';
@@ -14,7 +13,7 @@ class ModifyStudent extends Component {
 
   constructor(props){
     super(props);
-    this.state= {name:"", tipo: 1, picture: "1.jpg", idStudent: props.route.params.idStudent, student: ''}
+    this.state= {name:"", tipo: 1, picture: "1.jpg", idStudent: props.route.params.idStudent, student: '', show: false}
     this.students = require('./data/students.json');
   }
 
@@ -65,11 +64,8 @@ class ModifyStudent extends Component {
 
   eliminarAlumno = () => {
     this.deleteStudent();
-
-    Alert.alert(
-      "Operación satisfactoria",
-      "El estudiante ha sido añadido",
-    )
+    this.setState({show: true});
+    setTimeout(()=> { this.props.navigation.navigate('StudentSubmenu') }, 2000);
   }
 
 
@@ -95,8 +91,14 @@ class ModifyStudent extends Component {
 
   modificarAlumno = () => {
     this.modifyStudent();
-
+    this.setState({show: true});
     setTimeout(()=> { this.props.navigation.navigate('StudentSubmenu') }, 2000);
+  }
+
+  showAlert(){
+    return(
+      <Text style={{color: '#000000', marginTop: 20}}>Acción realizada correctamente</Text>
+    )
   }
 
   imageComponent(){
@@ -176,6 +178,7 @@ class ModifyStudent extends Component {
               accessibilityLabel="Tipo de Multimedia"
               accessibilityRole="spinbutton"
               accessibilityHint="Selecciona tipo de multimedia"
+              style={{ height: 50, width: 350, borderWidth: 5, fontSize: 30 }}
               onValueChange = {(itemValue) => this.setState({tipo: itemValue})}
             >
                 <Picker.Item
@@ -189,6 +192,12 @@ class ModifyStudent extends Component {
                 accessibilityRole="Button"
                 accessibilityHint="Selecciona Pictogramas como tipo de multimedia" 
                 label="Pictogramas" value="2" />
+
+                <Picker.Item
+                accessibilityLabel="Pictogramas"
+                accessibilityRole="Button"
+                accessibilityHint="Selecciona Pictogramas como tipo de multimedia" 
+                label="Pictogramas y Texto" value="3" />
               </Picker>
             </View>
           </View>
@@ -204,12 +213,14 @@ class ModifyStudent extends Component {
             activeOpacity={0.5}
             style={styles.buttonStyle}
             onPress={this.SingleFilePicker.bind(this)}>
-            <Text style={styles.textStyle}>Choose Image</Text>
+            <Text style={[styles.formContentLine , {marginBottom: 5}]}>Selecciona Imagen</Text>
           </TouchableOpacity>
           </View>
         </View>
 
         {this.imageComponent()}
+
+        {this.state.show? this.showAlert() : null}
 
         <View style={styles.confirmButton}>
           <Button
@@ -217,7 +228,7 @@ class ModifyStudent extends Component {
             accessibilityLabel="Modificar Estudiante"
             accessibilityRole="Button"
             accessibilityHint="Modifica el estudiante"
-            color="#bcbcbc"
+            color="#248aff"
             onPress={this.modificarAlumno}
           />
         </View>

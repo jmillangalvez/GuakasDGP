@@ -1,6 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { Fragment, useState, useRef, useEffect, Component } from "react";
-import { Text, SafeAreaView, TouchableOpacity, View, Image, ViewPropTypes, Button, TextInput, Picker, Alert } from 'react-native';
+import React, { Component } from "react";
+import { Text, SafeAreaView, TouchableOpacity, View, Button } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import { components } from "react-select";
 import { default as ReactSelect } from "react-select";
@@ -53,10 +52,6 @@ class ModifyCommandTask extends Component {
 
   modifyTask = () =>{
     this.modifyTaskDB();
-    Alert.alert(
-      "Operación satisfactoria",
-      "La tarea ha sido modificada",
-    )
   }
 
   handleChangeC = (selected) => {

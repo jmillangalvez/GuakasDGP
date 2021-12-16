@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, Image, SectionList, Button, SafeAreaView} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, SafeAreaView} from 'react-native';
 import styles from './Styles';
 import {
     LineChart,

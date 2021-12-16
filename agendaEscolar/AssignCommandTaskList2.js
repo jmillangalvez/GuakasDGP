@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet, Text, TextInput, View, TouchableOpacity, Image, FlatList, SafeAreaView} from 'react-native';
+import { Text, TextInput, View, TouchableOpacity, Image, FlatList, SafeAreaView} from 'react-native';
 import styles from './Styles';
 
 class AssignCommandTaskList2 extends Component {
@@ -82,7 +82,7 @@ class AssignCommandTaskList2 extends Component {
         </View>
 
         <TextInput
-          style={styles.loginAdminInput}
+          style={styles.searchInput}
           onChangeText = {(text) => this.actualizarLista(text)}
           defaultValue = ""
           placeholder = "Buscar fecha"

@@ -1,7 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { Component } from "react";
-import { NavigationContainer } from '@react-navigation/native';
-import { Text, SafeAreaView, TouchableOpacity, View, Image, Button } from 'react-native';
+import { Text, SafeAreaView, TouchableOpacity, View } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import styles from './Styles';
 

@@ -101,7 +101,7 @@ class DailyTasks extends Component {
             this.setState({ tasks: finalTasks });
             this.setState({ currentTitle: this.state.tasks[this.state.currentTask].title });
             this.setState({ currentPicto: this.state.tasks[this.state.currentTask].pictogramTitle});
-
+            
         } catch (error) {
             console.log(error);
         }        
@@ -249,7 +249,6 @@ class DailyTasks extends Component {
                                 accessibilityLabel="Tarea Anterior"
                                 accessibilityRole="button"
                                 accessibilityHint="Muestra la tarea anterior sin completar del día"
-                                style={{marginLeft: 10, marginRight: 10}}
                                 >
                                 <Image
                                     style={styles.image}
@@ -266,7 +265,6 @@ class DailyTasks extends Component {
                                 accessibilityLabel="Tarea Siguiente"
                                 accessibilityRole="button"
                                 accessibilityHint="Muestra la siguiente tarea sin completar del día"
-                                style={{marginLeft: 10, marginRight: 10}}
                                 >
                                 <Image
                                     style={styles.image}
@@ -321,7 +319,6 @@ class DailyTasks extends Component {
                                 accessibilityLabel="Tarea Anterior"
                                 accessibilityRole="button"
                                 accessibilityHint="Muestra la tarea anterior sin completar del día"
-                                style={{marginLeft: 10, marginRight: 10}}
                                 >
                                 <Image
                                     style={styles.image}
@@ -338,7 +335,6 @@ class DailyTasks extends Component {
                                 accessibilityLabel="Tarea Siguiente"
                                 accessibilityRole="button"
                                 accessibilityHint="Muestra la siguiente tarea sin completar del día"
-                                style={{marginLeft: 10, marginRight: 10}}
                                 >
                                 <Image
                                     style={styles.image}
@@ -393,7 +389,6 @@ class DailyTasks extends Component {
                                 accessibilityLabel="Tarea Anterior"
                                 accessibilityRole="button"
                                 accessibilityHint="Muestra la tarea anterior sin completar del día"
-                                style={{marginLeft: 10, marginRight: 10}}
                                 >
                                 <Image
                                     style={styles.image}
@@ -410,7 +405,6 @@ class DailyTasks extends Component {
                                 accessibilityLabel="Tarea Siguiente"
                                 accessibilityRole="button"
                                 accessibilityHint="Muestra la siguiente tarea sin completar del día"
-                                style={{marginLeft: 10, marginRight: 10}}
                                 >
                                 <Image
                                     style={styles.image}
@@ -636,7 +630,7 @@ class DailyTasks extends Component {
                         </SafeAreaView>
                         <View style={styles.dailyTaskView}>
                             <Image
-                                source={require('./img/si.png')}
+                                source={require('./data/imagenesTareas/darPalmas.png')}
                                 style={{ height: '100px', width: '100px' }}
                             />
                         </View>
@@ -680,7 +674,7 @@ class DailyTasks extends Component {
                         </SafeAreaView>
                         <View style={styles.dailyTaskView}>
                             <Image
-                                source={require('./img/si.png')}
+                                source={require('./data/imagenesTareas/darPalmas.png')}
                                 style={{ height: '100px', width: '100px' }}
                             />
                             <Text style={styles.dailyTaks}>No te quedan tareas por realizar.</Text>

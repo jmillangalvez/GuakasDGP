@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Text, View, TouchableOpacity, Image, FlatList, SectionList, Button, SafeAreaView} from 'react-native';
+import {Text, View, TouchableOpacity, Image, SafeAreaView} from 'react-native';
 import styles from './Styles';
 
 class FillMenuTask extends Component {

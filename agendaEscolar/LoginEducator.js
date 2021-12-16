@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from "react";
-import { Text, TextInput, SafeAreaView, TouchableOpacity, View, Image, Alert } from 'react-native';
+import { Text, TextInput, SafeAreaView, TouchableOpacity, View, Alert } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import styles from './Styles';
 

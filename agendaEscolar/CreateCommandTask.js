@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Picker, Text, SafeAreaView, TouchableOpacity, View, TextInput, Alert, Button } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Text, SafeAreaView, TouchableOpacity, View, TextInput, Button } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import { components } from "react-select";
 import { default as ReactSelect } from "react-select";
@@ -35,7 +32,7 @@ const Option = (props) => {
 class CreateCommandTask extends Component {
   constructor(props) {
     super(props);
-    this.state = { date: "", optionSelectedC: null, educadores: [], options: []};
+    this.state = { date: "", optionSelectedC: null, educadores: [], options: [], show: false};
   };
 
   async getEducators() {
@@ -96,10 +93,17 @@ class CreateCommandTask extends Component {
   }
 
   createTask = () =>{
-    console.log(this.state.optionSelectedC)
     this.state.optionSelectedC.forEach(edu => {
       this.createClassMenu(edu.value);
     });
+    this.setState({show: true});
+    setTimeout(()=> { this.props.navigation.navigate('TaskSubmenu') }, 2000);
+  }
+
+  showAlert(){
+    return(
+      <Text style={{color: '#000000', marginTop: 20}}>Acción realizada correctamente</Text>
+    )
   }
 
   handleChangeC = (selected) => {
@@ -149,12 +153,13 @@ class CreateCommandTask extends Component {
           </View>
         </View>
 
-        <View style={styles.fixToText}>
-          <Text>Clases: </Text>
+        <View style={[styles.fixToText , {marginTop: 20, zIndex: 10, fontSize: 30, font: 'inherit'}]}>
+          <Text style={styles.formContent}>Clases: </Text>
           <ReactSelect
             options={this.getOptions()}
             isMulti
             closeMenuOnSelect={false}
+            style={{minWidth: 500}}
             hideSelectedOptions={false}
             components={{
                 Option
@@ -165,13 +170,15 @@ class CreateCommandTask extends Component {
             />
         </View>
 
+        {this.state.show? this.showAlert() : null}
+
         <View style={styles.confirmButton}>
           <Button
             title="Crear Tarea"
             accessibilityLabel="Crear Tarea"
             accessibilityRole="Button"
             accessibilityHint="Crea la tarea"
-            color="#bcbcbc"
+            color="#248aff"
             onPress ={this.createTask }
           />
         </View>

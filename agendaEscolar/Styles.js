@@ -226,7 +226,8 @@ const styles = StyleSheet.create({
   backText: {
     width: '100%',
     height: '100%',
-    fontSize: 20
+    fontSize: 20,
+    color: '#fff'
   },
   normalText: {
     width: '100%',
@@ -252,6 +253,16 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 10,
     padding: 5
+  },
+  searchInput: {
+    justifyContent: 'center',
+    textAlign: 'center',
+    margin: 5,
+    borderWidth: 5,
+    borderRadius: 10,
+    padding: 5,
+    height: 50,
+    fontSize: 40,
   },
   loginAdminButton: {
     justifyContent: 'center',
@@ -341,8 +352,8 @@ const styles = StyleSheet.create({
     margin: 100,
   },
   selectImage: {
-    width: 100,
-    height: 100,
+    width: 150,
+    height: 150,
   },
   selectImage2: {
     width: 75,
@@ -366,6 +377,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 25,
     borderWidth: 3
+  },
+  formContent: {
+    fontSize: 35
+  },
+  formContentLine: {
+    borderWidth: 5,
+    fontSize: 35
   }
 });
 

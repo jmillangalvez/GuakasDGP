@@ -1,6 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { Fragment, useState, useRef, useEffect, Component } from "react";
-import { Text, SafeAreaView, TouchableOpacity, View, Image, ViewPropTypes, Button, TextInput, Picker, Alert } from 'react-native';
+import React, { Component } from "react";
+import { Text, SafeAreaView, TouchableOpacity, View, Image, Alert } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import styles from "./Styles";
 import * as DocumentPicker from 'expo-document-picker';

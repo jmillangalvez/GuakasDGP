@@ -1,6 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { Fragment, useState, useRef, useEffect, Component, FormData } from "react";
-import { Text, SafeAreaView, TouchableOpacity, View, Image, ViewPropTypes, Button, TextInput, Picker, Alert } from 'react-native';
+import React, { Component } from "react";
+import { Text, SafeAreaView, TouchableOpacity, View, Image, Button, TextInput, Picker } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import styles from "./Styles";
 import * as DocumentPicker from 'expo-document-picker';
@@ -14,16 +13,19 @@ class AddStudent extends Component {
 
   constructor(props){
     super(props);
-    this.state= {name:"", accesibilidad: 1, picture: '8.jpg', selectedFile: false, fileName: ""}
+    this.state= {name:"", accesibilidad: 1, picture: '8.jpg', selectedFile: false, fileName: "", show: false}
     this.students = require('./data/students.json');
   }
 
   aniadirEstudiante = () => {
     this.createStudentDB();
+    this.setState({show: true});
+    setTimeout(()=> { this.props.navigation.navigate('StudentSubmenu') }, 2000);
+  }
 
-    Alert.alert(
-      "Operación satisfactoria",
-      "El estudiante ha sido añadido",
+  showAlert(){
+    return(
+      <Text style={{color: '#000000', marginTop: 20}}>Acción realizada correctamente</Text>
     )
   }
 
@@ -124,7 +126,8 @@ class AddStudent extends Component {
               <Picker
                 accessibilityLabel="Clase asignada"
                 accessibilityRole="spinbutton"
-                accessibilityHint="Selecciona a que clase esta asignado" 
+                accessibilityHint="Selecciona a que clase esta asignado"
+                style={{ height: 50, width: 350, borderWidth: 5, fontSize: 30 }}
                 onValueChange = {(itemValue) => this.setState({accesibilidad: parseInt(itemValue)})}
               >
                   <Picker.Item
@@ -157,12 +160,14 @@ class AddStudent extends Component {
             activeOpacity={0.5}
             style={styles.buttonStyle}
             onPress={this.SingleFilePicker.bind(this)}>
-            <Text style={styles.textStyle}>Choose Image</Text>
+            <Text style={[styles.formContentLine , {marginBottom: 5}]}>Selecciona Imagen</Text>
           </TouchableOpacity>
           </View>
         </View>
 
         {this.state.selectedFile? this.imageComponent() : null}
+
+        {this.state.show? this.showAlert() : null}
 
         <View style={styles.confirmButton}>
           <Button
@@ -170,7 +175,7 @@ class AddStudent extends Component {
             accessibilityLabel="Añadir Estudiante"
             accessibilityRole="Button"
             accessibilityHint="Añade el estudiante"
-            color="#bcbcbc"
+            color="#248aff"
             onPress={this.aniadirEstudiante}
           />
         </View>

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, Button, Text, SafeAreaView, TouchableOpacity, View, TextInput, Alert, Image} from 'react-native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Button, Text, SafeAreaView, TouchableOpacity, View, TextInput, Image} from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import styles from './Styles';
 import * as DocumentPicker from 'expo-document-picker';
@@ -19,7 +18,7 @@ class CreateNormalTask extends Component {
     super(props);
     this.state = { titulo: "", descripcion: "", tituloPic: "microondas.png", descripcionPic1: "nueva.png", 
     titleChosen: false, desChosen: false, descripcionPic2: "nueva.png",descripcionPic3: "nueva.png",
-    descripcionPic4: "nueva.png",descripcionPic5: "nueva.png", descripcionPic: "" };
+    descripcionPic4: "nueva.png",descripcionPic5: "nueva.png", descripcionPic: "", show: false };
   };
 
   createTask = () =>{
@@ -44,9 +43,9 @@ class CreateNormalTask extends Component {
       descripcion =+ this.state.descripcionPic5;
       descripcion =+ ",";
     }
-    //this.setState({descripcionPic: descripcion});
-    //console.log(descripcion);
     this.createTaskDB();
+    this.setState({show: true});
+    setTimeout(()=> { this.props.navigation.navigate('TaskSubmenu') }, 2000);
   }
 
   async createTaskDB() {
@@ -68,6 +67,12 @@ class CreateNormalTask extends Component {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  showAlert(){
+    return(
+      <Text style={{color: '#000000', marginTop: 20}}>Acción realizada correctamente</Text>
+    )
   }
 
   imageComponentTitle(){
@@ -239,7 +244,7 @@ class CreateNormalTask extends Component {
           </TouchableOpacity>
         </View>
 
-        <View style={styles.addStudent}>
+        <View style={[styles.addStudent, {marginBottom: 0}]}>
           <View style={styles.fixToText}>
             <View style={styles.formItem}>
               <Text style={styles.formContent}>Titulo:</Text>
@@ -267,7 +272,7 @@ class CreateNormalTask extends Component {
                 activeOpacity={0.5}
                 style={styles.buttonStyle}
                 onPress={this.SingleFilePickerTitle.bind(this)}>
-                <Text style={styles.textStyle}>Choose Image</Text>
+                <Text style={[styles.formContentLine , {marginBottom: 5}]}>Selecciona Imagen</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -281,7 +286,7 @@ class CreateNormalTask extends Component {
 
             <View style={styles.formItem}>
               <TextInput 
-                style={styles.formContentBox}
+                style={styles.formContentLine}
                 onChangeText = {(text) => this.setState({descripcion: text})}
                 defaultValue = {this.state.descripcion}
                 multiline={true}
@@ -292,16 +297,16 @@ class CreateNormalTask extends Component {
             </View>
           </View>
 
-          <View style={styles.fixToText}>
+          <View style={[styles.fixToText, {marginBottom: 0}]}>
             <View style={styles.formItem}>
-              <Text style={styles.formContent}>Descripción en pictograna:</Text>
+              <Text style={styles.formContent}>Descripción en pictogramas:</Text>
             </View>
 
             
           </View>
         
         </View>
-        <View style={styles.formItem}>
+        <View style={[styles.formItem , {marginTop: 0}]}>
           <View style={styles.fixToText}>
             <View style={styles.formItem}>
               <TouchableOpacity
@@ -345,6 +350,8 @@ class CreateNormalTask extends Component {
             </View>
           </View>
         </View>
+
+        {this.state.show? this.showAlert() : null}
         
         <View style={styles.confirmButton}>
           <Button
@@ -352,7 +359,7 @@ class CreateNormalTask extends Component {
             accessibilityLabel="Crear Tarea"
             accessibilityRole="Button"
             accessibilityHint="Crea la tarea"
-            color="#bcbcbc"
+            color="#248aff"
             onPress={this.createTask}
           />
         </View>

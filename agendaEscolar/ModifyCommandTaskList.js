@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, Image, SectionList, Button, SafeAreaView} from 'react-native';
+import { Text, View, TouchableOpacity, Image, SectionList, SafeAreaView} from 'react-native';
 import styles from './Styles';
 
 class ModifyCommandTaskList extends Component {

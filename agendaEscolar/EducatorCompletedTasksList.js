@@ -69,7 +69,7 @@ class EducatorCompletedTasksList extends Component {
         </View>
 
         <TextInput
-          style={styles.loginAdminInput}
+          style={styles.searchInput}
           onChangeText = {(text) => this.actualizarLista(text)}
           defaultValue = ""
           placeholder = "Buscar nombre del alumno"

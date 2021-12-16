@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {TextInput, Text, View, TouchableOpacity, Image, FlatList, Button, SafeAreaView} from 'react-native';
+import {TextInput, Text, View, TouchableOpacity, Image, FlatList, SafeAreaView} from 'react-native';
 import styles from './Styles';
 
 
@@ -70,7 +70,7 @@ class AssignTaskList1 extends Component {
         </View>
 
         <TextInput
-          style={styles.loginAdminInput}
+          style={styles.searchInput}
           onChangeText = {(text) => this.actualizarLista(text)}
           defaultValue = ""
           placeholder = "Buscar nombre del alumno"
