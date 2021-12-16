@@ -132,6 +132,31 @@ class TaskDates extends Component {
         );
     };
 
+    listTask3 = () => {
+        let nom = this.state.currentPicto;
+        let imagenTarea = require('./data/imagenesTareas/' + nom);
+
+        return(
+            <TouchableOpacity 
+                style={styles.taskButton} 
+                onPress={ () => this.props.navigation.navigate('PictogramTask', {
+                    task: this.state.tasks[this.state.currentTask],
+                    tipoAcc: this.state.student.accessibilityType,
+                    assigned: this.state.tasksId[this.state.currentTask]
+                }) }
+                accessibilityLabel="Tarea seleccionada"
+                accessibilityRole="button"
+                accessibilityHint="Pulsa para mostrar la tarea"
+                >
+                <Image
+                    source={imagenTarea}
+                    style={{ height: '100px', width: '100px' }}
+                />
+                <Text style={styles.dailyTaks}>{this.state.currentTitle}</Text>
+            </TouchableOpacity>
+        );
+    };
+
     nextTask = () => {
         this.state.currentTask++;
         this.state.currentTask %= this.state.tareasCompletadas.length;
@@ -170,7 +195,7 @@ class TaskDates extends Component {
                         </TouchableOpacity>
 
                         
-                        {this.state.idStudent == 0? this.listTask1() : this.listTask2()}
+                        {this.listTask3()}
 
                         <TouchableOpacity 
                             style={styles.arrowButtonDailyTasks} 
@@ -223,7 +248,7 @@ class TaskDates extends Component {
                     </SafeAreaView>
                     <View style={styles.dailyTaskView}>
                         
-                        { this.listTask2() }
+                    {this.listTask3()}
                         
                     </View>
                     <SafeAreaView style={styles.bottomBanner}>
