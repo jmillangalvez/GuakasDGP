@@ -14,7 +14,7 @@ class ModifyStudent extends Component {
 
   constructor(props){
     super(props);
-    this.state= {name:"", tipo: 1, picture: "1.jpg", idStudent: props.route.params.idStudent, student: ''}
+    this.state= {name:"", tipo: 1, picture: "1.jpg", idStudent: props.route.params.idStudent, student: '', show: false}
     this.students = require('./data/students.json');
   }
 
@@ -65,11 +65,8 @@ class ModifyStudent extends Component {
 
   eliminarAlumno = () => {
     this.deleteStudent();
-
-    Alert.alert(
-      "Operación satisfactoria",
-      "El estudiante ha sido añadido",
-    )
+    this.setState({show: true});
+    setTimeout(()=> { this.props.navigation.navigate('StudentSubmenu') }, 2000);
   }
 
 
@@ -95,8 +92,14 @@ class ModifyStudent extends Component {
 
   modificarAlumno = () => {
     this.modifyStudent();
-
+    this.setState({show: true});
     setTimeout(()=> { this.props.navigation.navigate('StudentSubmenu') }, 2000);
+  }
+
+  showAlert(){
+    return(
+      <Text style={{color: '#000000', marginTop: 20}}>Acción realizada correctamente</Text>
+    )
   }
 
   imageComponent(){
@@ -189,6 +192,12 @@ class ModifyStudent extends Component {
                 accessibilityRole="Button"
                 accessibilityHint="Selecciona Pictogramas como tipo de multimedia" 
                 label="Pictogramas" value="2" />
+
+                <Picker.Item
+                accessibilityLabel="Pictogramas"
+                accessibilityRole="Button"
+                accessibilityHint="Selecciona Pictogramas como tipo de multimedia" 
+                label="Pictogramas y Texto" value="3" />
               </Picker>
             </View>
           </View>
@@ -211,13 +220,15 @@ class ModifyStudent extends Component {
 
         {this.imageComponent()}
 
+        {this.state.show? this.showAlert() : null}
+
         <View style={styles.confirmButton}>
           <Button
             title="Modificar Estudiante"
             accessibilityLabel="Modificar Estudiante"
             accessibilityRole="Button"
             accessibilityHint="Modifica el estudiante"
-            color="#bcbcbc"
+            color="#248aff"
             onPress={this.modificarAlumno}
           />
         </View>

@@ -15,11 +15,19 @@ async function changeScreenOrientation() {
 class AssignCommandTask extends Component {
   constructor(props) {
     super(props);
-    this.state = { prio: -1, fecha: "", name: "", student: "", idStudent: props.route.params.idStudent, date: props.route.params.date, idEducator: props.route.params.idEducator};
+    this.state = { prio: -1, fecha: "", name: "", student: "", idStudent: props.route.params.idStudent, date: props.route.params.date, idEducator: props.route.params.idEducator, show: false};
   };
 
   asignar = () =>{
     this.asignarDB();
+    this.setState({show: true});
+    setTimeout(()=> { this.props.navigation.navigate('EducatorMain') }, 2000);
+  }
+
+  showAlert(){
+    return(
+      <Text style={{color: '#000000', marginTop: 20}}>Acción realizada correctamente</Text>
+    )
   }
 
   async asignarDB() {
@@ -113,13 +121,15 @@ class AssignCommandTask extends Component {
           </View>
         </View>
 
+        {this.state.show? this.showAlert() : null}
+
         <View style={styles.confirmButton}>
           <Button
             title="Asignar la Tarea"
             accessibilityLabel="Asignar la Tarea"
             accessibilityRole="Button"
             accessibilityHint="Asigna la tarea"
-            color="#bcbcbc"
+            color="#248aff"
             onPress={this.asignar}
           />
         </View>

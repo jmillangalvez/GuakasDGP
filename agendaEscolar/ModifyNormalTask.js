@@ -14,7 +14,7 @@ class ModifyNormalTask extends Component {
   constructor(props){
     super(props);
     this.state= {titulo: "", descripcion: "", tituloPic: "microondas.png", descripcionPic: "microondas.png" , idTask: props.route.params.idTask, task: '', listDes: [],
-    descripcionPic1: "nueva.png", descripcionPic2: "nueva.png",descripcionPic3: "nueva.png", descripcionPic4: "nueva.png", descripcionPic5: "nueva.png", descripcionPic: ""}
+    descripcionPic1: "nueva.png", descripcionPic2: "nueva.png",descripcionPic3: "nueva.png", descripcionPic4: "nueva.png", descripcionPic5: "nueva.png", descripcionPic: "", show: false}
   }
 
   async getTasks() {
@@ -81,13 +81,15 @@ class ModifyNormalTask extends Component {
 
   eliminarTarea = () => {
     this.deleteTask();
-
-    Alert.alert(
-      "Operación satisfactoria",
-      "El estudiante ha sido añadido",
-    )
+    this.setState({show: true});
+    setTimeout(()=> { this.props.navigation.navigate('TaskSubmenu') }, 2000);
   }
 
+  showAlert(){
+    return(
+      <Text style={{color: '#000000', marginTop: 20}}>Acción realizada correctamente</Text>
+    )
+  }
 
   async modifyTask() {
     let url = 'http://localhost:8000/api/v1/tasks/' + this.state.idTask + '/'
@@ -112,11 +114,9 @@ class ModifyNormalTask extends Component {
 
   modificarTarea = () => {
     this.modifyTask();
-
-    Alert.alert(
-      "Operación satisfactoria",
-      "El estudiante ha sido añadido",
-    )
+    //this.setState({show: true});
+    //setTimeout(()=> { this.props.navigation.navigate('TaskSubmenu') }, 2000);
+    
   }
 
   imageComponentTitle(){
@@ -382,13 +382,15 @@ class ModifyNormalTask extends Component {
           </View>
         </View>
 
+        {this.state.show? this.showAlert() : null}
+
         <View style={styles.confirmButton}>
           <Button
             title="Modificar Tarea"
             accessibilityLabel="Modificar Estudiante"
             accessibilityRole="Button"
             accessibilityHint="Modifica el estudiante"
-            color="#bcbcbc"
+            color="#248aff"
             onPress={this.modificarTarea}
           />
         </View>

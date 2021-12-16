@@ -28,8 +28,6 @@ class LoginAdmin extends Component {
       });
       const json = await response.json();
       this.setState({ listAdmins: json.items });
-      console.log(this.state.listAdmins)
-      console.log(this.state.listAdmins[0].name)
     } catch (error) {
       console.log(error);
     }

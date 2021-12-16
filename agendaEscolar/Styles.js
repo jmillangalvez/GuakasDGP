@@ -226,7 +226,8 @@ const styles = StyleSheet.create({
   backText: {
     width: '100%',
     height: '100%',
-    fontSize: 20
+    fontSize: 20,
+    color: '#fff'
   },
   normalText: {
     width: '100%',
@@ -366,6 +367,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 25,
     borderWidth: 3
+  },
+  formContent: {
+    fontSize: 25
   }
 });
 

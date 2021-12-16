@@ -19,7 +19,7 @@ class AssignStockTask extends Component {
     this.state = { prio: -1, fecha: "",idStudent: props.route.params.idStudent, idTask: props.route.params.idTask, idEducator: props.route.params.idEducator,
                    selectedFilePlace: false, fileNamePlace: "init.png", selectedFileMaterial: false, fileNameMaterial: "init.png",
                    selectedFileQuantity: false, fileNameQuantity: "init.png", titulo: "Tarea stock", tituloPic: "almacen.png", des: "a", desPic: "a",
-                   lugar: "", material: "", cantidad: ""};
+                   lugar: "", material: "", cantidad: "", show: false};
   };
 
   async asignarDB() {
@@ -67,29 +67,17 @@ class AssignStockTask extends Component {
     }
   }
 
-  async getFieldsTask(){
-    console.log("ENTRA")
-    let title = "Tarea de " + this.state.lugar;
-    this.setState({ titulo: title });
-    this.setState({ tituloPic: this.state.fileNamePlace });
-    let desc = [];
-    desc.push("Ir a " + this.state.lugar);
-    desc.push("Buscar " + this.state.material);
-    desc.push("Coger " + this.state.cantidad);
-    this.setState({ des: desc });
-    let descPic = [];
-    descPic.push(this.state.fileNamePlace);
-    descPic.push(this.state.fileNameMaterial);
-    descPic.push(this.state.fileNameQuantity);
-    this.setState({ desPic: descPic });
-    console.log(this.state.lugar);
-    console.log(this.state.titulo);   
+  asignar = () => {
+    this.modifyTask();
+    this.asignarDB();
+    this.setState({show: true});
+    setTimeout(()=> { this.props.navigation.navigate('EducatorMain') }, 2000);
   }
 
-  asignar = () => {
-    this.getFieldsTask();
-    this.modifyTask();
-    //this.asignarDB();
+  showAlert(){
+    return(
+      <Text style={{color: '#000000', marginTop: 20}}>Acción realizada correctamente</Text>
+    )
   }
 
   imageComponentPlace(){
@@ -327,6 +315,8 @@ class AssignStockTask extends Component {
           {this.state.selectedFileQuantity? this.imageComponentQuantity() : null}
 
         </View>
+
+        {this.state.show? this.showAlert() : null}
         
 
         <View style={styles.confirmButton}>
@@ -335,7 +325,7 @@ class AssignStockTask extends Component {
             accessibilityLabel="Asignar la Tarea"
             accessibilityRole="Button"
             accessibilityHint="Asigna la tarea"
-            color="#bcbcbc"
+            color="#248aff"
             onPress={this.asignar}
           />
         </View>

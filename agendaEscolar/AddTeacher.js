@@ -14,16 +14,14 @@ class AddTeacher extends Component {
 
   constructor(props){
     super(props);
-    this.state= {name:"", email:"",pass:"", clase:"1a", picture: '2.jpg', selectedFile: false, fileName: ""}
+    this.state= {name:"", email:"",pass:"", clase:"1a", picture: '2.jpg', selectedFile: false, fileName: "", show: false}
     this.students = require('./data/students.json');
   }
 
   aniadirProfesor = () => {
     this.createStudentDB();
-    Alert.alert(
-      "Operación satisfactoria",
-      "El profesor ha sido añadido",
-    )
+    this.setState({show: true});
+    setTimeout(()=> { this.props.navigation.navigate('StudentSubmenu') }, 2000);
   }
 
   async createStudentDB() {
@@ -45,6 +43,12 @@ class AddTeacher extends Component {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  showAlert(){
+    return(
+      <Text style={{color: '#000000', marginTop: 20}}>Acción realizada correctamente</Text>
+    )
   }
 
   imageComponent(){
@@ -165,13 +169,15 @@ class AddTeacher extends Component {
 
         {this.state.selectedFile? this.imageComponent() : null}
 
+        {this.state.show? this.showAlert() : null}
+
         <View style={styles.confirmButton}>
           <Button
             title="Añadir Profesor"
             accessibilityLabel="Añadir Profesor"
             accessibilityRole="Button"
             accessibilityHint="Añade el profesor"
-            color="#bcbcbc"
+            color="#248aff"
             onPress={this.aniadirProfesor}
           />
         </View>

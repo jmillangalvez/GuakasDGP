@@ -14,7 +14,7 @@ class ModifyTeacher extends Component {
 
   constructor(props){
     super(props);
-    this.state= {name:"", email:"",pass:"", clase:"1a", picture: "1.jpg", idEducator: props.route.params.idEducator, educator: ''}
+    this.state= {name:"", email:"",pass:"", clase:"1a", picture: "1.jpg", idEducator: props.route.params.idEducator, educator: '', show: false}
     this.students = require('./data/students.json');
   }
 
@@ -66,11 +66,8 @@ class ModifyTeacher extends Component {
 
   eliminarEducador = () => {
     this.deleteEducator();
-
-    Alert.alert(
-      "Operación satisfactoria",
-      "El estudiante ha sido añadido",
-    )
+    this.setState({show: true});
+    setTimeout(()=> { this.props.navigation.navigate('StudentSubmenu') }, 2000);
   }
 
   async modifyEducator() {
@@ -96,10 +93,13 @@ class ModifyTeacher extends Component {
 
   modificarEducador = () => {
     this.modifyEducator();
+    this.setState({show: true});
+    setTimeout(()=> { this.props.navigation.navigate('StudentSubmenu') }, 2000);
+  }
 
-    Alert.alert(
-      "Operación satisfactoria",
-      "El estudiante ha sido añadido",
+  showAlert(){
+    return(
+      <Text style={{color: '#000000', marginTop: 20}}>Acción realizada correctamente</Text>
     )
   }
 
@@ -223,13 +223,15 @@ class ModifyTeacher extends Component {
 
         {this.imageComponent()}
 
+        {this.state.show? this.showAlert() : null}
+
         <View style={styles.confirmButton}>
           <Button
             title="Modificar Educador"
             accessibilityLabel="Añadir Educador"
             accessibilityRole="Button"
             accessibilityHint="Añade el Educador"
-            color="#bcbcbc"
+            color="#248aff"
             onPress={this.modificarEducador}
           />
         </View>

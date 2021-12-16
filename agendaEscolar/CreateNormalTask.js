@@ -19,7 +19,7 @@ class CreateNormalTask extends Component {
     super(props);
     this.state = { titulo: "", descripcion: "", tituloPic: "microondas.png", descripcionPic1: "nueva.png", 
     titleChosen: false, desChosen: false, descripcionPic2: "nueva.png",descripcionPic3: "nueva.png",
-    descripcionPic4: "nueva.png",descripcionPic5: "nueva.png", descripcionPic: "" };
+    descripcionPic4: "nueva.png",descripcionPic5: "nueva.png", descripcionPic: "", show: false };
   };
 
   createTask = () =>{
@@ -44,9 +44,9 @@ class CreateNormalTask extends Component {
       descripcion =+ this.state.descripcionPic5;
       descripcion =+ ",";
     }
-    //this.setState({descripcionPic: descripcion});
-    //console.log(descripcion);
     this.createTaskDB();
+    this.setState({show: true});
+    setTimeout(()=> { this.props.navigation.navigate('TaskSubmenu') }, 2000);
   }
 
   async createTaskDB() {
@@ -68,6 +68,12 @@ class CreateNormalTask extends Component {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  showAlert(){
+    return(
+      <Text style={{color: '#000000', marginTop: 20}}>Acción realizada correctamente</Text>
+    )
   }
 
   imageComponentTitle(){
@@ -345,6 +351,8 @@ class CreateNormalTask extends Component {
             </View>
           </View>
         </View>
+
+        {this.state.show? this.showAlert() : null}
         
         <View style={styles.confirmButton}>
           <Button
@@ -352,7 +360,7 @@ class CreateNormalTask extends Component {
             accessibilityLabel="Crear Tarea"
             accessibilityRole="Button"
             accessibilityHint="Crea la tarea"
-            color="#bcbcbc"
+            color="#248aff"
             onPress={this.createTask}
           />
         </View>

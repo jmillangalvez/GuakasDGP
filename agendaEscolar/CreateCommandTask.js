@@ -35,7 +35,7 @@ const Option = (props) => {
 class CreateCommandTask extends Component {
   constructor(props) {
     super(props);
-    this.state = { date: "", optionSelectedC: null, educadores: [], options: []};
+    this.state = { date: "", optionSelectedC: null, educadores: [], options: [], show: false};
   };
 
   async getEducators() {
@@ -96,10 +96,17 @@ class CreateCommandTask extends Component {
   }
 
   createTask = () =>{
-    console.log(this.state.optionSelectedC)
     this.state.optionSelectedC.forEach(edu => {
       this.createClassMenu(edu.value);
     });
+    this.setState({show: true});
+    setTimeout(()=> { this.props.navigation.navigate('TaskSubmenu') }, 2000);
+  }
+
+  showAlert(){
+    return(
+      <Text style={{color: '#000000', marginTop: 20}}>Acción realizada correctamente</Text>
+    )
   }
 
   handleChangeC = (selected) => {
@@ -150,7 +157,7 @@ class CreateCommandTask extends Component {
         </View>
 
         <View style={styles.fixToText}>
-          <Text>Clases: </Text>
+          <Text style={styles.formContent}>Clases: </Text>
           <ReactSelect
             options={this.getOptions()}
             isMulti
@@ -165,13 +172,15 @@ class CreateCommandTask extends Component {
             />
         </View>
 
+        {this.state.show? this.showAlert() : null}
+
         <View style={styles.confirmButton}>
           <Button
             title="Crear Tarea"
             accessibilityLabel="Crear Tarea"
             accessibilityRole="Button"
             accessibilityHint="Crea la tarea"
-            color="#bcbcbc"
+            color="#248aff"
             onPress ={this.createTask }
           />
         </View>

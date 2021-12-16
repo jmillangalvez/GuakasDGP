@@ -220,18 +220,14 @@ const App = () => {
           name="TeacherMain"
           component={TeacherMain}
         />
-
-      <Stack.Screen
+        <Stack.Screen
           name="CompletedMenuList"
           component={CompletedMenuList}
         />
-
-      <Stack.Screen
+        <Stack.Screen
           name="CompletedMenu"
           component={CompletedMenu}
         />
-
-
       </Stack.Navigator>
     </NavigationContainer>
   );
